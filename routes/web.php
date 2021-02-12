@@ -37,7 +37,7 @@ Route::get('/', function () {
 });
 
 //************* Add Parents menu **********************
-route::middleware('DashboardAuth','AdminStatusValidation')->group(function(){
+route::middleware('DashboardAuth','AdminStatusValidation','adminMenuAuth')->group(function(){
 
 
 
