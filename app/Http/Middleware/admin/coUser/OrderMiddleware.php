@@ -25,7 +25,6 @@ class OrderMiddleware
         if (in_array(2,$role)==true||Auth::user()->role==1){
             return $next($request);
         }else{
-
             return redirect('/');
         }
 

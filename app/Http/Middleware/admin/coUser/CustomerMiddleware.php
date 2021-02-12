@@ -22,10 +22,11 @@ class CustomerMiddleware
         $permission=Co_UserModel::where('user_id',Auth::user()->id)->first();
         $role=json_decode($permission->permission);
 
-        if (in_array(1,$role)==true||Auth::user()->role==1){
+        if (in_array(3,$role)==true||Auth::user()->role==1){
             return $next($request);
-        }
+        }else{
 
-        return redirect(app(RouteServiceProvider::HOME));
+            return redirect('/');
+        }
     }
 }

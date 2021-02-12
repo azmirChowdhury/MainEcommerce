@@ -24,8 +24,9 @@ class EmailMiddleware
 
         if (in_array(1,$role)==true||Auth::user()->role==1){
             return $next($request);
-        }
+        }else{
 
-        return redirect(app(RouteServiceProvider::HOME));
+            return redirect('/');
+        }
     }
 }

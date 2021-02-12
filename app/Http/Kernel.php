@@ -66,6 +66,22 @@ class Kernel extends HttpKernel
         'AdminValidation'=>\App\Http\Middleware\admin\AdminValidation::class,
         'DashboardAuth'=>\App\Http\Middleware\admin\DashboardAuth::class,
         'AdminStatusValidation'=>\App\Http\Middleware\admin\AdminStatusValidation::class,
-        'adminMenuAuth'=>\App\Http\Middleware\admin\AdminMenuAuthMiddleware::class,
+
+        'email'=>\App\Http\Middleware\admin\coUser\EmailMiddleware::class,
+        'order'=>\App\Http\Middleware\admin\coUser\OrderMiddleware::class,
+        'appearance'=>\App\Http\Middleware\admin\coUser\AppearenceMiddleware::class,
+        'brand'=>\App\Http\Middleware\admin\coUser\BrandMiddleware::class,
+        'coupon'=>\App\Http\Middleware\admin\coUser\CuponMiddleware::class,
+        'customer'=>\App\Http\Middleware\admin\coUser\CustomerMiddleware::class,
+        'deals'=>\App\Http\Middleware\admin\coUser\DealsMiddleware::class,
+        'htmlBlocks'=>\App\Http\Middleware\admin\coUser\HtmlBlockMiddleware::class,
+        'page'=>\App\Http\Middleware\admin\coUser\PagesMiddleware::class,
+        'parentMenu'=>\App\Http\Middleware\admin\coUser\ParentMunuMiddleware::class,
+        'product'=>\App\Http\Middleware\admin\coUser\ProductsMiddleware::class,
+        'size_color'=>\App\Http\Middleware\admin\coUser\SizeColorMiddleware::class,
+        'slider'=>\App\Http\Middleware\admin\coUser\SliderMiddleware::class,
+        'subcategory'=>\App\Http\Middleware\admin\coUser\SubcategoryMiddleware::class,
+        'utilities'=>\App\Http\Middleware\admin\coUser\UtilitiesMiddleware::class,
+
     ];
 }
