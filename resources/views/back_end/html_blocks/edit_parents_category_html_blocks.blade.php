@@ -43,6 +43,10 @@
                                         </ol>
                                     </div>
                                 @endif
+                                    <div class="m-b-5">
+                                        <a href="{{route('parents_menu_blocks')}}" type="button" class="font-24"><i
+                                                class="fa fa-arrow-circle-left"></i></a>
+                                    </div>
                                 <h4 class="mt-0 header-title">Edit Blocks</h4>
                                 {{Form::open(['method'=>'POST','route'=>'edit_blocks_save'])}}
 

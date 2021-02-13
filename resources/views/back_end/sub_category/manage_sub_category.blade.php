@@ -52,11 +52,11 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="page-title-box">
-                        <h4 class="page-title"> Parents Category Blocks</h4>
+                        <h4 class="page-title"> Subcategory manage</h4>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">Parents Category blocks</a></li>
-                            <li class="breadcrumb-item active">Manage Parents Category Blocks</li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">Category & Brand</a></li>
+                            <li class="breadcrumb-item active">Manage Subcategory</li>
                         </ol>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                         <div class="card m-b-20">
                             <div class="card-body">
 
-                                <h4 class="mt-0 header-title">Manage parents category blocks</h4>
+                                <h4 class="mt-0 header-title">Manage Subcategory</h4>
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap"
                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>

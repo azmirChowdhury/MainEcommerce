@@ -220,13 +220,13 @@
                     </li>
                 @endif
                 @if(Auth::user()->role==1)
-                    <li class="{{request()->routeIs('register_admin') ? 'active' : ''}}">
+                    <li class="{{request()->routeIs('register') ? 'active' : ''}}{{request()->routeIs('edit_co_user') ? 'active' : ''}}{{request()->routeIs('change_password') ? 'active' : ''}}">
                         <a href="javascript:void(0);"
-                           class="waves-effect {{request()->routeIs('register_admin') ? 'active' : ''}}"><i
+                           class="waves-effect {{request()->routeIs('register') ? 'active' : ''}}{{request()->routeIs('edit_co_user') ? 'active' : ''}}{{request()->routeIs('change_password') ? 'active' : ''}}"><i
                                 class="mdi mdi-account"></i><span>Admin<span class="float-right menu-arrow"><i
                                         class="mdi mdi-plus"></i></span> </span></a>
                         <ul class="submenu">
-                            <li class="{{request()->routeIs('register_admin') ? 'active' : ''}}"><a
+                            <li class="{{request()->routeIs('register') ? 'active' : ''}}{{request()->routeIs('edit_co_user') ? 'active' : ''}}{{request()->routeIs('change_password') ? 'active' : ''}}"><a
                                     href="{{route('manage_admin')}}">Users</a></li>
                         </ul>
                     </li>

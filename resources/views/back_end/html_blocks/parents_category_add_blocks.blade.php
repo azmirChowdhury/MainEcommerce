@@ -32,7 +32,8 @@
                                     </div>
                                 @endif
                                     <div class="m-b-5">
-                                        <a href="{{route('parents_menu_blocks')}}" type="button" ><i class="fa fa-arrow-left"></i></a>
+                                        <a href="{{route('parents_menu_blocks')}}" type="button" class="font-24"><i
+                                                class="fa fa-arrow-circle-left"></i></a>
                                     </div>
                                 @if($errors->any())
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">

@@ -68,6 +68,10 @@
                                         </ol>
                                     </div>
                                 @endif
+                                    <div class="m-b-5">
+                                        <a href="{{route('manage_subcategory')}}" type="button" class="font-24"><i
+                                                class="fa fa-arrow-circle-left"></i></a>
+                                    </div>
                                 <h4 class="mt-0 header-title">Add sub Category</h4>
                                 {{Form::open(['method'=>'POST','route'=>'sub_category_save'])}}
 

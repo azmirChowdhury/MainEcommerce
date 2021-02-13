@@ -26,8 +26,7 @@ use App\Notifications\CommentNotification;
 use Illuminate\Support\Facades\Route;
 
 
-
-route::fallback([ExceptionController::class,'admin404']);
+route::fallback([ExceptionController::class, 'admin404']);
 
 
 Route::get('/', function () {
@@ -37,25 +36,24 @@ Route::get('/', function () {
 });
 
 //************* Add Parents menu **********************
-route::middleware('DashboardAuth','AdminStatusValidation')->group(function(){
+route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
 
 
+    route::group(['middleware' => 'parentMenu'], function () {
 
-route::group(['middleware'=>'parentMenu'],function () {
+        route::get('/dashboard/add/{slug}', [ParentsMenuController::class, 'index'])->name('add_parents_menu');
+        route::get('/dashboard/manage/{slug}', [ParentsMenuController::class, 'manage_parents_category'])->name('manage_parents_category');
+        route::POST('/dashboard/saved/parents/category', [ParentsMenuController::class, 'save_parents_category'])->name('save_parents_category');
+        route::get('/dashboard/manage/edit/{id}{slug}', [ParentsMenuController::class, 'edit_parents_category'])->name('edit_parents_category');
+        route::post('/dashboard/manage/edit/edit-parents-category-saved', [ParentsMenuController::class, 'edit_parents_category_saved'])->name('edit_parents_category_saved');
+        route::get('/dashboard/parents/catecory/manage/update/status/published{id}{slug}', [ParentsMenuController::class, 'status_published'])->name('status_update_published');
+        route::get('/dashboard/parents/category/manage/update/status/unpublished{id}{slug}', [ParentsMenuController::class, 'status_unpublished'])->name('status_update_unpublished');
+        route::get('/dashboard/parents/category/delete/{id}{slug}', [ParentsMenuController::class, 'delete_parents_category'])->name('delete_parents_category');
 
-    route::get('/dashboard/add/{slug}', [ParentsMenuController::class, 'index'])->name('add_parents_menu');
-    route::get('/dashboard/manage/{slug}', [ParentsMenuController::class, 'manage_parents_category'])->name('manage_parents_category');
-    route::POST('/dashboard/saved/parents/category', [ParentsMenuController::class, 'save_parents_category'])->name('save_parents_category');
-    route::get('/dashboard/manage/edit/{id}{slug}', [ParentsMenuController::class, 'edit_parents_category'])->name('edit_parents_category');
-    route::post('/dashboard/manage/edit/edit-parents-category-saved', [ParentsMenuController::class, 'edit_parents_category_saved'])->name('edit_parents_category_saved');
-    route::get('/dashboard/parents/catecory/manage/update/status/published{id}{slug}', [ParentsMenuController::class, 'status_published'])->name('status_update_published');
-    route::get('/dashboard/parents/category/manage/update/status/unpublished{id}{slug}', [ParentsMenuController::class, 'status_unpublished'])->name('status_update_unpublished');
-    route::get('/dashboard/parents/category/delete/{id}{slug}', [ParentsMenuController::class, 'delete_parents_category'])->name('delete_parents_category');
-
-});
+    });
 
 //***************************** HTML Bocks **********************************
-    route::group(['middleware'=>'htmlBlocks'],function () {
+    route::group(['middleware' => 'htmlBlocks'], function () {
         route::get('/dashboard/html-blocks/parents-category-blocks', [ParentsMenuBlocksController::class, 'index'])->name('parents_menu_blocks');
         route::get('/dashboard/html-blocks/parents-category-blocks-add', [ParentsMenuBlocksController::class, 'parents_menu_blocks_add'])->name('parents_menu_blocks_add');
         route::post('/dashboard/html-blocks/parents-category-blocks-save', [ParentsMenuBlocksController::class, 'parents_menu_blocks_save'])->name('parents_menu_blocks_save');
@@ -66,61 +64,54 @@ route::group(['middleware'=>'parentMenu'],function () {
         route::get('/dashboard/html-blocks/{id}/d-e-l-delete', [ParentsMenuBlocksController::class, 'delete_block'])->name('delete_block');
     });
 //******************************* sub category  *************************************
-route::group(['middleware'=>'subcategory'],function () {
-    route::get('/dashboard/category/subcategory', [SubCategoryController::class, 'index'])->name('index');
-    route::get('/dashboard/category/subcategory/blocks/load', [SubCategoryController::class, 'ajax_blocks_load'])->name('ajax_blocks_load');
-    route::post('/dashboard/category/subcategory/save', [SubCategoryController::class, 'sub_category_save'])->name('sub_category_save');
-    route::get('/dashboard/category/subcategory/manage', [SubCategoryController::class, 'manage_subcategory'])->name('manage_subcategory');
-    route::get('/dashboard/category/subcategory/status/{id}-published', [SubCategoryController::class, 'publish_status'])->name('publish_status');
-    route::get('/dashboard/category/subcategory/status/{id}-unpublished', [SubCategoryController::class, 'unpublished_status'])->name('unpublished_status');
-    route::get('/dashboard/category/subcategory/edit/{id}category', [SubCategoryController::class, 'edit_subcategory'])->name('edit_subcategory');
-    route::post('/dashboard/category/subcategory/edit/category/save', [SubCategoryController::class, 'edit_sub_category_save'])->name('edit_sub_category_save');
-    route::get('/dashboard/category/subcategory/delete/{id}delete', [SubCategoryController::class, 'delete_subcategory'])->name('delete_subcategory');
-});
-
-
-
-
-
-
+    route::group(['middleware' => 'subcategory'], function () {
+        route::get('/dashboard/category/subcategory', [SubCategoryController::class, 'index'])->name('index');
+        route::get('/dashboard/category/subcategory/blocks/load', [SubCategoryController::class, 'ajax_blocks_load'])->name('ajax_blocks_load');
+        route::post('/dashboard/category/subcategory/save', [SubCategoryController::class, 'sub_category_save'])->name('sub_category_save');
+        route::get('/dashboard/category/subcategory/manage', [SubCategoryController::class, 'manage_subcategory'])->name('manage_subcategory');
+        route::get('/dashboard/category/subcategory/status/{id}-published', [SubCategoryController::class, 'publish_status'])->name('publish_status');
+        route::get('/dashboard/category/subcategory/status/{id}-unpublished', [SubCategoryController::class, 'unpublished_status'])->name('unpublished_status');
+        route::get('/dashboard/category/subcategory/edit/{id}category', [SubCategoryController::class, 'edit_subcategory'])->name('edit_subcategory');
+        route::post('/dashboard/category/subcategory/edit/category/save', [SubCategoryController::class, 'edit_sub_category_save'])->name('edit_sub_category_save');
+        route::get('/dashboard/category/subcategory/delete/{id}delete', [SubCategoryController::class, 'delete_subcategory'])->name('delete_subcategory');
+    });
 
 
 //*************************** Brands **********************************
-route::group(['middleware'=>'brand'],function () {
-    route::get('/dashboard/add/brand/{slug}', [BrandController::class, 'index'])->name('add_brand');
-    route::get('/dashboard/manage/brands/{slug}', [BrandController::class, 'manage_brand'])->name('manage_brand');
-    route::post('/dashboard/save/brands/save', [BrandController::class, 'save_brand'])->name('save_brand');
-    route::get('/dashboard/brands/{id}publish', [BrandController::class, 'brand_publish'])->name('brand_publish');
-    route::get('/dashboard/brands/{id}unpublished', [BrandController::class, 'brand_unpublished'])->name('brand_unpublished');
-    route::get('/dashboard/brands/{id}/{slug}/edit', [BrandController::class, 'edit_brand'])->name('edit_brand');
-    route::post('/dashboard/brands/edit/save', [BrandController::class, 'edit_save_brand'])->name('edit_save_brand');
-    route::get('/dashboard/delete/{id}/brand', [BrandController::class, 'delete_brand'])->name('delete_brand');
-});
+    route::group(['middleware' => 'brand'], function () {
+        route::get('/dashboard/add/brand/{slug}', [BrandController::class, 'index'])->name('add_brand');
+        route::get('/dashboard/manage/brands/{slug}', [BrandController::class, 'manage_brand'])->name('manage_brand');
+        route::post('/dashboard/save/brands/save', [BrandController::class, 'save_brand'])->name('save_brand');
+        route::get('/dashboard/brands/{id}publish', [BrandController::class, 'brand_publish'])->name('brand_publish');
+        route::get('/dashboard/brands/{id}unpublished', [BrandController::class, 'brand_unpublished'])->name('brand_unpublished');
+        route::get('/dashboard/brands/{id}/{slug}/edit', [BrandController::class, 'edit_brand'])->name('edit_brand');
+        route::post('/dashboard/brands/edit/save', [BrandController::class, 'edit_save_brand'])->name('edit_save_brand');
+        route::get('/dashboard/delete/{id}/brand', [BrandController::class, 'delete_brand'])->name('delete_brand');
+    });
 
 
 //*************************** Size management ******************************
- route::group(['middleware'=>'size_color'],function () {
-     route::get('/dashboard/size&color/size-manage', [SizeController::class, 'index'])->name('size');
-     route::get('/dashboard/size/add/view', [SizeController::class, 'size_add_view'])->name('size_add_view');
-     route::post('/dashboard/color-save/size/save', [SizeController::class, 'size_save'])->name('size_save');
-     route::post('/dashboard/color&save/size/update', [SizeController::class, 'update_size'])->name('update_size');
-     route::get('/dashboard/color&save/size/{id}/delete', [SizeController::class, 'delete_size'])->name('delete_size');
+    route::group(['middleware' => 'size_color'], function () {
+        route::get('/dashboard/size&color/size-manage', [SizeController::class, 'index'])->name('size');
+        route::get('/dashboard/size/add/view', [SizeController::class, 'size_add_view'])->name('size_add_view');
+        route::post('/dashboard/color-save/size/save', [SizeController::class, 'size_save'])->name('size_save');
+        route::post('/dashboard/color&save/size/update', [SizeController::class, 'update_size'])->name('update_size');
+        route::get('/dashboard/color&save/size/{id}/delete', [SizeController::class, 'delete_size'])->name('delete_size');
 
 
 //*************************** Color management ******************************
-     route::get('/dashboard/size&color/color-manage', [ColorController::class, 'index'])->name('color');
-     route::get('/dashboard/color/add/view', [ColorController::class, 'color_add_view'])->name('color_add_view');
-     route::post('/dashboard/color-save/color/save', [ColorController::class, 'color_save'])->name('color_save');
-     route::get('/dashboard/color/edit/{id}/view', [ColorController::class, 'color_edit_view'])->name('color_edit_view');
-     route::post('/dashboard/color&save/color/update', [ColorController::class, 'update_color'])->name('update_color');
-     route::get('/dashboard/color&save/color/{id}/delete', [ColorController::class, 'delete_color'])->name('delete_color');
+        route::get('/dashboard/size&color/color-manage', [ColorController::class, 'index'])->name('color');
+        route::get('/dashboard/color/add/view', [ColorController::class, 'color_add_view'])->name('color_add_view');
+        route::post('/dashboard/color-save/color/save', [ColorController::class, 'color_save'])->name('color_save');
+        route::get('/dashboard/color/edit/{id}/view', [ColorController::class, 'color_edit_view'])->name('color_edit_view');
+        route::post('/dashboard/color&save/color/update', [ColorController::class, 'update_color'])->name('update_color');
+        route::get('/dashboard/color&save/color/{id}/delete', [ColorController::class, 'delete_color'])->name('delete_color');
 
- });
-
+    });
 
 
 //*************************** Product ******************************
-    route::group(['middleware'=>'product'],function () {
+    route::group(['middleware' => 'product'], function () {
         route::get('dashboard/products/add-product', [ProductController::class, 'index'])->name('index_view');
         route::post('dashboard/product/save/product', [ProductController::class, 'save_product'])->name('all_save_product');
         route::get('dashboard/products/manage-products', [ProductController::class, 'manage_products'])->name('manage_products');
@@ -135,7 +126,7 @@ route::group(['middleware'=>'brand'],function () {
     });
 //**************************************** Campaign **************************************
 
-    route::group(['middleware'=>'deals'],function () {
+    route::group(['middleware' => 'deals'], function () {
         route::get('dashboard/campaign/manage-campaign', [CampaignController::class, 'index'])->name('index_campaign');
         route::get('dashboard/campaign/add-campaign', [CampaignController::class, 'add_campaign'])->name('add_campaign');
         route::post('dashboard/campaign/save-campaign', [CampaignController::class, 'save_campaign'])->name('save_campaign');
@@ -148,7 +139,7 @@ route::group(['middleware'=>'brand'],function () {
     });
 
 //************************************** coupon *************************************
-    route::group(['middleware'=>'coupon'],function () {
+    route::group(['middleware' => 'coupon'], function () {
         route::get('dashboard/coupon/manage-coupon', [CouponController::class, 'index'])->name('index_coupon');
         route::get('dashboard/coupon/add-coupon', [CouponController::class, 'add_coupon'])->name('add_coupon');
         route::post('dashboard/coupon/save-coupon', [CouponController::class, 'save_coupon'])->name('save_coupon');
@@ -159,7 +150,7 @@ route::group(['middleware'=>'brand'],function () {
         route::get('dashboard/coupon{id}/unpublished-publish-coupon', [CouponController::class, 'unpublished_coupon'])->name('unpublished_coupon');
     });
 //************************ admin slider *******************************
-    route::group(['middleware'=>'slider'],function () {
+    route::group(['middleware' => 'slider'], function () {
         route::get('/dashboard/appearance/slider-manage', [SliderController::class, 'index'])->name('slider_index');
         route::get('/dashboard/appearance/slider-add', [SliderController::class, 'slider_add'])->name('slider_add');
         route::post('/dashboard/appearance/slider-save', [SliderController::class, 'save_slider'])->name('save_slider');
@@ -170,7 +161,7 @@ route::group(['middleware'=>'brand'],function () {
         route::get('/dashboard/appearance/{id}slider-delete', [SliderController::class, 'slider_delete'])->name('slider_delete');
     });
 //****************************** Appearance **************************************
-    route::group(['middleware'=>'appearance'],function () {
+    route::group(['middleware' => 'appearance'], function () {
         route::get('/dashboard/appearance/logo-background-management', [Logo_Background_controller::class, 'index'])->name('logo_background_index');
         route::post('/dashboard/appearance/logo-background-save', [Logo_Background_controller::class, 'update_information'])->name('update_logo_other');
         route::post('/dashboard/appearance/logo-background-new-save', [Logo_Background_controller::class, 'new_appearance'])->name('new_appearance');
@@ -188,7 +179,7 @@ route::group(['middleware'=>'brand'],function () {
     });
 
 //************************** SEO meta and scripting **************************************
-    route::group(['middleware'=>'utilities'],function () {
+    route::group(['middleware' => 'utilities'], function () {
         route::get('/dashboard/utilities/seo-script-manage', [SeoScriptionController::class, 'index'])->name('manage_script');
         route::get('/dashboard/utilities/seo-script-add', [SeoScriptionController::class, 'add_meta_script'])->name('add_meta_script');
         route::post('/dashboard/utilities/seo-script-save', [SeoScriptionController::class, 'meta_script_save'])->name('meta_script_save');
@@ -248,8 +239,8 @@ route::group(['middleware'=>'brand'],function () {
 
     });
 
-        //************************************ Create page *********************************
-    route::group(['middleware'=>'page'],function () {
+    //************************************ Create page *********************************
+    route::group(['middleware' => 'page'], function () {
         route::get('/dashboard/pages/pages-create-manage', [PagesController::class, 'index'])->name('manage_page');
         route::get('/dashboard/pages/pages-create-new-add', [PagesController::class, 'add_page'])->name('add_page');
         route::post('/dashboard/pages/pages-create-save', [PagesController::class, 'save_page'])->name('save_page');
@@ -260,34 +251,24 @@ route::group(['middleware'=>'brand'],function () {
         route::get('/dashboard/pages/pages-create-{id}-delete', [PagesController::class, 'page_delete'])->name('page_delete');
     });
 //******************************** admin *****************************/
-    route::group(['middleware'=>'AdminValidation'],function (){
-        route::get('admin/main-admin-manage-admin',[AdminController::class,'index'])->name('manage_admin');
-        route::get('admin/main-admin-register',[AdminController::class,'register_admin'])->name('register_admin');
-        route::post('admin/main-admin-delete',[AdminController::class,'UserDelete'])->name('user_delete');
-        route::get('admin/main-admin{id}-publish',[AdminController::class,'publish_admin'])->name('publish_admin');
-        route::get('admin/main-admin{id}-unpublished',[AdminController::class,'unpublished_admin'])->name('unpublished_admin');
+    route::group(['middleware' => 'AdminValidation'], function () {
+        route::get('admin/main-admin-manage-admin', [AdminController::class, 'index'])->name('manage_admin');
+//        route::get('admin/main-admin-register',[AdminController::class,'register_admin'])->name('register_admin');
+        route::post('admin/main-admin-delete', [AdminController::class, 'UserDelete'])->name('user_delete');
+        route::get('admin/main-admin{id}-publish', [AdminController::class, 'publish_admin'])->name('publish_admin');
+        route::get('admin/main-admin{id}-unpublished', [AdminController::class, 'unpublished_admin'])->name('unpublished_admin');
+        route::get('admin/main-admin{id}-edit-co-user', [AdminController::class, 'edit_co_user'])->name('edit_co_user');
+        route::post('admin/main-admin-edit-co-user-save', [AdminController::class, 'edit_user_save'])->name('edit_user_save');
+        route::get('admin/main-co-admin-{id}password-change', [AdminController::class, 'change_password'])->name('change_password');
+        route::post('admin/main-co-admin-password-change-save', [AdminController::class, 'change_password_save'])->name('change_password_save');
     });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //************************ manage customers ****************************
-route::get('/dashboard/users/{slug}', [CustomerController::class, 'index'])->name('all_customers');
+    route::get('/dashboard/users/{slug}', [CustomerController::class, 'index'])->name('all_customers');
 
 
-Route::middleware(['auth:sanctum', 'verified','admin'])->get('/admin-panel', function () {
-    return view('back_end.home.home');
-})->name('dashboard');
+    Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/admin-panel', function () {
+        return view('back_end.home.home');
+    })->name('dashboard');
 });

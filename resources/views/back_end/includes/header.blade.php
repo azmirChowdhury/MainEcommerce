@@ -3,7 +3,7 @@
     <!-- LOGO -->
     <div class="topbar-left">
         @if(!empty($appearance_image->logo))
-        <a href="{{url('/dashboard')}}" class="logo">
+        <a href="{{route('dashboard')}}" class="logo">
                         <span>
                             <img src="{{asset('/').$appearance_image->logo}}" alt="" height="54">
                         </span>
@@ -80,9 +80,10 @@
 
                     <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                         <!-- item-->
-                        <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle m-r-5"></i> {{Auth::user()->name}}</a>
+                        <a class="dropdown-item" href="{{Auth::user()->role==1?route('edit_co_user',['id'=>Auth::user()->id]):'#'}}"><i class="mdi mdi-account-circle m-r-5"></i> {{Auth::user()->name}}</a>
+{{--                        <a class="dropdown-item"><i class="mdi mdi-email m-r-5"></i> {{Auth::user()->email}}</a>--}}
 {{--                        <a class="dropdown-item d-block" href="{{ route('profile.show') }}"><span class="badge badge-success float-right">11</span><i class="mdi mdi-settings m-r-5"></i> Settings</a>--}}
-                        <a class="dropdown-item d-block" href="{{ route('profile.show') }}"><i class="mdi mdi-settings m-r-5"></i> Settings</a>
+                        <a class="dropdown-item d-block" href="{{ route('change_password',['id'=>Auth::user()->id]) }}"><i class="mdi mdi-key m-r-5"></i>Password</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-danger" href="#" onclick="event.preventDefault();document.getElementById('logout').submit()"><i class="mdi mdi-power text-danger"></i> Logout</a>
                         {{Form::open(['method'=>'post','route'=>'logout','id'=>'logout'])}}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\HtmlBlocksModel;
 use App\Models\ParentsModelCategory;
+use App\Models\SubcategoryModel;
 use Illuminate\Http\Request;
 use DB;
 
@@ -112,6 +113,10 @@ class ParentsMenuBlocksController extends Controller
     public function delete_block($id)
     {
         $block = HtmlBlocksModel::where('id', $id)->first();
+        $subcategory=SubcategoryModel::where('collum_id',$block->id)->get();
+        foreach ($subcategory as $category){
+            $category->delete();
+        }
         $block->delete();
         return redirect('/dashboard/html-blocks/parents-category-blocks')->with('massage', 'Collum delete successfully');
     }

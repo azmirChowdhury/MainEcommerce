@@ -103,14 +103,13 @@
                                                     <a href="{{route('unpublished_admin',['id'=>$admin->id])}}"
                                                        class="text-warning"><i class="fa fa-arrow-circle-down" title="Unpublished"></i></a>
                                                 @endif
-
 {{--                                                    <div class="dropdown show">--}}
                                                         <a class="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <i class="fa fa-chevron-circle-down"></i>
                                                         </a>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                            <a class="dropdown-item" href="#"><i class="fa fa-key fa-fw"></i> Password change</a>
-                                                            <a class="dropdown-item" href="#"><i class="fa fa-edit fa-fw"></i> Edit</a>
+                                                            <a class="dropdown-item" href="{{route('change_password',['id'=>$admin->id])}}"><i class="fa fa-key fa-fw"></i> Password change</a>
+                                                            <a class="dropdown-item" href="{{route('edit_co_user',['id'=>$admin->id])}}"><i class="fa fa-edit fa-fw"></i> Edit</a>
                                                             <a class="dropdown-item" href="#" data-toggle="modal"
                                                                data-target="#admin{{$admin->id}}"><i class="fa fa-trash fa-fw"></i> Delete</a>
                                                         </div>
