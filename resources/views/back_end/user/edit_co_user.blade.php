@@ -72,7 +72,7 @@
 
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="text" readonly class="form-control" value="{{$user->password}}"  placeholder="Enter password">
+                                    <input type="text" readonly class="form-control" value="{{bcrypt($user->password)}}"  placeholder="Enter password">
                                     <input type="hidden" name="id" readonly class="form-control" value="{{$user->id}}">
                                 </div>
 
