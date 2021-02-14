@@ -109,6 +109,7 @@
                                                         </a>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                             <a class="dropdown-item" href="{{route('change_password',['id'=>$admin->id])}}"><i class="fa fa-key fa-fw"></i> Password change</a>
+                                                            <a class="dropdown-item" href="{{route('password_reset_show')}}"><i class="mdi mdi-key-change fa-fw"></i> Forgot Password</a>
                                                             <a class="dropdown-item" href="{{route('edit_co_user',['id'=>$admin->id])}}"><i class="fa fa-edit fa-fw"></i> Edit</a>
                                                             <a class="dropdown-item" href="#" data-toggle="modal"
                                                                data-target="#admin{{$admin->id}}"><i class="fa fa-trash fa-fw"></i> Delete</a>

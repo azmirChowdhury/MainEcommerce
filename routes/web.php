@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\CampaignController;
 use App\Http\Controllers\admin\ColorController;
 use App\Http\Controllers\admin\ContactsHelpsController;
 use App\Http\Controllers\admin\CouponController;
+use App\Http\Controllers\admin\ForgotPasswordController;
 use App\Http\Controllers\admin\Logo_Background_controller;
 use App\Http\Controllers\admin\NotesController;
 use App\Http\Controllers\admin\PagesController;
@@ -262,6 +263,15 @@ route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
         route::get('admin/main-co-admin-{id}password-change', [AdminController::class, 'change_password'])->name('change_password');
         route::post('admin/main-co-admin-password-change-save', [AdminController::class, 'change_password_save'])->name('change_password_save');
     });
+
+//*********************** admin password reset ************************************
+ route::get('User/admin-password-reset',[ForgotPasswordController::class,'index'])->name('password_reset_show');
+ route::post('User/admin-password-reset-request',[ForgotPasswordController::class,'reset_request'])->name('reset_request');
+ route::get('User/admin-password-reset{token}',[ForgotPasswordController::class,'new_password_set'])->name('new_password_set');
+ route::post('User/admin-password-set-new-save',[ForgotPasswordController::class,'new_password_set_save'])->name('new_password_set_save');
+
+
+
 
 
 //************************ manage customers ****************************
