@@ -264,16 +264,6 @@ route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
         route::post('admin/main-co-admin-password-change-save', [AdminController::class, 'change_password_save'])->name('change_password_save');
     });
 
-//*********************** admin password reset ************************************
- route::get('User/admin-password-reset',[ForgotPasswordController::class,'index'])->name('password_reset_show');
- route::post('User/admin-password-reset-request',[ForgotPasswordController::class,'reset_request'])->name('reset_request');
- route::get('User/admin-password-reset{token}',[ForgotPasswordController::class,'new_password_set'])->name('new_password_set');
- route::post('User/admin-password-set-new-save',[ForgotPasswordController::class,'new_password_set_save'])->name('new_password_set_save');
-
-
-
-
-
 //************************ manage customers ****************************
     route::get('/dashboard/users/{slug}', [CustomerController::class, 'index'])->name('all_customers');
 
@@ -282,3 +272,13 @@ route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
         return view('back_end.home.home');
     })->name('dashboard');
 });
+
+
+//*********************** admin password reset ************************************
+route::get('User/admin-password-reset',[ForgotPasswordController::class,'index'])->name('password_reset_show');
+
+route::post('User/admin-password-reset-request',[ForgotPasswordController::class,'reset_request'])->name('reset_request');
+route::get('User/admin-password-reset{token}',[ForgotPasswordController::class,'new_password_set'])->name('new_password_set');
+route::post('User/admin-password-set-new-save',[ForgotPasswordController::class,'new_password_set_save'])->name('new_password_set_save');
+
+

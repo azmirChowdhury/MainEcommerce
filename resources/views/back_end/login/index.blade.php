@@ -40,7 +40,8 @@
             </h3>
                  <x-jet-validation-errors class="mb-4 text-danger" />
             <div class="p-3">
-
+                <h4 class="text-muted font-18 m-b-5 text-center">Welcome Back !</h4>
+                <p class="text-muted text-center">Sign in to continue to {{env('app_name')}}.</p>
 {{--                <form class="form-horizontal m-t-30" action="">--}}
                     {{Form::open(['class'=>'form-horizontal m-t-30','method'=>'post','route'=>'login'])}}
                     <div class="form-group">
@@ -58,7 +59,12 @@
                             <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Log In</button>
                         </div>
                     </div>
-                {{Session::forget('uuid')}}
+                <div class="form-group m-t-10 mb-0 row">
+                    <div class="col-12 m-t-20">
+                        <a href="{{route('password_reset_show')}}" class="text-muted"><i class="mdi mdi-lock"></i> Forgot your password ?</a>
+                    </div>
+                </div>
+
 {{--                </form>--}}
                 {{Form::close()}}
             </div>
