@@ -43,6 +43,7 @@ route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
     route::group(['middleware' => 'email'], function () {
         route::get('/dashboard/email/email-manager',[EmailController::class,'index'])->name('email');
         route::get('/dashboard/email/compose',[EmailController::class,'email_compose'])->name('email_compose');
+        route::post('/dashboard/email/compose-send',[EmailController::class,'send_mail'])->name('send_mail');
 
 
     });

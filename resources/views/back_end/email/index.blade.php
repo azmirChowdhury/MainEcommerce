@@ -87,7 +87,16 @@
 {{--                                        </div>--}}
 {{--                                    </div>--}}
 
-
+                                </div>
+                                <div class="form-group">
+                                @if(Session::get('massage'))
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <strong>Good! </strong>{{Session::get('massage')}}.
+                                    </div>
+                                @endif
                                 </div>
                                 @yield('mail_body')
                             </div> <!-- card -->
