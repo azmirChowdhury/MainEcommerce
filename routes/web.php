@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\CampaignController;
 use App\Http\Controllers\admin\ColorController;
 use App\Http\Controllers\admin\ContactsHelpsController;
 use App\Http\Controllers\admin\CouponController;
+use App\Http\Controllers\admin\EmailController;
 use App\Http\Controllers\admin\ForgotPasswordController;
 use App\Http\Controllers\admin\Logo_Background_controller;
 use App\Http\Controllers\admin\NotesController;
@@ -39,7 +40,12 @@ Route::get('/', function () {
 //************* Add Parents menu **********************
 route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
 
+    route::group(['middleware' => 'email'], function () {
+        route::get('/dashboard/email/email-manager',[EmailController::class,'index'])->name('email');
+        route::get('/dashboard/email/compose',[EmailController::class,'email_compose'])->name('email_compose');
 
+
+    });
     route::group(['middleware' => 'parentMenu'], function () {
 
         route::get('/dashboard/add/{slug}', [ParentsMenuController::class, 'index'])->name('add_parents_menu');
@@ -251,6 +257,7 @@ route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
         route::get('/dashboard/pages/pages-create-{id}-unpublished', [PagesController::class, 'page_unpublished'])->name('unpublished_page');
         route::get('/dashboard/pages/pages-create-{id}-delete', [PagesController::class, 'page_delete'])->name('page_delete');
     });
+
 //******************************** admin *****************************/
     route::group(['middleware' => 'AdminValidation'], function () {
         route::get('admin/main-admin-manage-admin', [AdminController::class, 'index'])->name('manage_admin');

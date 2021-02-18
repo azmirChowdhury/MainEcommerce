@@ -22,6 +22,6 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'about', groups: [ 'about' ] }
     ];
     config.removePlugins = 'elementspath';
-    config.resize_enabled = false;
+    config.resize_enabled = true;
     config.removeButtons = 'Save,NewPage,ExportPdf,Preview,Print,Source,Templates,Anchor,Iframe,Flash,Image,Cut,Copy,Paste,PasteText,PasteFromWord,About,ShowBlocks,Radio,Checkbox,Form,Textarea,Button,Select,ImageButton,HiddenField,CreateDiv,SelectAll,Find,Replace,Scayt,TextField,Language,Smiley,Redo,Undo,PageBreak';
 };

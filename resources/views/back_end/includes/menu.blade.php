@@ -18,10 +18,15 @@
                                 class="mdi mdi-email"></i><span> Email <span class="float-right menu-arrow"><i
                                         class="mdi mdi-plus"></i></span> </span></a>
                         <ul class="submenu">
-                            <li><a href="#">Inbox</a></li>
-                            <li><a href="#">Email Read</a></li>
-                            <li><a href="#">Email Compose</a></li>
+                            <li><a href="{{route('email')}}">All Mail</a></li>
+{{--                            <li><a href="#">Email Read</a></li>--}}
+{{--                            <li><a href="#">Email Compose</a></li>--}}
                         </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="waves-effect">
+                            <i class="mdi mdi-comment"></i><span class="badge badge-danger float-right">10</span> <span> Comments </span>
+                        </a>
                     </li>
                 @endif
                 {{--                email section end--}}
@@ -29,6 +34,7 @@
 
 
                 @if(in_array(2,$role)==true||Auth::user()->role==1)
+
                     <li class="menu-title">Order</li>
 
                     <li>
