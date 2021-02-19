@@ -18,7 +18,7 @@
                                 class="mdi mdi-email"></i><span> Email <span class="float-right menu-arrow"><i
                                         class="mdi mdi-plus"></i></span> </span></a>
                         <ul class="submenu">
-                            <li><a href="{{route('email')}}">All Mail</a></li>
+                            <li><a href="{{route('email')}}">Send mail</a></li>
 {{--                            <li><a href="#">Email Read</a></li>--}}
 {{--                            <li><a href="#">Email Compose</a></li>--}}
                         </ul>
