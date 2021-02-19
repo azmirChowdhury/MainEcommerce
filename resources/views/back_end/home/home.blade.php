@@ -94,8 +94,18 @@
                                 <div class="mini-stat-desc">
                                     <h6 class="text-uppercase verti-label text-white-50">Pr. Sold</h6>
                                     <div class="text-white">
-                                        <h6 class="text-uppercase mt-0 text-white-50">Product Sold</h6>
-                                        <h3 class="mb-3 mt-0">1890</h3>
+                                        <h6 class="text-uppercase mt-0 text-white-50">Total Sold Product</h6>
+
+                                        <?php
+                                        $quantity=0;
+                                        foreach ($total_product as $product){
+                                             $total=$product->product_quantity;
+                                            $quantity=$total+$quantity;
+                                        }
+                                        ?>
+                                        <h3 class="mb-3 mt-0">{{$quantity}}</h3>
+
+
                                         <div class="">
                                             <span class="badge badge-light text-info"> +89% </span> <span class="ml-2">From previous period</span>
                                         </div>
