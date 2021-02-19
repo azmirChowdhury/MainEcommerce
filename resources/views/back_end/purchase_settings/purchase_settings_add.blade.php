@@ -64,9 +64,9 @@
                                                 <a class="nav-link {{request()->routeIs('purchase_settings')? 'active' : ''}}" data-toggle="tab" href="#shipping"
                                                    role="tab">Shipping</a>
                                             </li>l
-{{--                                            <li class="nav-item">--}}
-{{--                                                <a class="nav-link" data-toggle="tab" href="#tax" role="tab">Tax</a>--}}
-{{--                                            </li>--}}
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#tax" role="tab">Tax</a>
+                                            </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" data-toggle="tab" href="#payment" role="tab">Payment
                                                     method</a>
@@ -206,12 +206,16 @@
 
                                             </div>
                                             <div class="tab-pane p-3" id="tax" role="tabpanel">
+                                               {{Form::open(['method'=>'post','route'=>'tex_update'])}}
                                                 <div class="form-group">
-                                                    <label>Quantity</label>
-                                                    <input required type="number" name="product_quantity"
-                                                           value="{{old('product_quantity')}}" class="form-control">
+                                                    <label>TAX (Percentage)</label>
+                                                    <input type="number" name="tax" value="{{$tax->tax_amount}}" class="form-control">
+                                                    <input type="hidden" name="id" value="{{$tax->id}}">
                                                 </div>
-
+                                                <div class="form-group">
+                                                    <input type="submit"  value="Update" class="btn btn-success">
+                                                </div>
+{{Form::close()}}
                                             </div>
                                             <div class="tab-pane p-3" id="payment" role="tabpanel">
                                                 <h4>Payment method</h4>

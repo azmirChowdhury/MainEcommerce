@@ -19,8 +19,8 @@ class CreateProductModelsTable extends Migration
             $table->string('slug')->unique();
             $table->longText('product_specification');
             $table->string('currency');
-            $table->double('regular_price')->nullable();
-            $table->double('sale_price');
+            $table->decimal('regular_price')->nullable();
+            $table->decimal('sale_price');
             $table->bigInteger('product_quantity');
             $table->string('product_weight')->nullable();
             $table->string('product_length')->nullable();

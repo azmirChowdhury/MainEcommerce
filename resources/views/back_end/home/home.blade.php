@@ -3,6 +3,14 @@
     Dashboard | Home
 @endsection
 @section('body')
+
+    <?php
+    $quantity=0;
+    foreach ($total_product as $product){
+        $total=$product->product_quantity;
+        $quantity=$total+$quantity;
+    }
+    ?>
     <div class="content">
         <div class="container-fluid">
 
@@ -14,16 +22,7 @@
                             <li class="breadcrumb-item active">Welcome to {{env('app_name')}} Dashboard</li>
                         </ol>
 
-                        <div class="state-information d-none d-sm-block">
-                            <div class="state-graph">
-                                <div id="header-chart-1"></div>
-                                <div class="info">Balance $ 2,317</div>
-                            </div>
-                            <div class="state-graph">
-                                <div id="header-chart-2"></div>
-                                <div class="info">Item Sold 1230</div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -96,18 +95,11 @@
                                     <div class="text-white">
                                         <h6 class="text-uppercase mt-0 text-white-50">Total Sold Product</h6>
 
-                                        <?php
-                                        $quantity=0;
-                                        foreach ($total_product as $product){
-                                             $total=$product->product_quantity;
-                                            $quantity=$total+$quantity;
-                                        }
-                                        ?>
                                         <h3 class="mb-3 mt-0">{{$quantity}}</h3>
 
 
                                         <div class="">
-                                            <span class="badge badge-light text-info"> +89% </span> <span class="ml-2">From previous period</span>
+                                            <span class="ml-2">All categories sold product</span>
                                         </div>
                                     </div>
                                     <div class="mini-stat-icon">

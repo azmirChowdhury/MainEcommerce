@@ -227,6 +227,9 @@ route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
         route::get('/dashboard/utilities/purchase-shipping-{id}-unpublished', [purchase_settingsController::class, 'unpublished_shipping'])->name('unpublished_shipping');
 
 
+//********************************** TAX ******************************
+route::post('/dashboard/tax/added-update',[purchase_settingsController::class,'texUpdate'])->name('tex_update');
+
 //********************************** payment method ******************************
         route::get('/dashboard/utilities/purchase-payment-{id}-published', [purchase_settingsController::class, 'publish_payment'])->name('publish_payment');
         route::get('/dashboard/utilities/purchase-payment-{id}-unpublished', [purchase_settingsController::class, 'unpublished_payment'])->name('unpublished_payment');

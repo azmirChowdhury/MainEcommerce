@@ -7,6 +7,7 @@ use App\Models\All_districtName_division;
 use App\Models\NotesModel;
 use App\Models\PurchaseSettingsPaymentMethod;
 use App\Models\ShippingDistrictModel;
+use App\Models\TaxModel;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\Array_;
 use DB;
@@ -17,9 +18,10 @@ class purchase_settingsController extends Controller
     {
         $data['payment_method']=PurchaseSettingsPaymentMethod::all();
         $note=NotesModel::all();
+        $tax=TaxModel::first();
         $shipping=ShippingDistrictModel::all();
         $district=All_districtName_division::where('use_status',0)->get();
-        return view('back_end.purchase_settings.purchase_settings_add',['shipping'=>$shipping,'districts'=>$district,'data'=>$data,'notes'=>$note]);
+        return view('back_end.purchase_settings.purchase_settings_add',['shipping'=>$shipping,'districts'=>$district,'data'=>$data,'notes'=>$note,'tax'=>$tax]);
     }
 
     private function shipping_validation($request)
@@ -155,6 +157,14 @@ class purchase_settingsController extends Controller
         $payment=$this->insert_payment_info($request,'u');
         $payment->update();
         return redirect('/dashboard/utilities/purchase-settings')->with('massage','Payment update successful');
+    }
+
+
+    public function texUpdate(request $request){
+        $tax=TaxModel::find($request->id);
+        $tax->tax_amount=$request->tax;
+        $tax->update();
+        return back()->with('massage','Tax update successful');
     }
 
 }
