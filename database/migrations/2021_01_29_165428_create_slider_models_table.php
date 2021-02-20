@@ -20,7 +20,7 @@ class CreateSliderModelsTable extends Migration
             $table->longText('slider_image');
             $table->string('button_name')->nullable();
             $table->string('button_color')->nullable();
-            $table->longText('button_url');
+            $table->longText('button_url')->nullable();
             $table->tinyInteger('status');
             $table->timestamps();
         });

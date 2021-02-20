@@ -32,7 +32,7 @@ route::fallback([ExceptionController::class, 'admin404']);
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('front_end.home.index');
 //    $user=User::find(2);
 //     $user->notify(new CommentNotification());
 });
@@ -228,8 +228,7 @@ route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
 
 
 //********************************** TAX ******************************
-route::post('/dashboard/tax/added-update',[purchase_settingsController::class,'texUpdate'])->name('tex_update');
-
+        route::post('/dashboard/tax/added-update',[purchase_settingsController::class,'texUpdate'])->name('tex_update');
 //********************************** payment method ******************************
         route::get('/dashboard/utilities/purchase-payment-{id}-published', [purchase_settingsController::class, 'publish_payment'])->name('publish_payment');
         route::get('/dashboard/utilities/purchase-payment-{id}-unpublished', [purchase_settingsController::class, 'unpublished_payment'])->name('unpublished_payment');

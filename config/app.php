@@ -181,6 +181,11 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
         App\Providers\admin\DashboardTotalProductProvider::class,
+        App\Providers\front_end\ContactsProvider::class,
+        App\Providers\front_end\SliderViewProvider::class,
+        App\Providers\front_end\ParentsMenu::class,
+        App\Providers\front_end\productShowProvider::class,
+        App\Providers\front_end\BrandShowProvider::class,
 
     ],
 

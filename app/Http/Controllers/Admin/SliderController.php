@@ -39,7 +39,8 @@ class SliderController extends Controller
         $this_file = $request->file('slider_image');
         $extensition = $this_file->getClientOriginalExtension();
         $directory = 'back_end/images/slider_images/';
-        $image_name = $directory . $rand . $request->slider_title . '.' . $extensition;
+        $stitle=str_replace(' ','_',$request->slider_title);
+        $image_name = $directory.$rand.$stitle.'.'.$extensition;
         Image::make($this_file)->resize(1170, 569)->save($image_name);
         return $image_name;
     }
