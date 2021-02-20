@@ -234,7 +234,7 @@
                                                     <h5>All product</h5>
                                                 </a>
 
-                    @foreach($scategories as $category_all)
+                    @foreach($all_subc as $category_all)
                             <a href="#allproduct-{{$category_all->id}}" data-toggle="tab">
                             <h5>{{$category_all->category_name}}</h5>
                         </a>
@@ -247,7 +247,7 @@
         </div>
 
         <div class="tab-content jump">
-            @foreach($scategories as $category_all)
+            @foreach($all_subc as $category_all)
             <div id="allproduct-{{$category_all->id}}" class="tab-pane">
                 <div class="row">
                     @foreach($all_products as $products)

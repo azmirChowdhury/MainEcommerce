@@ -42,14 +42,26 @@ class ParentsMenu extends ServiceProvider
                ->where('status',1)
            );
        });
-       View::composer('*',function ($view){
-           $view->with('scategories',DB::table('subcategory_models')
-               ->join('html_blocks_models','html_blocks_models.id','=','subcategory_models.collum_id')
+       View::composer('*',function ($view) {
+           $view->with('scategories', DB::table('subcategory_models')
+               ->join('html_blocks_models', 'html_blocks_models.id', '=', 'subcategory_models.collum_id')
                ->select('subcategory_models.*')
                ->get()
-               ->where('status',1)
+               ->where('status', 1)
            );
        });
+
+           View::composer('*', function ($view) {
+               $view->with('all_subc', DB::table('subcategory_models')
+                   ->join('html_blocks_models', 'html_blocks_models.id', '=', 'subcategory_models.collum_id')
+                   ->select('subcategory_models.*')
+                   ->orderBy('count', 'ASC')
+                   ->get()
+                   ->where('status', 1)
+                   ->take(10)
+
+               );
+           });
 
 
 
