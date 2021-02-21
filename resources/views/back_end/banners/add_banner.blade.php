@@ -69,8 +69,6 @@
                                     <label>Banner image</label>
                                     <input type="file" name="banner_image" class="filestyle"
                                            data-buttonname="btn-primary" accept="image/*">
-                                    <p>The selected image must be <strong> Width:1170 px and Height:350 px</strong> for
-                                        good looking. </p>
                                 </div>
 
                                 <div class="form-group">
@@ -159,7 +157,7 @@
     <script type="text/javascript">
 
         function myFunction(element) {
-            document.getElementById("slider_button_content").style.display = element.value == 2 ? 'block' : 'none';
+            document.getElementById("slider_button_content").style.display = element.value ==7 ? 'block' : 'none';
         }
 
     </script>

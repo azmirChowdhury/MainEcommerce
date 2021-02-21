@@ -23,6 +23,7 @@ use App\Http\Controllers\admin\Social_iconControlle;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExceptionController;
+use App\Http\Controllers\front_end\FrontProductController;
 use App\Models\User;
 use App\Notifications\CommentNotification;
 use Illuminate\Support\Facades\Route;
@@ -279,14 +280,29 @@ route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
     Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/admin-panel', function () {
         return view('back_end.home.home');
     })->name('dashboard');
-});
+
 
 
 //*********************** admin password reset ************************************
 route::get('User/admin-password-reset',[ForgotPasswordController::class,'index'])->name('password_reset_show');
-
 route::post('User/admin-password-reset-request',[ForgotPasswordController::class,'reset_request'])->name('reset_request');
 route::get('User/admin-password-reset{token}',[ForgotPasswordController::class,'new_password_set'])->name('new_password_set');
 route::post('User/admin-password-set-new-save',[ForgotPasswordController::class,'new_password_set_save'])->name('new_password_set_save');
+});
+
+
+//*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*= Start Front sit route*=*=*=*=*=*=*=*=*=**=*=*=**=*=**=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=**=*=*=*=*=*=*=*=*=*=*=**=*=*=*=*=*=*=*=*=*=*
+
+//********************************************** Products **************************************************
+
+route::get('{slug}{id}/show',[FrontProductController::class,'single_product'])->name('single_product');
+
+
+
+
+
+
+
+
 
 

@@ -13743,7 +13743,7 @@ button, input, optgroup, select, textarea {
 
 /*-------- 16. Breadcrumb style ---------*/
 .breadcrumb-area {
-  height: 420px;
+  height: 210px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -13756,14 +13756,14 @@ button, input, optgroup, select, textarea {
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .breadcrumb-area {
-    height: 300px;
+    height: 150px;
     background-position: 100%;
   }
 }
 
 @media only screen and (max-width: 767px) {
   .breadcrumb-area {
-    height: 280px;
+    height: 140px;
     background-position: 100%;
   }
 }

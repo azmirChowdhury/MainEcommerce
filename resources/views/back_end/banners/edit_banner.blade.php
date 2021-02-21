@@ -71,7 +71,6 @@
                                     <label>Banner image</label>
                                     <input type="file" name="banner_image" class="filestyle"
                                            data-buttonname="btn-primary" accept="image/*">
-                                    <p>The selected image must be <strong> Width:1170 px and Height:350 px</strong> for good looking. </p>
                                     <br><img src="{{asset('/').$banner->banner_image}}" width="292.5" height="83.5"
                                              alt="banner">
                                 </div>

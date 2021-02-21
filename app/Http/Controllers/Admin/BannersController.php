@@ -54,7 +54,8 @@ class BannersController extends Controller
         $file = $request->file('banner_image');
         $extension = $file->getClientOriginalExtension();
         $directory = 'back_end/images/banner_images/';
-        $banner_name = $directory . $rand . '_' . $request->banner_name . '.' . $extension;
+        $bname=str_replace(' ','_',$request->banner_name);
+        $banner_name = $directory . $rand . '_' .$bname. '.' . $extension;
         Image::make($file)->save($banner_name);
         return $banner_name;
     }

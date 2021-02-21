@@ -3,47 +3,29 @@
     {{env('app_name')}} | Home
 @endsection
 @section('home_body')
+    {{--************************************** slider ********************************************    --}}
+    @include('front_end.includes.slider')
 <div class="banner-area pt-30 pb-40">
+    @foreach($BannersShow as $slider_bottom_banner)
+        @if($slider_bottom_banner->banner_role==1)
     <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-12 col-sm-12">
-                <div class="banner-wrap mb-30">
-                    <a href="product-details.html">
-                        <img src="{{asset('/')}}front_end/assets/images/banner/banner-20.png" alt="banner">
-                    </a>
-                    <div class="banner-content-12">
-                        <h2>Qucx Lapoo</h2>
-                        <h5>G432xx</h5>
-                        <h3>1990.00</h3>
+            <div class="deal-area">
+                <div class="bg-img deal-bg" style="background-image:url({{asset('/').$slider_bottom_banner->banner_image}});">
+                    <div class="container">
+                        <div class="row">
+                            <div class="ml-auto col-lg-7 col-md-10 col-sm-10 col-12">
+                                <div class="deal-content-4">
+                                    <img src="{{asset('/').$slider_bottom_banner->banner_image}}" alt="{{$slider_bottom_banner->banner_name}}">
+                                    <h2>{{$slider_bottom_banner->banner_name}}</h2>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="banner-wrap mb-30">
-                    <a href="product-details.html">
-                        <img src="{{asset('/')}}front_end/assets/images/banner/banner-21.png" alt="banner">
-                    </a>
-                    <div class="banner-content-9">
-                        <h3>Beots <br>Superb</h3>
-                        <p>Lorem Ipsum is simply dummy text</p>
-                        <a href="product-details.html">Shop Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="banner-wrap mb-30 res-white-overly-xs">
-                    <a href="product-details.html">
-                        <img src="{{asset('/')}}front_end/assets/images/banner/banner-22.png" alt="banner">
-                    </a>
-                    <div class="banner-content-9 banner-content-9-mrg2">
-                        <h4>Sup<span>erb</span></h4>
-                        <p>Lorem Ipsum is simply dummy text</p>
-                        <a href="product-details.html">Shop Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+        @endif
+    @endforeach
 </div>
 
 <div class="product-area pb-40">
@@ -190,31 +172,22 @@
     </div>
 </div>
 
-<div class="banner-area pb-40">
+<div class="banner-area pt-30 pb-100">
+    @foreach($BannersShow as $featured_bottom_slider)
+        @if($featured_bottom_slider->banner_role==2)
     <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-4">
-                <div class="banner-wrap mb-30">
-                    <a href="product-details.html"><img src="{{asset('/')}}front_end/assets/images/banner/banner-15.png" alt="banner"></a>
-                    <div class="banner-content-10">
-                        <h2>Mak Pro Gamming</h2>
-                    </div>
-                    <div class="banner-content-10-btn">
-                        <a href="#">Shop Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8 col-md-8">
-                <div class="banner-wrap mb-30 res-white-overly-xs res-white-overly-md">
-                    <a href="product-details.html"><img src="{{asset('/')}}front_end/assets/images/banner/banner-23.png" alt="banner"></a>
-                    <div class="banner-content-13">
-                        <h3>Qucx electric scooter</h3>
-                        <p>It is a long established fact that a reader will be distracted by the readable</p>
+        <div class="bg-img pt-100 pb-100 learn-banner" style="background-image:url({{asset('/').$featured_bottom_slider->banner_image}});">
+            <div class="row">
+                <div class="col-lg-10 col-md-10 col-sm-11">
+                    <div class="banner-content">
+                        <h2>{{$featured_bottom_slider->banner_name}}</h2>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+        @endif
+    @endforeach
 </div>
 
 
@@ -255,7 +228,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
                         <div class="product-wrap product-border-3 product-img-zoom mb-30">
                             <div class="product-img">
-                                <a href="product-details.html"><img src="{{asset('/').$products->product_image}}" alt="product"></a>
+                                <a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}"><img src="{{asset('/').$products->product_image}}" alt="product"></a>
                                 <div class="product-action-4">
                                     <div class="product-action-4-style">
                                         <a data-tooltip="Add To Cart" href="#"><i class="la la-cart-plus"></i></a>
@@ -265,10 +238,13 @@
                                 </div>
                             </div>
                             <div class="product-content product-content-padding">
-                                <h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
+                                <h4><a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}">{{$products->product_name}}</a></h4>
                                 <div class="price-addtocart">
                                     <div class="product-price">
-                                        <span>$210.00</span>
+                                        <span>&#2547 {{$products->sale_price}}</span>
+                                        @if($products->regular_price!=null)
+                                        <span class="old">&#2547 {{$products->regular_price}}</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -304,6 +280,7 @@
                                             <div class="price-addtocart">
                                                 <div class="product-price">
                                                     <span>$210.00</span>
+                                                    <span class="old">$230.00</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -314,22 +291,13 @@
                 </div>
 
 
-
-
-
-
-
-
-
-
-
                 <div id="product-all" class="tab-pane active">
                     <div class="row">
-                @foreach($all_products as $product)
+                @foreach($all_products as $products)
                         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
                             <div class="product-wrap product-border-3 product-img-zoom mb-30">
                                 <div class="product-img">
-                                    <a href="product-details.html"><img src="{{asset('/').$product->product_image}}" alt="product"></a>
+                                    <a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}"><img src="{{asset('/').$products->product_image}}" alt="product"></a>
                                     <div class="product-action-4">
                                         <div class="product-action-4-style">
                                             <a data-tooltip="Add To Cart" href="#"><i class="la la-cart-plus"></i></a>
@@ -339,10 +307,13 @@
                                     </div>
                                 </div>
                                 <div class="product-content product-content-padding">
-                                    <h4><a href="product-details.html">{{$product->product_name}}</a></h4>
+                                    <h4><a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}">{{$products->product_name}}</a></h4>
                                     <div class="price-addtocart">
                                         <div class="product-price">
-                                            <span>&#2547 {{$product->sale_price}}</span>
+                                            <span>&#2547 {{$products->sale_price}}</span>
+                                            @if($products->regular_price!=null)
+                                                <span class="old">&#2547 {{$products->regular_price}}</span>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

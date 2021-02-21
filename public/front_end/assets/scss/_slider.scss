@@ -47,7 +47,7 @@
                 @media #{$xs-layout} {
                     left: 15px;
                 }
-            }
+            } 
         }
     }
     .dot-style-1 {
@@ -70,7 +70,7 @@
             &.nav-dot-left {
                .owl-dots {
                     left: 50px;
-                }
+                } 
             }
         }
     }
@@ -101,10 +101,10 @@
                 }
             }
             .owl-prev {
-
+                
             }
             .owl-next {
-
+                
             }
         }
     }
@@ -135,10 +135,10 @@
                 }
             }
             .owl-prev {
-
+                
             }
             .owl-next {
-
+                
             }
         }
     }
@@ -169,10 +169,10 @@
                 }
             }
             .owl-prev {
-
+                
             }
             .owl-next {
-
+                
             }
         }
     }
@@ -670,7 +670,7 @@
 
 
 .slider-content-4 {
-    padding: 90px 0 0;
+    padding: 90px 0 0; 
     @media #{$md-layout} {
         padding: 77px 0 0px;
     }
@@ -982,7 +982,7 @@
                 top: -8px;
                 left: -8px;
                 border: 8px solid #462a63;
-                border-radius: 100%;
+                border-radius: 100%;   
             }
             &:after {
                 width: 107px;
@@ -992,7 +992,7 @@
                 top: -15px;
                 left: -15px;
                 border: 8px solid #2a1440;
-                border-radius: 100%;
+                border-radius: 100%;   
             }
         }
     }
@@ -1063,7 +1063,7 @@
         margin: 0;
         line-height: 41px;
         @media #{$xs-layout} {
-            font-size: 30px;
+            font-size: 30px; 
             line-height: 35px;
         }
     }
@@ -1087,7 +1087,7 @@
             border-radius: 5px;
             background-color: #ea2e49;
             padding: 12px 30px;
-
+            
         }
     }
 }
@@ -1235,7 +1235,7 @@
         height: 400px;
         background-position: 30%;
     }
-}
+} 
 
 .slider-content-10 {
     z-index: 9;
@@ -1326,7 +1326,7 @@
     @media #{$sm-layout} {
         padding: 100px 0 230px;
     }
-}
+} 
 
 .slider-content-7 {
     padding-left: 86px;

@@ -186,6 +186,7 @@ return [
         App\Providers\front_end\ParentsMenu::class,
         App\Providers\front_end\productShowProvider::class,
         App\Providers\front_end\BrandShowProvider::class,
+        App\Providers\front_end\BannerShowProvider::class,
 
     ],
 
