@@ -296,6 +296,7 @@ route::post('User/admin-password-set-new-save',[ForgotPasswordController::class,
 //********************************************** Products **************************************************
 
 route::get('{slug}{id}/show',[FrontProductController::class,'single_product'])->name('single_product');
+route::get('{slug}{id}/{category_name}',[FrontProductController::class,'category_show_product'])->name('category_show_product');
 
 
 

@@ -19,6 +19,7 @@ class CreateSubcategoryModelsTable extends Migration
             $table->bigInteger('parents_category_id');
             $table->bigInteger('collum_id');
             $table->bigInteger('count')->nullable();
+            $table->text('slug');
             $table->tinyInteger('status');
             $table->timestamps();
         });

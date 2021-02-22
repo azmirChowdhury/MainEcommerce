@@ -163,7 +163,7 @@
                                                     <ul>
                                                         @foreach($scategories as $scategory)
                                                             @if($block->id==$scategory->collum_id&&$scategory->parents_category_id==$menu->id)
-                                                                 <li><a href="{{$scategory->id}}">{{$scategory->category_name}}</a></li>
+                                                                 <li><a href="{{route('category_show_product',['slug'=>$scategory->slug,'id'=>$scategory->id,'category_name'=>str_replace(' ','-',$scategory->category_name)])}}">{{$scategory->category_name}}</a></li>
                                                             @endif
                                                         @endforeach
                                                     </ul>
@@ -252,8 +252,10 @@
             <div class="row align-items-center">
                 <div class="col-6">
                     <div class="mobile-logo">
-                        <a href="index.html">
-                            <img alt="" src="{{asset('/')}}front_end/assets/images/logo/logo-1.png">
+                        <a href="{{url('/')}}">
+                            @if(!empty($appearance_image->id))
+                                <a href="{{url('/')}}"><img src="{{asset('/').$appearance_image->logo}}" height="70" alt="logo"></a>
+                             @endif
                         </a>
                     </div>
                 </div>
@@ -346,158 +348,38 @@
                 </h3>
                 <div class="category-menu mobile-category-menu hidecat">
                     <nav>
+
                         <ul>
-                            <li class="cr-dropdown"><a href="#">Computer <span class="la la-angle-down"></span></a>
+                            @foreach($parents_menu as $menu)
+
+                            <li class="cr-dropdown"><a href="#">{{$menu->parents_category_name}}<span class="la la-angle-down"></span></a>
+
                                 <ul class="cr-menu-desktop-none">
-                                    <li class="cr-sub-dropdown sub-style"><a href="#">Laptop Accessories <i class="la la-angle-down"></i></a>
+                                    @foreach($blocks as $block)
+                                        @if($block->parents_category_id==$menu->id)
+                                    <li class="cr-sub-dropdown sub-style"><a href="#">{{$block->laval_name}}<i class="la la-angle-down"></i></a>
                                         <ul>
-                                            <li><a href="shop.html">Laptop Keyboard</a></li>
-                                            <li><a href="shop.html">Laptop Mouse</a></li>
-                                            <li><a href="shop.html">Bluetooth Speaker</a></li>
-                                            <li><a href="shop.html">LED Light</a></li>
+                                            @foreach($scategories as $scategory)
+                                                @if($block->id==$scategory->collum_id&&$scategory->parents_category_id==$menu->id)
+
+                                                    <li><a href="{{route('category_show_product',['slug'=>$scategory->slug,'id'=>$scategory->id,'category_name'=>str_replace(' ','-',$scategory->category_name)])}}">{{$scategory->category_name}}</a></li>
+
+                                                @endif
+                                         @endforeach
                                         </ul>
                                     </li>
-                                    <li class="cr-sub-dropdown sub-style"><a href="#">Laptop Accessories <i class="la la-angle-down"></i></a>
-                                        <ul>
-                                            <li><a href="shop.html">Laptop Keyboard</a></li>
-                                            <li><a href="shop.html">Laptop Mouse</a></li>
-                                            <li><a href="shop.html">Bluetooth Speaker</a></li>
-                                            <li><a href="shop.html">LED Light</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="cr-sub-dropdown sub-style"><a href="#">Laptop Accessories <i class="la la-angle-down"></i></a>
-                                        <ul>
-                                            <li><a href="shop.html">Laptop Keyboard</a></li>
-                                            <li><a href="shop.html">Laptop Mouse</a></li>
-                                            <li><a href="shop.html">Bluetooth Speaker</a></li>
-                                            <li><a href="shop.html">LED Light</a></li>
-                                        </ul>
-                                    </li>
+                                        @endif
+                                    @endforeach
+
                                 </ul>
+
                             </li>
-{{--                            <li class="cr-dropdown"><a href="#">Accessories <span class="la la-angle-down"></span></a>--}}
-{{--                                <ul class="cr-menu-desktop-none">--}}
-{{--                                    <li class="cr-sub-dropdown sub-style"><a href="#">Laptop Accessories <i class="la la-angle-down"></i></a>--}}
-{{--                                        <ul>--}}
-{{--                                            <li><a href="shop.html">Laptop Keyboard</a></li>--}}
-{{--                                            <li><a href="shop.html">Laptop Mouse</a></li>--}}
-{{--                                            <li><a href="shop.html">Bluetooth Speaker</a></li>--}}
-{{--                                            <li><a href="shop.html">LED Light</a></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </li>--}}
-{{--                                    <li class="cr-sub-dropdown sub-style"><a href="#">Laptop Accessories <i class="la la-angle-down"></i></a>--}}
-{{--                                        <ul>--}}
-{{--                                            <li><a href="shop.html">Laptop Keyboard</a></li>--}}
-{{--                                            <li><a href="shop.html">Laptop Mouse</a></li>--}}
-{{--                                            <li><a href="shop.html">Bluetooth Speaker</a></li>--}}
-{{--                                            <li><a href="shop.html">LED Light</a></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </li>--}}
-{{--                                </ul>--}}
-{{--                            </li>--}}
-{{--                            <li class="cr-dropdown"><a href="#">Computer Kit <span class="la la-angle-down"></span></a>--}}
-{{--                                <ul class="cr-menu-desktop-none">--}}
-{{--                                    <li class="cr-sub-dropdown sub-style"><a href="#">Laptop Accessories <i class="la la-angle-down"></i></a>--}}
-{{--                                        <ul>--}}
-{{--                                            <li><a href="shop.html">Laptop Keyboard</a></li>--}}
-{{--                                            <li><a href="shop.html">Laptop Mouse</a></li>--}}
-{{--                                            <li><a href="shop.html">Bluetooth Speaker</a></li>--}}
-{{--                                            <li><a href="shop.html">LED Light</a></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </li>--}}
-{{--                                    <li class="cr-sub-dropdown sub-style"><a href="#">Laptop Accessories <i class="la la-angle-down"></i></a>--}}
-{{--                                        <ul>--}}
-{{--                                            <li><a href="shop.html">Laptop Keyboard</a></li>--}}
-{{--                                            <li><a href="shop.html">Laptop Mouse</a></li>--}}
-{{--                                            <li><a href="shop.html">Bluetooth Speaker</a></li>--}}
-{{--                                            <li><a href="shop.html">LED Light</a></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </li>--}}
-{{--                                    <li class="cr-sub-dropdown sub-style"><a href="#">Laptop Accessories <i class="la la-angle-down"></i></a>--}}
-{{--                                        <ul>--}}
-{{--                                            <li><a href="shop.html">Laptop Keyboard</a></li>--}}
-{{--                                            <li><a href="shop.html">Laptop Mouse</a></li>--}}
-{{--                                            <li><a href="shop.html">Bluetooth Speaker</a></li>--}}
-{{--                                            <li><a href="shop.html">LED Light</a></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </li>--}}
-{{--                                </ul>--}}
-{{--                            </li>--}}
-{{--                            <li class="cr-dropdown"><a href="#">Laptop <span class="la la-angle-down"></span></a>--}}
-{{--                                <ul class="cr-menu-desktop-none">--}}
-{{--                                    <li class="cr-sub-dropdown sub-style"><a href="#">Laptop Accessories <i class="la la-angle-down"></i></a>--}}
-{{--                                        <ul>--}}
-{{--                                            <li><a href="shop.html">Laptop Keyboard</a></li>--}}
-{{--                                            <li><a href="shop.html">Laptop Mouse</a></li>--}}
-{{--                                            <li><a href="shop.html">Bluetooth Speaker</a></li>--}}
-{{--                                            <li><a href="shop.html">LED Light</a></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </li>--}}
-{{--                                    <li class="cr-sub-dropdown sub-style"><a href="#">Laptop Accessories <i class="la la-angle-down"></i></a>--}}
-{{--                                        <ul>--}}
-{{--                                            <li><a href="shop.html">Laptop Keyboard</a></li>--}}
-{{--                                            <li><a href="shop.html">Laptop Mouse</a></li>--}}
-{{--                                            <li><a href="shop.html">Bluetooth Speaker</a></li>--}}
-{{--                                            <li><a href="shop.html">LED Light</a></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </li>--}}
-{{--                                </ul>--}}
-{{--                            </li>--}}
-{{--                            <li class="cr-dropdown"><a href="#">Laptop Accessories </a></li>--}}
-{{--                            <li class="cr-dropdown"><a href="#">Smartwatch</a></li>--}}
-{{--                            <li class="cr-dropdown"><a href="#">Accessories <span class="la la-angle-down"></span></a>--}}
-{{--                                <ul class="cr-menu-desktop-none">--}}
-{{--                                    <li class="cr-sub-dropdown sub-style"><a href="#">Laptop Accessories <i class="la la-angle-down"></i></a>--}}
-{{--                                        <ul>--}}
-{{--                                            <li><a href="shop.html">Laptop Keyboard</a></li>--}}
-{{--                                            <li><a href="shop.html">Laptop Mouse</a></li>--}}
-{{--                                            <li><a href="shop.html">Bluetooth Speaker</a></li>--}}
-{{--                                            <li><a href="shop.html">LED Light</a></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </li>--}}
-{{--                                    <li class="cr-sub-dropdown sub-style"><a href="#">Laptop Accessories <i class="la la-angle-down"></i></a>--}}
-{{--                                        <ul>--}}
-{{--                                            <li><a href="shop.html">Laptop Keyboard</a></li>--}}
-{{--                                            <li><a href="shop.html">Laptop Mouse</a></li>--}}
-{{--                                            <li><a href="shop.html">Bluetooth Speaker</a></li>--}}
-{{--                                            <li><a href="shop.html">LED Light</a></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </li>--}}
-{{--                                </ul>--}}
-{{--                            </li>--}}
-{{--                            <li class="cr-dropdown"><a href="#">Cameras</a></li>--}}
-{{--                            <li class="cr-dropdown"><a href="#">Mobile Phone <span class="la la-angle-down"></span></a>--}}
-{{--                                <ul class="cr-menu-desktop-none">--}}
-{{--                                    <li class="cr-sub-dropdown sub-style"><a href="#">Laptop Accessories <i class="la la-angle-down"></i></a>--}}
-{{--                                        <ul>--}}
-{{--                                            <li><a href="shop.html">Laptop Keyboard</a></li>--}}
-{{--                                            <li><a href="shop.html">Laptop Mouse</a></li>--}}
-{{--                                            <li><a href="shop.html">Bluetooth Speaker</a></li>--}}
-{{--                                            <li><a href="shop.html">LED Light</a></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </li>--}}
-{{--                                    <li class="cr-sub-dropdown sub-style"><a href="#">Laptop Accessories <i class="la la-angle-down"></i></a>--}}
-{{--                                        <ul>--}}
-{{--                                            <li><a href="shop.html">Laptop Keyboard</a></li>--}}
-{{--                                            <li><a href="shop.html">Laptop Mouse</a></li>--}}
-{{--                                            <li><a href="shop.html">Bluetooth Speaker</a></li>--}}
-{{--                                            <li><a href="shop.html">LED Light</a></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </li>--}}
-{{--                                    <li class="cr-sub-dropdown sub-style"><a href="#">Laptop Accessories <i class="la la-angle-down"></i></a>--}}
-{{--                                        <ul>--}}
-{{--                                            <li><a href="shop.html">Laptop Keyboard</a></li>--}}
-{{--                                            <li><a href="shop.html">Laptop Mouse</a></li>--}}
-{{--                                            <li><a href="shop.html">Bluetooth Speaker</a></li>--}}
-{{--                                            <li><a href="shop.html">LED Light</a></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </li>--}}
-{{--                                </ul>--}}
-{{--                            </li>--}}
-{{--                            <li class="cr-dropdown"><a href="#">Drone</a></li>--}}
-{{--                            <li class="cr-dropdown"><a href="#">Drone Cameras</a></li>--}}
-{{--                            <li class="cr-dropdown"><a href="#">Apple Products </a></li>--}}
+
+                            @endforeach
+
                         </ul>
+
+
                     </nav>
                 </div>
             </div>

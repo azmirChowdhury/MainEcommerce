@@ -25,8 +25,9 @@
 @section('home_body')
 
     @foreach($BannersShow as $banner_single)
+
         @if($banner_single->banner_role==7)
-            @if($banner_single->category_id==$other_info['category']->id)
+            @if($banner_single->category_id==$product->category_id)
             <div class="breadcrumb-area bg-img" style="background-image:url({{asset('/').$banner_single->banner_image}});">
                 <div class="container">
                     <div class="breadcrumb-content text-center">
@@ -69,7 +70,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product-details-content pro-details-content-modify">
-                        <span>{{$other_info['category']->category_name}}</span>
+                        <span>{{$product->category_name}}</span>
                         <h2>{{$product->product_name}}</h2>
                         <div class="product-ratting-review">
                             <div class="product-ratting">
@@ -130,7 +131,13 @@
                             </div>
                         </div>
                         <div class="pro-details-buy-now btn-hover btn-hover-radious">
-                            <a href="#">Add To Cart</a>
+                            @if($product->product_quantity>0)
+                                <a href="#">Add To Cart</a>
+                            @else
+                                <h4 class="text-danger">Out of stock</h4>
+                                <p>Product id:#{{$product->category_name.'-p-'.$product->id}}</p>
+                                <p>Order to call :<strong class="text-info"> <a href="tel:{{$contacts->phone_number}}">{{$contacts->phone_number}}</a></strong></p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -290,7 +297,7 @@
                         </div>
                     </div>
                     <div class="product-content">
-                        <span>Chair</span>
+                        <span>{{$related_product->category_name}}</span>
                         <h4><a href="{{route('single_product',['slug'=>$related_product->slug,'id'=>$related_product->id])}}">{{$related_product->product_name}}</a></h4>
                         <div class="price-addtocart">
                             <div class="product-price">
@@ -301,7 +308,9 @@
 
                             </div>
                             <div class="product-addtocart">
+
                                 <a title="Add To Cart" href="#">+ Add To Cart</a>
+
                             </div>
                         </div>
                     </div>

@@ -13,16 +13,11 @@ class ParentsMenuBlocksController extends Controller
 {
     public function index()
     {
-//        $blocks = DB::table('html_blocks_models')->where('for_blocks', 2)
-//            ->join('parents_model_categories', 'parents_model_categories.id', '=', 'html_blocks_models.parents_category_id')
-//            ->select('html_blocks_models.*', 'parents_model_categories.parents_category_name')
-//            ->get();
-
-        $blocks = DB::table('html_blocks_models')
-            ->join('parents_model_categories', 'parents_model_categories.id', '=', 'html_blocks_models.parents_category_id')
-            ->select('html_blocks_models.*', 'parents_model_categories.parents_category_name')
-            ->get();
-        return view('back_end.html_blocks.manage_html_blocks', ['blocks' => $blocks]);
+        $blocks=DB::table('html_blocks_models')
+                        ->join('parents_model_categories','parents_model_categories.id','=','html_blocks_models.parents_category_id')
+                        ->select('parents_model_categories.*','html_blocks_models.*')
+                        ->get();
+        return view('back_end.html_blocks.manage_html_blocks', ['blocks_in' => $blocks]);
 
     }
 

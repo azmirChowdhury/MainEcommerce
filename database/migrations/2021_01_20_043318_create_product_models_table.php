@@ -29,6 +29,7 @@ class CreateProductModelsTable extends Migration
             $table->text('product_image');
             $table->longText('long_description');
             $table->string('category_name');
+            $table->bigInteger('category_id');
             $table->string('brand_name');
             $table->tinyInteger('status');
             $table->timestamps();

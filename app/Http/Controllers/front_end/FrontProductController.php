@@ -22,7 +22,8 @@ class FrontProductController extends Controller
             $data['images'] = $this->Images($product->id);
             $data['colors'] = $this->Color($product->id);
             $data['sizes'] = $this->Size($product->id);
-            $data['category'] = SubcategoryModel::where('category_name', $product->category_name)->first();
+            $data['category'] = SubcategoryModel::where('id', $product->category_id)->first();
+
             return view('front_end.products.show_singel_product', ['product' => $product, 'other_info' => $data]);
         }else{
             return redirect('/');
@@ -47,4 +48,11 @@ class FrontProductController extends Controller
         }
     }
 
+    public function category_show_product($slug,$id){
+        $categories=SubcategoryModel::where('status',1)
+                                     ->where('id',$id)
+                                     ->where('slug',$slug)
+                                     ->first();
+        return view('front_end.products.shop_products',['shop_category'=>$categories]);
+    }
 }

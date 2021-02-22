@@ -7,8 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Models\BannerModel;
 use App\Models\HtmlBlocksModel;
 use App\Models\ParentsModelCategory;
+use App\Models\ProductModel;
 use App\Models\SubcategoryModel;
 use Illuminate\Http\Request;
+
 use DB;
 
 class SubCategoryController extends Controller
@@ -30,16 +32,29 @@ class SubCategoryController extends Controller
         ]);
     }
 
+    private function product_subcategory_change($model,$request){
+        $products=ProductModel::where('category_name',$model->category_name)->get();
+        foreach ($products as $product){
+            $product->category_name=$request->category_name;
+            $product->update();
+        }
+    }
+
     private function insert_data($request, $info)
     {
         if ($info == 'i') {
+            $model=SubcategoryModel::all();
+            $slug=app(slug_controller\SluConfier::class)->for_insert_slug($request->category_name,$model);
             $category = new SubcategoryModel();
         } else {
             $category = SubcategoryModel::find($request->id);
+            $this->product_subcategory_change($category,$request);
+            $slug=app(slug_controller\SluConfier::class)->slug_Create($request->category_name,$category);
         }
-        $category->category_name = $request->category_name;
+        $category->category_name =str_replace('-',' ',$request->category_name);
         $category->parents_category_id = $request->parent_category_id;
         $category->status = $request->status;
+        $category->slug =$slug;
         $category->collum_id = $request->collum_id;
         return $category;
     }

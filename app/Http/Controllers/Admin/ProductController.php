@@ -146,7 +146,8 @@ class ProductController extends Controller
         $product->product_height = $request->product_height;
         $product->product_image = $image_name;
         $product->long_description = $request->long_description;
-        $product->category_name = $request->category_name;
+        $product->category_name =substr($request->category_name, 0,strpos( $request->category_name, '='));
+        $product->category_id=filter_var($request->category_name,FILTER_SANITIZE_NUMBER_INT);
         $product->brand_name = $request->brand_name;
         $product->status = $request->status;
         return $product;

@@ -307,11 +307,13 @@
                                                 <select name="category_name" class="form-control select2">
                                                     @foreach($product['categories'] as $category)
                                                         @if($category->category_name==$product->category_name)
-                                                            <option value="{{$category->category_name}}"
+                                                            <option value="{{$category->category_name.'='.$category->id}}"
                                                                     selected>{{$category->category_name}}</option>
                                                         @else
                                                             <option
-                                                                value="{{$category->category_name}}">{{$category->category_name}}</option>
+                                                                value="{{$category->category_name.'='.$category->id}}">
+                                                                {{$category->category_name}}
+                                                            </option>
                                                         @endif
                                                     @endforeach
 {{--                                                        @if($category->category_name!=$product->category_name)--}}

@@ -67,7 +67,7 @@
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                     <tr>
-                                        <th>#Sr.</th>
+                                        <th>#P-id</th>
                                         <th>Product Name</th>
                                         <th>Category name</th>
                                         <th>Image</th>
@@ -78,10 +78,10 @@
 
 
                                     <tbody>
-                                    @php($i=1)
+
                                     @foreach($products as $product)
                                         <tr>
-                                            <td>{{$i++}}</td>
+                                            <td>#{{$product->id}}</td>
                                             <td>{{$product->product_name}}</td>
                                             <td>{{$product->category_name}}</td>
                                             <td width="80"><img src="{{asset('/').$product->product_image}}" alt="product Image" width="80" height="80"></td>

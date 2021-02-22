@@ -28,18 +28,14 @@ class ParentsMenu extends ServiceProvider
     {
        View::composer('*',function ($view){
            $view->with('parents_menu',DB::table('parents_model_categories')
-               ->join('html_blocks_models','html_blocks_models.parents_category_id','=','parents_model_categories.id')
-               ->select('html_blocks_models.*','parents_model_categories.*')
-               ->get()
                ->where('status',1)
+               ->get()
            );
        });
        View::composer('*',function ($view){
            $view->with('blocks',DB::table('html_blocks_models')
-               ->join('parents_model_categories','html_blocks_models.parents_category_id','=','parents_model_categories.id')
-               ->select('html_blocks_models.*','parents_model_categories.*')
-               ->get()
                ->where('status',1)
+               ->get()
            );
        });
        View::composer('*',function ($view) {

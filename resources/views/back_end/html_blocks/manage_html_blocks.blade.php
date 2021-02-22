@@ -82,7 +82,7 @@
 
                                     <tbody>
                                     @php($i=1)
-                                    @foreach($blocks as $block)
+                                    @foreach($blocks_in as $block)
                                         <tr>
                                             <td>{{$i++}}</td>
                                             <td>{{$block->laval_name}}</td>
@@ -104,7 +104,7 @@
                                     @endforeach
 
 
-                            @foreach($blocks as $block)
+                            @foreach($blocks_in as $block)
                                     <div class="modal fade" id="exampleModalCenter{{$block->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
