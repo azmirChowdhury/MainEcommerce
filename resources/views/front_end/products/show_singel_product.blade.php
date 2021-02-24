@@ -1,27 +1,19 @@
 
 @extends('front_end.index')
 @section('front_title')
-{{$product->product_name}} |at {{env('app_name')}}
+{{$product->product_name}} | at {{env('app_name')}}
 @endsection
 @section('product_description')
 {!!$product->product_name!!}
 @endsection
-@section('product_url')
-{{env('app_url').$product->slug.$product->id.'/show'}}
+@section('mates')
+    <meta name="og:url" content="{{env('app_url').$product->slug.$product->id.'/show'}}"/>
+    <meta name="og:title" content="{{$product->product_name}}.ar {{env('app_name')}}"/>
+    <meta name="og:type" content="{{$product->category_name}}.product"/>
+    <meta name="og:description" content="{!!$product->long_description!!}" />
+    <meta name="og:image" content="{{env('app_url').$product->product_image}}" />
 @endsection
 
-@section('ogTitle')
-{{$product->product_name}}.ar {{env('app_name')}}
-@endsection
-@section('type')
-{{$product->category_name}}.product
-@endsection
-@section('ogDescription')
-{!!$product->long_description!!}
-@endsection
-@section('og_image')
-{{env('app_url').$product->product_image}}
-@endsection
 @section('home_body')
 
     @foreach($BannersShow as $banner_single)
@@ -51,7 +43,7 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="product-details-img">
                         <div class="zoompro-border zoompro-span">
-                            <img class="zoompro" src="{{asset('/').$product->product_image}}" data-zoom-image="{{asset('/').$product->product_image}}" alt="{{$product->product_name}} image" /> <span>-29%</span>
+                            <img class="zoompro" src="{{asset('/').$product->product_image}}" data-zoom-image="{{asset('/').$product->product_image}}" alt="{{$product->product_name}} image" /> @if($product->regular_price!=null)<span>{{ceil(($product->sale_price-$product->regular_price)/$product->regular_price*100)}}%</span>@endif
                         </div>
 
                         <div id="gallery" class="mt-20 product-dec-slider">
@@ -115,7 +107,7 @@
                                 <span class="old">&#2547 {{$product->regular_price}}</span>
 
                             </div>
-                            <div class="dec-rang"><span>- 30%</span>@endif</div>
+                            <div class="dec-rang"><span>{{ceil(($product->sale_price-$product->regular_price)/$product->regular_price*100)}}%</span>@endif</div>
                         </div>
                         <div class="pro-details-quality">
                             <div class="cart-plus-minus">
@@ -288,8 +280,10 @@
             @if($product->category_name==$related_product->category_name&&$related_product->id!=$product->id)
                 <div class="product-wrap">
                     <div class="product-img mb-15">
-                        <a href="product-details.html"><img src="{{asset('/').$related_product->product_image}}" alt="{{$related_product->product_name}} image"></a>
-                        <span class="price-dec">-30%</span>
+                        <a href="{{route('single_product',['slug'=>$related_product->slug,'id'=>$related_product->id])}}"><img src="{{asset('/').$related_product->product_image}}" alt="{{$related_product->product_name}} image"></a>
+                        @if($related_product->regular_price!=null)
+                        <span class="price-dec">{{ceil(($related_product->sale_price-$related_product->regular_price)/$related_product->regular_price*100)}}%</span>
+                        @endif
                         <div class="product-action">
                             <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
                             <a title="Wishlist" href="#"><i class="la la-heart-o"></i></a>

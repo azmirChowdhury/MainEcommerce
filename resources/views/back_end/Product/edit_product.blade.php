@@ -133,7 +133,7 @@
                                         <div class="tab-pane active p-3" id="General" role="tabpanel">
                                             <div class="form-group">
                                                 <label>Regular price</label>
-                                                <input name="regular_price" value="{{old('regular_price')}}" type="text"
+                                                <input name="regular_price" value="{{old('regular_price')?old('regular_price'):$product->regular_price}}" type="text"
                                                        class="form-control">
                                             </div>
                                             <div class="form-group">

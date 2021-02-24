@@ -26,7 +26,7 @@ class productShowProvider extends ServiceProvider
     public function boot()
     {
         View::composer('*',function ($view){
-            $view->with('all_products',ProductModel::where('status',1)->get());
+            $view->with('all_products',ProductModel::where('status',1)->orderBy('id','desc')->get());
         });
     }
 }

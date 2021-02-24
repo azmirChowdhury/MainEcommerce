@@ -296,7 +296,11 @@ route::post('User/admin-password-set-new-save',[ForgotPasswordController::class,
 //********************************************** Products **************************************************
 
 route::get('{slug}{id}/show',[FrontProductController::class,'single_product'])->name('single_product');
-route::get('{slug}{id}/{category_name}',[FrontProductController::class,'category_show_product'])->name('category_show_product');
+route::get('{slug}/{id}/{paginate}/shop',[FrontProductController::class,'category_show_product'])->name('category_show_product');
+route::post('view/product-with-paginate/category',[FrontProductController::class,'view_paginate'])->name('view_paginate');
+route::get('price-range/{paginate}/shop',[FrontProductController::class,'price_range'])->name('price_range');
+route::get('search-suggestion/load-ajax',[FrontProductController::class,'search_suggestion'])->name('search_suggestion');
+route::get('search-shop-product-{paginate}',[FrontProductController::class,'search_shop'])->name('search_shop');
 
 
 

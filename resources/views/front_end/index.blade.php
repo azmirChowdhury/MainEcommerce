@@ -30,13 +30,8 @@
     <link rel="stylesheet" href="{{asset('/')}}front_end/assets///css/plugins/magnific-popup.css">
     <link rel="stylesheet" href="{{asset('/')}}front_end/assets///css/plugins/jquery-ui.css">
     <link rel="stylesheet" href="{{asset('/')}}front_end/assets///css/style.css">
-   @if(request()->routeIs('single_product'))
-    <meta name="og:url" content="@yield('product_url')"/>
-    <meta name="og:title" content="@yield('ogTitle')"/>
-    <meta name="og:type" content="@yield('type')"/>
-    <meta name="og:description" content="@yield('ogDescription')" />
-    <meta name="og:image" content="@yield('og_image')" />
-    @endif
+    <script src="{{asset('/')}}front_end/assets/js/jquery.min.js"></script>
+    @yield('mates')
 </head>
 
 <body>
@@ -93,7 +88,9 @@
 <script src="{{asset('/')}}front_end/assets///js/plugins/sticky-sidebar.js"></script>
 <script src="{{asset('/')}}front_end/assets///js/plugins/smoothscroll.js"></script>
 <!-- Main JS -->
-<script src="{{asset('/')}}front_end/assets///js/main.js"></script>
+<script src="{{asset('/')}}front_end/assets/js/main.js"></script>
+
+@yield('bottom_scrtpt')
 </body>
 
 </html>
