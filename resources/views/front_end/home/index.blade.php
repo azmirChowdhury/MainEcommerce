@@ -208,9 +208,11 @@
                                                 </a>
 
                     @foreach($all_subc as $category_all)
-                            <a href="#allproduct-{{$category_all->id}}" data-toggle="tab">
-                            <h5>{{$category_all->category_name}}</h5>
-                        </a>
+{{--                               @for($i=1;$i<=5;$i++)--}}
+                                <a href="#allproduct-{{$category_all->id}}" data-toggle="tab">
+                                     <h5>{{$category_all->category_name}}</h5>
+                                </a>
+{{--                              @endfor--}}
                         @endforeach
 
 
@@ -253,6 +255,10 @@
                         @endif
                     @endforeach
                 </div>
+                <div>
+
+                </div>
+
             </div>
             @endforeach
 
@@ -293,11 +299,12 @@
 
                 <div id="product-all" class="tab-pane active">
                     <div class="row">
-                @foreach($all_products as $products)
+{{--                @foreach($all_products as $products)--}}
+                    @for($i=1;$i<=8;$i++)
                         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
                             <div class="product-wrap product-border-3 product-img-zoom mb-30">
                                 <div class="product-img">
-                                    <a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}"><img src="{{asset('/').$products->product_image}}" alt="product"></a>
+                                    <a href="{{route('single_product',['slug'=>$all_products[$i]->slug,'id'=>$all_products[$i]->id])}}"><img src="{{asset('/').$all_products[$i]->product_image}}" alt="product{{$all_products[$i]->product_name}}"></a>
                                     <div class="product-action-4">
                                         <div class="product-action-4-style">
                                             <a data-tooltip="Add To Cart" href="#"><i class="la la-cart-plus"></i></a>
@@ -307,20 +314,26 @@
                                     </div>
                                 </div>
                                 <div class="product-content product-content-padding">
-                                    <h4><a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}">{{$products->product_name}}</a></h4>
+                                    <h4><a href="{{route('single_product',['slug'=>$all_products[$i]->slug,'id'=>$all_products[$i]->id])}}">{{$all_products[$i]->product_name}}</a></h4>
                                     <div class="price-addtocart">
                                         <div class="product-price">
-                                            <span>&#2547 {{$products->sale_price}}</span>
-                                            @if($products->regular_price!=null)
-                                                <span class="old">&#2547 {{$products->regular_price}}</span>
+                                            <span>&#2547 {{$all_products[$i]->sale_price}}</span>
+                                            @if($all_products[$i]->regular_price!=null)
+                                                <span class="old">&#2547 {{$all_products[$i]->regular_price}}</span>
                                             @endif
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @endforeach
+                        @endfor
+{{--                        @endforeach--}}
                     </div>
+                    @if(count($all_products)>=10)
+                    <div class="section-title-6 mb-50 text-center">
+                        <a href="{{route('show_all_product')}}" class="btn btn" style="color:#FFFFFF;background-color:#ff5151">All product</a>
+                    </div>
+                    @endif
                 </div>
 
 

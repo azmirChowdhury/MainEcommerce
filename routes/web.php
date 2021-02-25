@@ -301,6 +301,7 @@ route::post('view/product-with-paginate/category',[FrontProductController::class
 route::get('price-range/{paginate}/shop',[FrontProductController::class,'price_range'])->name('price_range');
 route::get('search-suggestion/load-ajax',[FrontProductController::class,'search_suggestion'])->name('search_suggestion');
 route::get('search-shop-product-{paginate}',[FrontProductController::class,'search_shop'])->name('search_shop');
+route::get('show-all-product',[FrontProductController::class,'show_all_product'])->name('show_all_product');
 
 
 

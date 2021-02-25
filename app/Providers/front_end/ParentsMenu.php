@@ -51,10 +51,10 @@ class ParentsMenu extends ServiceProvider
                $view->with('all_subc', DB::table('subcategory_models')
                    ->join('html_blocks_models', 'html_blocks_models.id', '=', 'subcategory_models.collum_id')
                    ->select('subcategory_models.*')
-                   ->orderBy('count', 'ASC')
+                   ->orderBy('count', 'DESC')
                    ->get()
                    ->where('status', 1)
-                   ->take(10)
+                   ->take(4)
 
                );
            });

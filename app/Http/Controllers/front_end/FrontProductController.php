@@ -128,4 +128,9 @@ class FrontProductController extends Controller
             ->paginate($paginate);
         return view('front_end.products.shop_products', ['shop_category' => $category, 'products_shop' => $product,'search_data'=>$request->search_shop]);
     }
+
+    public function show_all_product(){
+        return view('front_end.products.show_all_product');
+    }
+
 }
