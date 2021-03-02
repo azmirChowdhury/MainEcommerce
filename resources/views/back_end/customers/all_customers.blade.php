@@ -42,35 +42,24 @@
 
                                     <tbody>
 
+                                    @foreach($customers as $customer)
                                     <tr>
                                         <td>1</td>
-                                        <td>babu</td>
+                                        <td>{{$customer->last_name}}</td>
                                         <td>demo</td>
-                                        <td>Publish</td>
+                                        <td>{{$customer->status==1?'Active':''}}{!!$customer->status==0?'<span class="text-warning">not verify</span>':'' !!}{!!$customer->status==2?'<span class="text-danger">Stopped</span>':''!!}</td>
                                         <td width="90">
-{{--                                            @if()--}}
+                                            @if($customer->status==1)
                                             <a href="" class="text-success" ><i class="fa fa-arrow-circle-up" title="Published"></i></a>
-{{--                                            @else--}}
+                                            @else
                                             <a href="" class="text-warning"><i class="fa fa-arrow-circle-down" title="Unpublished"></i></a>
-{{--                                            @endif--}}
+                                            @endif
                                             <a href="" class="text-primary"><i class="fa fa-eye" title="view information"></i></a>
                                             <a href="" class="text-info"><i class="fa fa-edit" title="Edit"></i></a>
                                             <a  class="text-danger"><i class="fa fa-trash  waves-effect waves-light" id="sa-warning" title="Delete"></i></a>
                                         </td>
                                     </tr>
-
-                                    <td>2</td>
-                                        <td>Azmir</td>
-                                        <td>demo</td>
-                                        <td>Publish</td>
-                                        <td width="90">
-                                            <a href="" class="text-success" ><i class="fa fa-arrow-circle-up" title="Published"></i></a>
-                                            <a href="" class="text-warning"><i class="fa fa-arrow-circle-down" title="Unpublished"></i></a>
-                                            <a href="" class="text-primary"><i class="fa fa-eye" title="view information"></i></a>
-                                            <a href="" class="text-info"><i class="fa fa-edit" title="Edit"></i></a>
-                                            <a  class="text-danger"><i class="fa fa-trash  waves-effect waves-light" id="sa-warning" title="Delete"></i></a>
-                                        </td>
-                                    </tr>
+                                    @endforeach
 
 
 

@@ -82,6 +82,8 @@ class Kernel extends HttpKernel
         'slider'=>\App\Http\Middleware\admin\coUser\SliderMiddleware::class,
         'subcategory'=>\App\Http\Middleware\admin\coUser\SubcategoryMiddleware::class,
         'utilities'=>\App\Http\Middleware\admin\coUser\UtilitiesMiddleware::class,
+        'CustomerHasLogin'=>\App\Http\Middleware\front_end\FrontHasLoginMiddleware::class,
+        'CustomerDashboard'=>\App\Http\Middleware\front_end\CustomerDashboardMiddleware::class,
 
     ];
 }

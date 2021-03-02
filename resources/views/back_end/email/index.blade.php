@@ -27,14 +27,14 @@
 
                             <div class="card">
                                 <div class="form-group">
-                                @if(Session::get('massage'))
-                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <strong>Good! </strong>{{Session::get('massage')}}.
-                                    </div>
-                                @endif
+                                    @if(Session::get('massage'))
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <strong>Good! </strong>{{Session::get('massage')}}.
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="card-body">
 
@@ -47,14 +47,18 @@
                                         </ol>
                                     @endif
                                     <div class="form-group">
-                                        <input type="email" value="{{old('to_mail')}}" name="to_mail" class="form-control" placeholder="To">
+                                        <input type="email"
+                                               value="{{old('to_mail')?old('to_mail'):''}}{{old('to_mail')==false&&isset($email)?$email:''}}"
+                                               name="to_mail" class="form-control" placeholder="To">
+                                        <input type="hidden" value="{{isset($email)?$id:'mail'}}" name="type">
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="text" name="subject" value="{{old('subject')}}" class="form-control" placeholder="Subject">
+                                        <input type="text" name="subject" value="{{old('subject')}}"
+                                               class="form-control" placeholder="Subject">
                                     </div>
                                     <div class="form-group">
-                <textarea name="description"  class="summernote" id="editor">
+                <textarea name="description" class="summernote" id="editor">
                         {{old('description')}}
                 </textarea>
                                     </div>
@@ -63,15 +67,14 @@
                                         <div class="">
                                             {{--                    <button type="button" class="btn btn-success waves-effect waves-light m-r-5"><i class="far fa-save"></i></button>--}}
                                             {{--                    <button type="button" class="btn btn-success waves-effect waves-light m-r-5"><i class="far fa-trash-alt"></i></button>--}}
-                                            <button class="btn btn-primary waves-effect waves-light"> <span>Send</span> <i class="fab fa-telegram-plane m-l-10"></i> </button>
+                                            <button class="btn btn-primary waves-effect waves-light"><span>Send</span>
+                                                <i class="fab fa-telegram-plane m-l-10"></i></button>
                                         </div>
                                     </div>
 
                                     {{Form::close()}}
 
                                 </div>
-
-
 
 
                             </div> <!-- card -->

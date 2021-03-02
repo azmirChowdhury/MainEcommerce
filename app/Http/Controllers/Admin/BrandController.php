@@ -115,6 +115,9 @@ class BrandController extends Controller
         try {
             if (file_exists($request->brand_image)) {
                 $id=$request->id;
+                $this->validate($request, [
+                    'brand_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
+                ]);
                 $this->imageDelete($id);
                 $image_info = $this->image_save($request);
                 $brand = $this->insert_data($request, $image_info, $work);

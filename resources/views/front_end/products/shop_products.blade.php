@@ -431,28 +431,7 @@
                                         <span>40+ Reviews</span>
                                     </div>
                                 </div>
-{{--                                <div class="pro-details-color-wrap">--}}
-{{--                                    <span>Color:</span>--}}
-{{--                                    <div class="pro-details-color-content">--}}
-{{--                                        <ul>--}}
-{{--                                            <li class="green"></li>--}}
-{{--                                            <li class="yellow"></li>--}}
-{{--                                            <li class="red"></li>--}}
-{{--                                            <li class="blue"></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div class="pro-details-size">--}}
-{{--                                    <span>Size:</span>--}}
-{{--                                    <div class="pro-details-size-content">--}}
-{{--                                        <ul>--}}
-{{--                                            <li><a href="#">s</a></li>--}}
-{{--                                            <li><a href="#">m</a></li>--}}
-{{--                                            <li><a href="#">xl</a></li>--}}
-{{--                                            <li><a href="#">xxl</a></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
+
                                 <div class="pro-details-price-wrap">
                                     <div class="product-price">
                                         <span>&#2547  {{$product->sale_price}}</span>

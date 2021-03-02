@@ -13,12 +13,12 @@
                 </li>
                 {{--                    Email section start--}}
                 @if(in_array(1,$role)==true||Auth::user()->role==1)
-                    <li>
-                        <a href="javascript:void(0);" class="waves-effect"><i
-                                class="mdi mdi-email"></i><span> Email <span class="float-right menu-arrow"><i
+                    <li class="{{request()->routeIs('message_reply')?'active':''}}">
+                        <a href="javascript:void(0);" class="waves-effect {{request()->routeIs('message_reply')?'active':''}}"><i
+                                class="mdi mdi-email "></i><span> Email <span class="float-right menu-arrow"><i
                                         class="mdi mdi-plus"></i></span> </span></a>
                         <ul class="submenu">
-                            <li><a href="{{route('email')}}">Send mail</a></li>
+                            <li class="{{request()->routeIs('message_reply')?'active':''}}"><a href="{{route('email')}}" >Send mail</a></li>
 {{--                            <li><a href="#">Email Read</a></li>--}}
 {{--                            <li><a href="#">Email Compose</a></li>--}}
                         </ul>
@@ -26,6 +26,12 @@
                     <li>
                         <a href="#" class="waves-effect">
                             <i class="mdi mdi-comment"></i><span class="badge badge-danger float-right">10</span> <span> Comments </span>
+                        </a>
+                    </li>
+
+                    <li class="{{request()->routeIs('full_view_message')?'active':''}}">
+                        <a href="{{route('inbox_massage')}}" class="waves-effect {{request()->routeIs('full_view_message')?'active':''}}">
+                            <i class="mdi mdi-message"></i><span class="badge badge-danger float-right">{{count($message_count)>0?count($message_count):''}}</span> <span> Message </span>
                         </a>
                     </li>
                 @endif

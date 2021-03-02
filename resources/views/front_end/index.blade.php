@@ -30,8 +30,11 @@
     <link rel="stylesheet" href="{{asset('/')}}front_end/assets///css/plugins/magnific-popup.css">
     <link rel="stylesheet" href="{{asset('/')}}front_end/assets///css/plugins/jquery-ui.css">
     <link rel="stylesheet" href="{{asset('/')}}front_end/assets///css/style.css">
+    <link href="{{asset('/')}}back_end/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+
     <script src="{{asset('/')}}front_end/assets/js/jquery.min.js"></script>
     @yield('mates')
+
 </head>
 
 <body>
@@ -87,6 +90,8 @@
 <script src="{{asset('/')}}front_end/assets///js/plugins/elevatezoom.js"></script>
 <script src="{{asset('/')}}front_end/assets///js/plugins/sticky-sidebar.js"></script>
 <script src="{{asset('/')}}front_end/assets///js/plugins/smoothscroll.js"></script>
+<script src="{{asset('/')}}back_end/plugins/select2/js/select2.min.js"></script>
+
 <!-- Main JS -->
 <script src="{{asset('/')}}front_end/assets/js/main.js"></script>
 

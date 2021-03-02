@@ -105,6 +105,9 @@ class ParentsMenuController extends Controller
         try {
             $category = ParentsModelCategory::where('id', $request->id)->first();
             if (file_exists($request->category_image)) {
+                $this->validate($request, [
+                    'category_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
+                ]);
                 $this->mydelimages($category);
                 $image_info = $this->save_images($request);
                 $category = $this->insert_data($request, $image_info);

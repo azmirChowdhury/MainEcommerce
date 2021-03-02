@@ -112,6 +112,9 @@ class SliderController extends Controller
             ]);
         }
         if (file_exists($request->slider_image) == true) {
+            $this->validate($request, [
+                'slider_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
+            ]);
             $this->slider_image_delete($request->id);
             $image_name = $this->slider_image_upload($request);
             if ($image_name) {

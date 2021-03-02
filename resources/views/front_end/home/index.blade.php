@@ -301,6 +301,7 @@
                     <div class="row">
 {{--                @foreach($all_products as $products)--}}
                     @for($i=1;$i<=8;$i++)
+                        @if(count($all_products)>=8)
                         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
                             <div class="product-wrap product-border-3 product-img-zoom mb-30">
                                 <div class="product-img">
@@ -326,6 +327,9 @@
                                 </div>
                             </div>
                         </div>
+                            @else
+                            <h2 class="text-info text-center">Please upload minimum eight product then show all product</h2>
+                            @endif
                         @endfor
 {{--                        @endforeach--}}
                     </div>

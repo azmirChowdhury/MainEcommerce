@@ -13,7 +13,7 @@ class ContactsHelpsController extends Controller
     public function index()
     {
         $contacts = ContactInfromationModel::all();
-        return view('back_end.contact_help.manage_contact', ['contacts' => $contacts]);
+        return view('back_end.contact_help.manage_contact', ['contacts_help' => $contacts]);
     }
 
     public function add_contact()

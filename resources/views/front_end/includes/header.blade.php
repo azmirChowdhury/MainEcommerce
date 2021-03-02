@@ -22,9 +22,13 @@
                                 </div>
                             </div>
                             <div class="setting-content2-right">
-                                <a href="my-account.html">My Account</a>
-                                <a href="wishlist.html">Wishlist</a>
-                                <a href="login-register.html">Sign in</a>
+                                <a href="#">Wishlist</a>
+                                @if(Session::get('customer_id')&&Session::get('customer_email'))
+                                    <a href="{{route('customer_dashboard')}}">My Account</a>
+                                @else
+                                    <a href="{{route('loginRegister')}}">Sign in</a>
+                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -238,7 +242,7 @@
 {{--                                        </ul>--}}
 {{--                                    </li>--}}
 {{--                                    <li><a href="shop.html">Mens</a></li>--}}
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="{{route('contactus')}}">Contact</a></li>
                                 </ul>
                             </nav>
                         </div>

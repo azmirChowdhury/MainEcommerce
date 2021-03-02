@@ -103,6 +103,9 @@ class BannersController extends Controller
     {
         $this->validation($request);
         if (file_exists($request->banner_image)) {
+            $this->validate($request, [
+                'banner_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
+            ]);
             $this->image_delete($request);
             $banner_name = $this->image_insert($request);
             $banner = $this->banner_information_insert($request, $banner_name, 'u');

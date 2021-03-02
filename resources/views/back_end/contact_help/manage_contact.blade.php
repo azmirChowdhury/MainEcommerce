@@ -63,7 +63,7 @@
                             <div class="card-body">
 
                                 <h4 class="mt-0 header-title">Contacts manage</h4>
-                                @if(count($contacts)<=0)
+                                @if(count($contacts_help)<=0)
                                 <button
                                     class="btn btn-success dropdown-toggle float-lg-right float-md-right float-xl-right float-sm-right"
                                     type="button" id="dropdownMenuButton" data-toggle="dropdown">Manager
@@ -89,7 +89,7 @@
 
                                     <tbody>
                                     @php($i=1)
-                                    @foreach($contacts as $contact)
+                                    @foreach($contacts_help as $contact)
                                         <tr>
                                             <td>{{$i++}}</td>
                                             <td>{{$contact->email}}</td>
@@ -113,7 +113,7 @@
 
                                     @endforeach
 
-                                    @foreach($contacts as $contact)
+                                    @foreach($contacts_help as $contact)
                                         <!-- Modal -->
                                         <div class="modal fade" id="exampleModalCenter{{$contact->id}}" tabindex="-1"
                                              role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

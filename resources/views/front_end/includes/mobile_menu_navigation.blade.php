@@ -81,7 +81,7 @@
 {{--                                <li><a href="blog-details.html">blog details </a></li>--}}
 {{--                            </ul>--}}
 {{--                        </li>--}}
-                        <li><a href="contact.html">Contact us</a></li>
+                        <li><a href="{{route('contactus')}}">Contact us</a></li>
                     </ul>
                 </nav>
                 <!-- mobile menu navigation end -->
@@ -89,36 +89,31 @@
             <!-- mobile menu end -->
         </div>
         <div class="mobile-curr-lang-wrap">
-            <div class="single-mobile-curr-lang">
-                <a class="mobile-language-active" href="#">Language <i class="la la-angle-down"></i></a>
-                <div class="lang-curr-dropdown lang-dropdown-active">
-                    <ul>
-                        <li><a href="#">English (US)</a></li>
-                        <li><a href="#">English (UK)</a></li>
-                        <li><a href="#">Spanish</a></li>
-                    </ul>
-                </div>
-            </div>
+{{--            <div class="single-mobile-curr-lang">--}}
+{{--                <a class="mobile-language-active" href="#">Language <i class="la la-angle-down"></i></a>--}}
+{{--                <div class="lang-curr-dropdown lang-dropdown-active">--}}
+{{--                    <ul>--}}
+{{--                        <li><a href="#">English (US)</a></li>--}}
+{{--                        <li><a href="#">English (UK)</a></li>--}}
+{{--                        <li><a href="#">Spanish</a></li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <div class="single-mobile-curr-lang">
                 <a class="mobile-currency-active" href="#">Currency <i class="la la-angle-down"></i></a>
                 <div class="lang-curr-dropdown curr-dropdown-active">
                     <ul>
-                        <li><a href="#">USD</a></li>
-                        <li><a href="#">EUR</a></li>
-                        <li><a href="#">Real</a></li>
+
                         <li><a href="#">BDT</a></li>
                     </ul>
                 </div>
             </div>
             <div class="single-mobile-curr-lang">
-                <a class="mobile-account-active" href="#">My Account <i class="la la-angle-down"></i></a>
-                <div class="lang-curr-dropdown account-dropdown-active">
-                    <ul>
-                        <li><a href="#">Login</a></li>
-                        <li><a href="#">Creat Account</a></li>
-                        <li><a href="#">My Account</a></li>
-                    </ul>
-                </div>
+                @if(Session::get('customer_id')&&Session::get('customer_email'))
+                    <a href="{{route('customer_dashboard')}}">My Account </a>
+                @else
+                    <a href="{{route('loginRegister')}}">Sign in</a>
+                @endif
             </div>
         </div>
         <div class="mobile-social-wrap">

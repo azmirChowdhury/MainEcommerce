@@ -3,6 +3,7 @@
 namespace App\Providers\admin;
 
 use App\Models\admin\Co_UserModel;
+use App\Models\ContactMassageModel;
 use App\Models\User;
 use Auth;
 use Illuminate\Support\ServiceProvider;
@@ -35,6 +36,9 @@ class DashboardAdminManageProvider extends ServiceProvider
 
        View::composer('back_end.includes.menu',function ($view){
            $view->with('permission',Co_UserModel::where('user_id',Auth::user()->id)->first());
+       });
+       View::composer('back_end.includes.menu',function ($view){
+           $view->with('message_count',ContactMassageModel::where('status',0)->get());
        });
     }
 }

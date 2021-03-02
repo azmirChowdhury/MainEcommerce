@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\AdminMassageController;
 use App\Http\Controllers\admin\BannersController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\admin\CampaignController;
@@ -23,7 +24,10 @@ use App\Http\Controllers\admin\Social_iconControlle;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExceptionController;
+use App\Http\Controllers\front_end\ContactsController;
+use App\Http\Controllers\front_end\CustomerForgetPasswordController;
 use App\Http\Controllers\front_end\FrontProductController;
+use App\Http\Controllers\front_end\LoginRegisterController;
 use App\Models\User;
 use App\Notifications\CommentNotification;
 use Illuminate\Support\Facades\Route;
@@ -42,8 +46,14 @@ Route::get('/', function () {
 route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
 
     route::group(['middleware' => 'email'], function () {
-        route::get('/dashboard/email/email-manager',[EmailController::class,'index'])->name('email');
-        route::post('/dashboard/email/compose-send',[EmailController::class,'send_mail'])->name('send_mail');
+        route::get('/dashboard/email/email-manager', [EmailController::class, 'index'])->name('email');
+        route::post('/dashboard/email/compose-send', [EmailController::class, 'send_mail'])->name('send_mail');
+
+//        ******************* massage ************
+        route::get('/dashboard/message/message-manage',[AdminMassageController::class,'index'])->name('inbox_massage');
+        route::get('/dashboard/message/{name}/full-view{id}',[AdminMassageController::class,'full_view_message'])->name('full_view_message');
+        route::get('/dashboard/message/reply/{email}{id}',[AdminMassageController::class,'message_reply'])->name('message_reply');
+        route::post('/dashboard/message/message',[AdminMassageController::class,'delete_message'])->name('delete_message');
 
     });
     route::group(['middleware' => 'parentMenu'], function () {
@@ -229,7 +239,7 @@ route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
 
 
 //********************************** TAX ******************************
-        route::post('/dashboard/tax/added-update',[purchase_settingsController::class,'texUpdate'])->name('tex_update');
+        route::post('/dashboard/tax/added-update', [purchase_settingsController::class, 'texUpdate'])->name('tex_update');
 //********************************** payment method ******************************
         route::get('/dashboard/utilities/purchase-payment-{id}-published', [purchase_settingsController::class, 'publish_payment'])->name('publish_payment');
         route::get('/dashboard/utilities/purchase-payment-{id}-unpublished', [purchase_settingsController::class, 'unpublished_payment'])->name('unpublished_payment');
@@ -274,7 +284,7 @@ route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
     });
 
 //************************ manage customers ****************************
-    route::get('/dashboard/users/{slug}', [CustomerController::class, 'index'])->name('all_customers');
+    route::get('/dashboard/users/{slug}', [\App\Http\Controllers\admin\CustomerController::class, 'index'])->name('all_customers');
 
 
     Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/admin-panel', function () {
@@ -282,12 +292,11 @@ route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
     })->name('dashboard');
 
 
-
 //*********************** admin password reset ************************************
-route::get('User/admin-password-reset',[ForgotPasswordController::class,'index'])->name('password_reset_show');
-route::post('User/admin-password-reset-request',[ForgotPasswordController::class,'reset_request'])->name('reset_request');
-route::get('User/admin-password-reset{token}',[ForgotPasswordController::class,'new_password_set'])->name('new_password_set');
-route::post('User/admin-password-set-new-save',[ForgotPasswordController::class,'new_password_set_save'])->name('new_password_set_save');
+    route::get('User/admin-password-reset', [ForgotPasswordController::class, 'index'])->name('password_reset_show');
+    route::post('User/admin-password-reset-request', [ForgotPasswordController::class, 'reset_request'])->name('reset_request');
+    route::get('User/admin-password-reset{token}', [ForgotPasswordController::class, 'new_password_set'])->name('new_password_set');
+    route::post('User/admin-password-set-new-save', [ForgotPasswordController::class, 'new_password_set_save'])->name('new_password_set_save');
 });
 
 
@@ -295,16 +304,41 @@ route::post('User/admin-password-set-new-save',[ForgotPasswordController::class,
 
 //********************************************** Products **************************************************
 
-route::get('{slug}{id}/show',[FrontProductController::class,'single_product'])->name('single_product');
-route::get('{slug}/{id}/{paginate}/shop',[FrontProductController::class,'category_show_product'])->name('category_show_product');
-route::post('view/product-with-paginate/category',[FrontProductController::class,'view_paginate'])->name('view_paginate');
-route::get('price-range/{paginate}/shop',[FrontProductController::class,'price_range'])->name('price_range');
-route::get('search-suggestion/load-ajax',[FrontProductController::class,'search_suggestion'])->name('search_suggestion');
-route::get('search-shop-product-{paginate}',[FrontProductController::class,'search_shop'])->name('search_shop');
-route::get('show-all-product',[FrontProductController::class,'show_all_product'])->name('show_all_product');
+route::get('{slug}{id}/show', [FrontProductController::class, 'single_product'])->name('single_product');
+route::get('{slug}/{id}/{paginate}/shop', [FrontProductController::class, 'category_show_product'])->name('category_show_product');
+route::post('view/product-with-paginate/category', [FrontProductController::class, 'view_paginate'])->name('view_paginate');
+route::get('price-range/{paginate}/shop', [FrontProductController::class, 'price_range'])->name('price_range');
+route::get('search-suggestion/load-ajax', [FrontProductController::class, 'search_suggestion'])->name('search_suggestion');
+route::get('search-shop-product-{paginate}', [FrontProductController::class, 'search_shop'])->name('search_shop');
+route::get('show-all-product', [FrontProductController::class, 'show_all_product'])->name('show_all_product');
+
+
+//********************************* Contact us *******************************************
+route::get(env('app_name') .'-contacts-us', [ContactsController::class, 'index'])->name('contactus');
+route::post('contact-massage-send', [ContactsController::class, 'send_massage'])->name('contact_massage_send');
 
 
 
+//********************************* Customer login or register *******************************************
+route::group(['middleware' => 'CustomerHasLogin'], function () {
+    route::get(env('app_name') . '-login-or-register', [LoginRegisterController::class, 'index'])->name('loginRegister');
+    route::post('new-customer-register', [LoginRegisterController::class, 'resister_customer'])->name('resister_customer');
+    route::get('customer/account-create-conformation{token}', [LoginRegisterController::class, 'customer_register_confirm']);
+    route::post('customer-login', [LoginRegisterController::class, 'CustomerLogin'])->name('customer_login');
+});
+route::group(['middleware' => 'CustomerDashboard'], function () {
+    route::get('customer/account-dashboard', [LoginRegisterController::class, 'customer_dashboard'])->name('customer_dashboard');
+    route::post('customer/logout', [LoginRegisterController::class, 'customer_logout'])->name('customer_logout');
+    route::post('account-details-change', [LoginRegisterController::class, 'change_account_details'])->name('account_details_change');
+});
+
+//************************************** Customer forget Password ************************************
+route::group(['middleware' => 'CustomerHasLogin'], function () {
+    route::get('Customer-password-reset', [CustomerForgetPasswordController::class, 'index'])->name('customer_password_reset_show');
+    route::post('customer-password-reset-request', [CustomerForgetPasswordController::class, 'reset_request'])->name('customer_reset_request');
+    route::get('customer-password-reset{token}', [CustomerForgetPasswordController::class, 'new_password_set'])->name('customer_new_password_set');
+    route::post('customer-password-set-new-save', [CustomerForgetPasswordController::class, 'new_password_set_save'])->name('customer_new_password_set_save');
+});
 
 
 

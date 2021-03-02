@@ -29,9 +29,31 @@ class Logo_Background_controller extends Controller
 
     }
 
+    private function validation_before_image_delete($request,$info){
+        if (!empty($request->logo_image)==true) {
+            $this->validate($request, [
+                'logo_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
+            ]);
+        }
+        if (!empty($request->background_image)==true) {
+            $this->validate($request, [
+                'background_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
+            ]);
+        }
+        if (!empty($request->fav_icon)==true) {
+            $this->validate($request, [
+                'fav_icon' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
+            ]);
+        }
+
+    }
+
     private function image_delete($id,$request)
     {
+
         $info=Logo_BackgroundModel::find($id);
+        $this->validation_before_image_delete($request,$info);
+
         if (!empty($request->logo_image)==true) {
             unlink($info->logo);
         }
@@ -42,6 +64,7 @@ class Logo_Background_controller extends Controller
             unlink($info->fav_icon);
             unlink($info->fav_icon_small);
         }
+        
     }
 
     private function background_image_insert($request)
