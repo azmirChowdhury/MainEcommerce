@@ -28,6 +28,7 @@ use App\Http\Controllers\front_end\ContactsController;
 use App\Http\Controllers\front_end\CustomerForgetPasswordController;
 use App\Http\Controllers\front_end\FrontProductController;
 use App\Http\Controllers\front_end\LoginRegisterController;
+use App\Models\CustomerModel;
 use App\Models\User;
 use App\Notifications\CommentNotification;
 use Illuminate\Support\Facades\Route;
@@ -38,8 +39,6 @@ route::fallback([ExceptionController::class, 'admin404']);
 
 Route::get('/', function () {
     return view('front_end.home.index');
-//    $user=User::find(2);
-//     $user->notify(new CommentNotification());
 });
 
 //************* Add Parents menu **********************
@@ -284,7 +283,16 @@ route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
     });
 
 //************************ manage customers ****************************
-    route::get('/dashboard/users/{slug}', [\App\Http\Controllers\admin\CustomerController::class, 'index'])->name('all_customers');
+    route::group(['middleware'=>'customer'],function (){
+        route::get('/dashboard/users/{slug}', [\App\Http\Controllers\admin\CustomerController::class, 'index'])->name('all_customers');
+        route::get('/dashboard/customer-active/{id}', [\App\Http\Controllers\admin\CustomerController::class, 'active_customer'])->name('active_customer');
+        route::get('/dashboard/customer-stopped/{id}', [\App\Http\Controllers\admin\CustomerController::class, 'stopped_customer'])->name('stopped_customer');
+        route::get('/dashboard/customer-details/{id}', [\App\Http\Controllers\admin\CustomerController::class, 'customer_details'])->name('customer_details');
+        route::get('/dashboard/delete-customer/{id}', [\App\Http\Controllers\admin\CustomerController::class, 'delete_customer'])->name('delete_customer');
+
+
+
+    });
 
 
     Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/admin-panel', function () {

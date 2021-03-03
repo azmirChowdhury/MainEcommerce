@@ -20,7 +20,7 @@ class AdminMassageController extends Controller
        return view('back_end.massage.full_massage_view',['message'=>$message]);
     }
     public function message_reply($email,$id){
-        return view('back_end.email.index',['email'=>$email,'id'=>$id]);
+        return view('back_end.massage.reply_mail',['email'=>$email,'id'=>$id]);
     }
 
     public function delete_message(request $request){

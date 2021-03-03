@@ -72,16 +72,16 @@
                         <div class="card bg-primary mini-stat position-relative">
                             <div class="card-body">
                                 <div class="mini-stat-desc">
-                                    <h6 class="text-uppercase verti-label text-white-50">Av. Price</h6>
+                                    <h6 class="text-uppercase verti-label text-white-50">Customer</h6>
                                     <div class="text-white">
-                                        <h6 class="text-uppercase mt-0 text-white-50">Average Price</h6>
-                                        <h3 class="mb-3 mt-0">15.9</h3>
+                                        <h6 class="text-uppercase mt-0 text-white-50">Total customer</h6>
+                                        <h3 class="mb-3 mt-0">{{count($dashboard_customer_count)}}</h3>
                                         <div class="">
-                                            <span class="badge badge-light text-primary"> 0% </span> <span class="ml-2">From previous period</span>
+                                            <span class="badge badge-light text-primary"></span> <span class="ml-2">All verified accounts </span>
                                         </div>
                                     </div>
                                     <div class="mini-stat-icon">
-                                        <i class="mdi mdi-tag-text-outline display-2"></i>
+                                        <i class="mdi mdi-account display-2"></i>
                                     </div>
                                 </div>
                             </div>

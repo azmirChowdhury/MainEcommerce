@@ -84,6 +84,7 @@ class Kernel extends HttpKernel
         'utilities'=>\App\Http\Middleware\admin\coUser\UtilitiesMiddleware::class,
         'CustomerHasLogin'=>\App\Http\Middleware\front_end\FrontHasLoginMiddleware::class,
         'CustomerDashboard'=>\App\Http\Middleware\front_end\CustomerDashboardMiddleware::class,
+//        'CustomerStatusAuth'=>\App\Http\Middleware\front_end\CustomerStatusLonginMiddleware::class,
 
     ];
 }

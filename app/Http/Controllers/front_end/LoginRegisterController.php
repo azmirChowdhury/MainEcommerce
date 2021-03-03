@@ -176,6 +176,12 @@ class LoginRegisterController extends Controller
 
     }
 
+//    private function account_stopped_notLogin($customer){
+//        if (Session::get('customer_id') & Session::get('customer_email')==true&&$customer==null){
+//            $this->customer_logout();
+//        }
+//    }
+
     public function customer_dashboard()
     {
         $customer = CustomerModel::where('id', Session::get('customer_id'))

@@ -1,6 +1,6 @@
 @extends('back_end.index')
 @section('title')
-    E-mail
+    Send replay mail
 @endsection
 @section('body')
     <div class="content">
@@ -11,7 +11,7 @@
                         <h4 class="page-title">Email</h4>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Email</a></li>
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">Send mail</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">Send replay mail</a></li>
                         </ol>
 
                     </div>
@@ -37,7 +37,9 @@
                                     @endif
                                 </div>
                                 <div class="card-body">
-
+                                    <div class="m-b-5">
+                                        <a href="{{route('inbox_massage')}}" type="button" class="font-24"><i class="fa fa-arrow-circle-left"></i></a>
+                                    </div>
                                     {{Form::open(['method'=>'post','route'=>'send_mail'])}}
                                     @if($errors->any())
                                         <ol class="text-danger">
@@ -48,9 +50,9 @@
                                     @endif
                                     <div class="form-group">
                                         <input type="email"
-                                               value="{{old('to_mail')?old('to_mail'):''}}{{old('to_mail')==false&&isset($email)?$email:''}}"
+                                               value="{{old('to_mail')?old('to_mail'):$email}}"
                                                name="to_mail" class="form-control" placeholder="To">
-                                        <input type="hidden" value="mail" name="type">
+                                        <input type="hidden" value="{{$id}}" name="type">
                                     </div>
 
                                     <div class="form-group">
@@ -58,9 +60,9 @@
                                                class="form-control" placeholder="Subject">
                                     </div>
                                     <div class="form-group">
-                <textarea name="description" class="summernote" id="editor">
-                        {{old('description')}}
-                </textarea>
+                                        <textarea name="description" class="summernote" id="editor">
+                                                {{old('description')}}
+                                        </textarea>
                                     </div>
 
                                     <div class="btn-toolbar form-group mb-0">

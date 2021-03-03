@@ -18,7 +18,7 @@ class EmailController extends Controller
     {
         if ($request->type != 'mail') {
             $message = ContactMassageModel::find($request->type);
-            $message->status = 2;
+            $message->status =2;
             $message->update();
         }
 
@@ -41,7 +41,12 @@ class EmailController extends Controller
             $massage->to($data['to_mail']);
             $massage->subject($data['subject']);
         });
-        $this->message_reply_status_change($request);
-        return redirect()->back()->with('massage', 'Your mail send successful');
+        if ($request->type!='mail'){
+            $this->message_reply_status_change($request);
+            return redirect()->route('inbox_massage')->with('massage', 'Your replay mail send successful');
+        }else{
+            return redirect()->back()->with('massage', 'Your mail send successful');
+        }
+
     }
 }

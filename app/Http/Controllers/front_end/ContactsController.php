@@ -33,14 +33,14 @@ class ContactsController extends Controller
     }
 
   public function send_massage(request $request){
-//        if (!empty($request->input('g-recaptcha-response'))){
+        if (!empty($request->input('g-recaptcha-response'))){
             $this->validation($request);
             $massage=$this->insert_massage($request);
             $massage->save();
             return redirect(env('app_name').'-contacts-us')->with('massage','massage send successful');
-//        }else{
-//            return redirect(env('app_name').'-contacts-us')->with('ErrorMassage','massage send failed because you are not complete reCaptcha');
-//        }
+        }else{
+            return redirect(env('app_name').'-contacts-us')->with('ErrorMassage','massage send failed because you are not complete reCaptcha');
+        }
   }
 
 

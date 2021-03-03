@@ -4,6 +4,7 @@ namespace App\Providers\admin;
 
 use App\Models\admin\Co_UserModel;
 use App\Models\ContactMassageModel;
+use App\Models\CustomerModel;
 use App\Models\User;
 use Auth;
 use Illuminate\Support\ServiceProvider;
@@ -39,6 +40,9 @@ class DashboardAdminManageProvider extends ServiceProvider
        });
        View::composer('back_end.includes.menu',function ($view){
            $view->with('message_count',ContactMassageModel::where('status',0)->get());
+       });
+       View::composer('back_end.home.home',function ($view){
+           $view->with('dashboard_customer_count',CustomerModel::where('status','!=',0)->get());
        });
     }
 }

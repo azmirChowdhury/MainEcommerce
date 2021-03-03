@@ -13,12 +13,12 @@
                 </li>
                 {{--                    Email section start--}}
                 @if(in_array(1,$role)==true||Auth::user()->role==1)
-                    <li class="{{request()->routeIs('message_reply')?'active':''}}">
-                        <a href="javascript:void(0);" class="waves-effect {{request()->routeIs('message_reply')?'active':''}}"><i
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect "><i
                                 class="mdi mdi-email "></i><span> Email <span class="float-right menu-arrow"><i
                                         class="mdi mdi-plus"></i></span> </span></a>
                         <ul class="submenu">
-                            <li class="{{request()->routeIs('message_reply')?'active':''}}"><a href="{{route('email')}}" >Send mail</a></li>
+                            <li><a href="{{route('email')}}" >Send mail</a></li>
 {{--                            <li><a href="#">Email Read</a></li>--}}
 {{--                            <li><a href="#">Email Compose</a></li>--}}
                         </ul>
@@ -29,8 +29,8 @@
                         </a>
                     </li>
 
-                    <li class="{{request()->routeIs('full_view_message')?'active':''}}">
-                        <a href="{{route('inbox_massage')}}" class="waves-effect {{request()->routeIs('full_view_message')?'active':''}}">
+                    <li class="{{request()->routeIs('full_view_message')?'active':''}}{{request()->routeIs('message_reply')?'active':''}}">
+                        <a href="{{route('inbox_massage')}}" class="waves-effect {{request()->routeIs('full_view_message')?'active':''}}{{request()->routeIs('message_reply')?'active':''}}">
                             <i class="mdi mdi-message"></i><span class="badge badge-danger float-right">{{count($message_count)>0?count($message_count):''}}</span> <span> Message </span>
                         </a>
                     </li>
@@ -57,11 +57,11 @@
                 @endif
                 @if(in_array(3,$role)==true||Auth::user()->role==1)
 
-                    <li>
-                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-box"></i><span>Customers<span
-                                    class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
+                    <li class="{{request()->routeIs('customer_details') ? 'active' : ''}}">
+                        <a href="javascript:void(0);" class="waves-effect {{request()->routeIs('customer_details') ? 'active' : ''}}"><i class="mdi mdi-account-box"></i><span>Customers<span
+                                    class="float-right menu-arrow {{request()->routeIs('customer_details') ? 'active' : ''}}"><i class="mdi mdi-plus"></i></span> </span></a>
                         <ul class="submenu">
-                            <li><a href="{{route('all_customers',['slug'=>'all-customer'])}}">All customer</a></li>
+                            <li class="{{request()->routeIs('customer_details') ? 'active' : ''}}"><a href="{{route('all_customers',['slug'=>'all-customer'])}}">All customer</a></li>
                         </ul>
                     </li>
                 @endif
@@ -88,7 +88,7 @@
                         <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-floor-plan"></i><span>HTML Blocks<span
                                     class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span></a>
                         <ul class="submenu">
-                            <li><a href="#">Navigation Blocks</a></li>
+{{--                            <li><a href="#">Navigation Blocks</a></li>--}}
                             <li class="{{request()->routeIs('parents_menu_blocks_add','edit_blocks') ? 'active' : ''}}">
                                 <a href="{{route('parents_menu_blocks')}}">Parents Menu Blocks</a></li>
                         </ul>

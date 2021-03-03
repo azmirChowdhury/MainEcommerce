@@ -63,10 +63,9 @@
                         <div class=" mb-3">
 
                             <div class="card">
-                                <div class="btn-toolbar p-3" role="toolbar">
+                                <div class=" p-3" role="toolbar">
                                     <div class="btn-group mo-mb-2">
                                         <a  href="{{route('inbox_massage')}}" class="btn btn-primary waves-light waves-effect"><i class="fa fa-arrow-circle-left"></i></a>
-
                                     </div>
 
                                     <div class="card-body">
