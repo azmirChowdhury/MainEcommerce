@@ -7,6 +7,7 @@
     <meta name="og:url" content="{{env('app_url').env('app_name') .'-contacts-us'}}"/>
     <meta name="og:title" content="contact us.at {{env('app_name')}}"/>
     <meta name="og:description" content="Contact us" />
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 @endsection
 
 @section('home_body')
@@ -113,11 +114,16 @@
                                 <textarea name="massage" placeholder="Your Message">{{old('massage')}}</textarea>
                             </div>
                             <div class="col-lg-12">
+
+
+{{--                                <div class="g-recaptcha" data-sitekey="{{env('Contacts_Site_key_reCaptcha')}}"></div>--}}
+
                                 <div class="button-box">
                                     <button type="submit" class="g-recaptcha"  data-sitekey="{{env('recaptcha_site_key')}}"
                                             data-callback='onMassage'
                                             data-action='submit'>Send</button>
                                 </div>
+
                             </div>
 
                         </div>
