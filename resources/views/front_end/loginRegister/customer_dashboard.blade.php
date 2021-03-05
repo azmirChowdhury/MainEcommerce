@@ -1,7 +1,7 @@
 
 
-
 @extends('front_end.index')
+
 @section('mates')
     @if(Session::get('customer_id')!=isset($customer_login->id))
             <META HTTP-EQUIV="Refresh" CONTENT="0;URL={{url('/')}}">
@@ -47,13 +47,12 @@
                         <div class="row">
                             <div class="col-lg-3 col-md-4">
                                 <div class="myaccount-tab-menu nav" role="tablist">
-                                    <a href="#dashboad" class="active" data-toggle="tab"><i class="fa fa-dashboard"></i>
+                                    <a href="#dashboad" class="{{Session::get('Adetailsmassage')||Session::get('AdetailsError')||$errors->all()||Session::get('addressMessage')==null?'active':''}}" data-toggle="tab"><i class="fa fa-dashboard"></i>
                                         Dashboard</a>
                                     <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Orders</a>
-                                    <a href="#download" data-toggle="tab"><i class="fa fa-cloud-download"></i> Download</a>
                                     <a href="#payment-method" data-toggle="tab"><i class="fa fa-credit-card"></i> Payment
                                         Method</a>
-                                    <a href="#address-edit" data-toggle="tab"><i class="fa fa-map-marker"></i> address</a>
+                                    <a href="#address-edit" class="{{Session::get('addressMessage')?'active':''}}" data-toggle="tab"><i class="fa fa-map-marker"></i> address</a>
                                     <a href="#account-info" data-toggle="tab"><i class="fa fa-user"></i> Account Details</a>
 
                                     <a href="{{url('/')}}" onclick="event.preventDefault();document.getElementById('customer_logout').submit()"><i class="fa fa-sign-out"></i> Logout</a>
@@ -67,7 +66,7 @@
                             <div class="col-lg-9 col-md-8">
                                 <div class="tab-content" id="myaccountContent">
                                     <!-- Single Tab Content Start -->
-                                    <div class="tab-pane fade show active" id="dashboad" role="tabpanel">
+                                    <div class="tab-pane fade  {{Session::get('Adetailsmassage')||Session::get('addressMessage')==null?'show active':''}}" id="dashboad" role="tabpanel">
                                         <div class="myaccount-content">
                                             <h3>Dashboard</h3>
                                             <div class="welcome">
@@ -121,39 +120,7 @@
                                         </div>
                                     </div>
                                     <!-- Single Tab Content End -->
-                                    <!-- Single Tab Content Start -->
-                                    <div class="tab-pane fade" id="download" role="tabpanel">
-                                        <div class="myaccount-content">
-                                            <h3>Downloads</h3>
-                                            <div class="myaccount-table table-responsive text-center">
-                                                <table class="table table-bordered">
-                                                    <thead class="thead-light">
-                                                    <tr>
-                                                        <th>Product</th>
-                                                        <th>Date</th>
-                                                        <th>Expire</th>
-                                                        <th>Download</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>Haven - Free Real Estate PSD Template</td>
-                                                        <td>Aug 22, 2018</td>
-                                                        <td>Yes</td>
-                                                        <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> Download File</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>HasTech - Profolio Business Template</td>
-                                                        <td>Sep 12, 2018</td>
-                                                        <td>Never</td>
-                                                        <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> Download File</a></td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Single Tab Content End -->
+
                                     <!-- Single Tab Content Start -->
                                     <div class="tab-pane fade" id="payment-method" role="tabpanel">
                                         <div class="myaccount-content">
@@ -163,15 +130,28 @@
                                     </div>
                                     <!-- Single Tab Content End -->
                                     <!-- Single Tab Content Start -->
-                                    <div class="tab-pane fade" id="address-edit" role="tabpanel">
+                                    <div class="tab-pane fade {{Session::get('addressMessage')?'show active':''}}" id="address-edit" role="tabpanel">
                                         <div class="myaccount-content">
+                                            @if(Session::get('addressMessage'))
+                                                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <strong>{!!Session::get('addressMessage')!!}</strong>
+                                                </div>
+                                            @endif
                                             <h3>Billing Address</h3>
                                             <address>
                                                 <p><strong>{{$customer_login->first_name.' '.$customer_login->last_name}}</strong></p>
-                                                <p>{{$customer_login->present_address}}<br>
-
+                                                <p id="address_main">{{$customer_login->present_address}}</p>
                                             </address>
-                                            <a href="#" class="check-btn sqr-btn "><i class="fa fa-edit"></i> Edit Address</a>
+
+                                            {{Form::open(['method'=>'post','route'=>'account_address_change'])}}
+                                                <div id="change_address">
+
+                                                </div>
+                                            {{Form::close()}}
+                                            <a class="check-btn sqr-btn " id="edit_btn"><i class="fa fa-edit"></i> Edit Address</a>
                                         </div>
                                     </div>
                                     <!-- Single Tab Content End -->
@@ -217,13 +197,13 @@
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item">
                                                                 <label for="first-name" class="required">First Name</label>
-                                                                <input type="text" name="first_name" value="{{$customer_login->first_name}}" id="first-name" />
+                                                                <input type="text" required name="first_name" value="{{$customer_login->first_name}}" id="first-name" />
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div class="single-input-item">
                                                                 <label for="last-name"  class="required">Last Name</label>
-                                                                <input type="text" name="last_name" value="{{$customer_login->last_name}}" id="last-name" />
+                                                                <input type="text" required name="last_name" value="{{$customer_login->last_name}}" id="last-name" />
                                                             </div>
                                                         </div>
                                                     </div>

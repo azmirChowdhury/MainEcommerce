@@ -137,6 +137,7 @@ class LoginRegisterController extends Controller
         }
 
     }
+
     private function customer_status_update($token)
     {
         $customer = CustomerModel::where('email', $token->email)->first();
@@ -282,8 +283,25 @@ class LoginRegisterController extends Controller
     }
 
 
+    public function change_account_address(request $request)
+    {
+        if ($request->change_address!=null){
+            $customer = CustomerModel::where('email', Session::get('customer_email'))
+                ->where('status', 1)
+                ->first();
+            if ($customer!=null){
+                $customer->present_address = $request->change_address;
+                $customer->update();
+                return redirect('customer/account-dashboard')->with('addressMessage',' <span class="text-success"> Address save successful</span>');
+            }else{
+                Session()->invalidate();
+                return redirect('/');
+            }
+        }else{
+            return redirect('customer/account-dashboard')->with('addressMessage','<span class="text-danger"> Save failed Address required</span>');
+        }
 
-
+    }
 
 
 }

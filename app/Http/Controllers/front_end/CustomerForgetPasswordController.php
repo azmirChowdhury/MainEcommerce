@@ -107,7 +107,9 @@ class CustomerForgetPasswordController extends Controller
 
             try {
 
-                $found = CustomerModel::where('email', $request->input('email'))->first();
+                $found = CustomerModel::where('email', $request->input('email'))
+                    ->where('status',1)
+                    ->first();
                 if (!$found == null) {
                     $this->send_mail($request, $found);
                     return redirect('Customer-password-reset')->with('massage', 'User request send to the email check Inbox or Spam');
@@ -138,10 +140,15 @@ class CustomerForgetPasswordController extends Controller
                 $user = CustomerModel::where('email', $request->email)
                     ->where('status', 1)
                     ->first();
-                Session::put('reset_email', $user->email);
-                Session::put('reset_id', $user->id);
-                return view('front_end.loginRegister.password_reset.customer_set_password', ['email' => $request->email]);
-            } else {
+                if ($user!=null){
+                    Session::put('reset_email', $user->email);
+                    Session::put('reset_id', $user->id);
+                    return view('front_end.loginRegister.password_reset.customer_set_password', ['email' => $request->email]);
+                }else{
+                    Session()->invalidate();
+                    return redirect('/');
+                }
+              } else {
                 return redirect('Customer-password-reset')->with('ErrorMassage', 'Time out ! The link has expired try again');
             }
         } else {

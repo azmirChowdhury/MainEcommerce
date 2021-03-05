@@ -42,7 +42,8 @@ Route::get('/', function () {
 });
 
 //************* Add Parents menu **********************
-route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
+route::middleware('PreventCashControl')->group(function () {
+route::middleware(['DashboardAuth', 'AdminStatusValidation'])->group(function () {
 
     route::group(['middleware' => 'email'], function () {
         route::get('/dashboard/email/email-manager', [EmailController::class, 'index'])->name('email');
@@ -295,7 +296,7 @@ route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
     });
 
 
-    Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/admin-panel', function () {
+    Route::middleware(['auth:sanctum', 'verified', 'admin','PreventCashControl'])->get('/admin-panel', function () {
         return view('back_end.home.home');
     })->name('dashboard');
 
@@ -305,6 +306,8 @@ route::middleware('DashboardAuth', 'AdminStatusValidation')->group(function () {
     route::post('User/admin-password-reset-request', [ForgotPasswordController::class, 'reset_request'])->name('reset_request');
     route::get('User/admin-password-reset{token}', [ForgotPasswordController::class, 'new_password_set'])->name('new_password_set');
     route::post('User/admin-password-set-new-save', [ForgotPasswordController::class, 'new_password_set_save'])->name('new_password_set_save');
+});
+
 });
 
 
@@ -328,16 +331,17 @@ route::post('contact-massage-send', [ContactsController::class, 'send_massage'])
 
 
 //********************************* Customer login or register *******************************************
-route::group(['middleware' => 'CustomerHasLogin'], function () {
+route::middleware(['CustomerHasLogin','PreventCashControl'])->group( function () {
     route::get(env('app_name') . '-login-or-register', [LoginRegisterController::class, 'index'])->name('loginRegister');
     route::post('new-customer-register', [LoginRegisterController::class, 'resister_customer'])->name('resister_customer');
     route::get('customer/account-create-conformation{token}', [LoginRegisterController::class, 'customer_register_confirm']);
     route::post('customer-login', [LoginRegisterController::class, 'CustomerLogin'])->name('customer_login');
 });
-route::group(['middleware' => 'CustomerDashboard'], function () {
+route::middleware(['CustomerDashboard','PreventCashControl'])->group( function () {
     route::get('customer/account-dashboard', [LoginRegisterController::class, 'customer_dashboard'])->name('customer_dashboard');
     route::post('customer/logout', [LoginRegisterController::class, 'customer_logout'])->name('customer_logout');
     route::post('account-details-change', [LoginRegisterController::class, 'change_account_details'])->name('account_details_change');
+    route::post('account-address-change', [LoginRegisterController::class, 'change_account_address'])->name('account_address_change');
 });
 
 //************************************** Customer forget Password ************************************

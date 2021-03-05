@@ -4,9 +4,8 @@ namespace App\Http\Middleware\front_end;
 
 use Closure;
 use Illuminate\Http\Request;
-use Session;
 
-class CustomerDashboardMiddleware
+class CustomerDashboardLoginPageAuth
 {
     /**
      * Handle an incoming request.
@@ -17,10 +16,11 @@ class CustomerDashboardMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Session::get('customer_id')&&Session::get('customer_email')){
-            return $next($request);
-        }else{
-            return redirect()->route('loginRegister');
-        }
+//        return $next($request);
+        $response = $next($request);
+        return $response->header('Cache-Control','nocache, no-store, max-age=0, must-revalidate')
+            ->header('Pragma','no-cache')
+            ->header('Expires','Sat, 26 Jul 1997 05:00:00 GMT');
     }
+
 }

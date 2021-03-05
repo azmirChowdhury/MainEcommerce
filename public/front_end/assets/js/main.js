@@ -999,6 +999,29 @@
         });
     });
 
+    $('#change_address').hide();
+$('#edit_btn').on('click',function (e){
+
+    if (e){
+        var html=' <br><textarea name="change_address" id="text_area" placeholder="Your address here"></textarea>\n' +
+            '\n' +
+            '                                                <br><br>\n' +
+            '                                                <button type="submit" class="btn btn-success"><i class="fa fa-edit"></i> Save</button>\n' +
+            '                                            <a class="btn btn-secondary " id="cencel"><i class="fa fa-edit"></i>Cancel</a>'
+        $('#change_address').show();
+        $('#change_address').html(html);
+        $('#edit_btn').hide();
+
+    }else {
+        $('#change_address').hide();
+    }
+
+    $('#cencel').on('click',function () {
+        $('#change_address').hide();
+        $('#edit_btn').show();
+    })
+
+})
 
 
 })(jQuery);
