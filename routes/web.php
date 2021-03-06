@@ -26,6 +26,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExceptionController;
 use App\Http\Controllers\front_end\ContactsController;
 use App\Http\Controllers\front_end\CustomerForgetPasswordController;
+use App\Http\Controllers\front_end\FrontHomeController;
 use App\Http\Controllers\front_end\FrontProductController;
 use App\Http\Controllers\front_end\LoginRegisterController;
 use App\Models\CustomerModel;
@@ -37,9 +38,7 @@ use Illuminate\Support\Facades\Route;
 route::fallback([ExceptionController::class, 'admin404']);
 
 
-Route::get('/', function () {
-    return view('front_end.home.index');
-});
+Route::get('/',[FrontHomeController::class,'index']);
 
 //************* Add Parents menu **********************
 route::middleware('PreventCashControl')->group(function () {
