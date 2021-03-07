@@ -56,7 +56,7 @@ class FrontProductController extends Controller
         }
     }
 
-    public function category_show_product($slug, $id,$paginate)
+    public function category_show_product($slug, $id, $paginate)
     {
 
         $categories = SubcategoryModel::where('status', 1)
@@ -66,8 +66,11 @@ class FrontProductController extends Controller
         $products = ProductModel::where('category_id', $id)
             ->orderBy('id', 'desc')
             ->paginate($paginate);
-
-        return view('front_end.products.shop_products', ['shop_category' => $categories, 'products_shop' => $products]);
+        if ($categories != null) {
+            return view('front_end.products.shop_products', ['shop_category' => $categories, 'products_shop' => $products]);
+        } else {
+            return redirect('/');
+        }
     }
 
     public function view_paginate(request $request)
@@ -78,7 +81,7 @@ class FrontProductController extends Controller
         $category = SubcategoryModel::where('status', 1)
             ->where('id', $request->id)
             ->first();
-        return redirect($category->slug .'/'.  $category->id . '/' . $request->paginate_value . '/shop');
+        return redirect($category->slug . '/' . $category->id . '/' . $request->paginate_value . '/shop');
 
     }
 
@@ -96,12 +99,19 @@ class FrontProductController extends Controller
         $category = SubcategoryModel::where('status', 1)
             ->where('id', $request->category_id)
             ->first();
-        $production = DB::table('product_models')->where('sale_price', '>=', $min)
-            ->where('sale_price', '<=', $max)
-            ->where('category_id', $category->id)
-            ->paginate($request->paginate_v);
+        if ($category !=null) {
 
-        return view('front_end.products.shop_products', ['shop_category' => $category, 'products_shop' => $production, 'max_p' => $max, 'min_p' => $min]);
+
+            $production = DB::table('product_models')->where('sale_price', '>=', $min)
+                ->where('sale_price', '<=', $max)
+                ->where('category_id', $category->id)
+                ->paginate($request->paginate_v);
+
+            return view('front_end.products.shop_products', ['shop_category' => $category, 'products_shop' => $production, 'max_p' => $max, 'min_p' => $min]);
+        } else {
+            return redirect('/');
+        }
+
     }
 
     public function search_suggestion(request $request)
@@ -118,18 +128,24 @@ class FrontProductController extends Controller
         return $suggestion;
     }
 
-    public function search_shop(request $request,$paginate)
+    public function search_shop(request $request, $paginate)
     {
-        $category=SubcategoryModel::where('status',1)->where('id',$request->cat_id)->first();
-        $product=ProductModel::where('status',1)
-            ->where('product_name','LIKE','%'. $request->search_shop.'%')
-            ->where('category_id',$category->id)
-            ->orderBy('id','desc')
+        $category = SubcategoryModel::where('status', 1)->where('id', $request->cat_id)->first();
+        if ($category !=null) {
+        $product = ProductModel::where('status', 1)
+            ->where('product_name', 'LIKE', '%' . $request->search_shop . '%')
+            ->where('category_id', $category->id)
+            ->orderBy('id', 'desc')
             ->paginate($paginate);
-        return view('front_end.products.shop_products', ['shop_category' => $category, 'products_shop' => $product,'search_data'=>$request->search_shop]);
+
+            return view('front_end.products.shop_products', ['shop_category' => $category, 'products_shop' => $product, 'search_data' => $request->search_shop]);
+        } else {
+            return redirect('/');
+        }
     }
 
-    public function show_all_product(){
+    public function show_all_product()
+    {
         return view('front_end.products.show_all_product');
     }
 

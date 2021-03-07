@@ -254,6 +254,9 @@
                                    style="color:#FFFFFF;background-color:#ff5151">All product</a>
                             </div>
                         @endif
+                        @if(count($produduct_cateogry_all)<=0)
+                            <h4 class="text-danger text-center">Product not found</h4>
+                        @endif
                         <div>
                         </div>
                     </div>
