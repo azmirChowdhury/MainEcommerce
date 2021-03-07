@@ -17,7 +17,7 @@
                                     <div class="ml-auto col-lg-7 col-md-10 col-sm-10 col-12">
                                         <div class="deal-content-4">
                                             <img src="{{asset('/').$slider_bottom_banner->banner_image}}"
-                                                 alt="{!!$slider_bottom_banner->banner_name!!}">
+                                                 alt="{{$slider_bottom_banner->banner_name}}">
                                             <h2>{!!$slider_bottom_banner->banner_name!!}</h2>
                                         </div>
                                     </div>

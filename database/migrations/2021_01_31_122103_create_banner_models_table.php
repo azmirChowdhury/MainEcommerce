@@ -15,7 +15,7 @@ class CreateBannerModelsTable extends Migration
     {
         Schema::create('banner_models', function (Blueprint $table) {
             $table->id();
-            $table->string('banner_name');
+            $table->longText('banner_name');
             $table->text('banner_image');
             $table->integer('banner_role');
             $table->bigInteger('category_id')->nullable();
