@@ -68,6 +68,10 @@
                                         <a href="{{route('single_product',['slug'=>$feature_product->slug,'id'=>$feature_product->id])}}"><img
                                                 src="{{asset('/').$feature_product->product_image}}"
                                                 alt="product{{$feature_product->product_name}}"></a>
+                                        @if($feature_product->regular_price!=null)
+                                            <span class="price-dec">{{ceil(($feature_product->sale_price-$feature_product->regular_price)/$feature_product->regular_price*100)}}%</span>
+                                        @endif
+
                                         <div class="product-action-4">
                                             <div class="product-action-4-style">
                                                 <a data-tooltip="Add To Cart" href="#"><i
@@ -108,6 +112,9 @@
                                                 <a href="{{route('single_product',['slug'=>$feature_product->slug,'id'=>$feature_product->id])}}"><img
                                                         src="{{asset('/').$feature_product->product_image}}"
                                                         alt="product"></a>
+                                                @if($feature_product->regular_price!=null)
+                                                    <span class="price-dec">{{ceil(($feature_product->sale_price-$feature_product->regular_price)/$feature_product->regular_price*100)}}%</span>
+                                                @endif
                                                 <div class="product-action-4">
                                                     <div class="product-action-4-style">
                                                         <a data-tooltip="Add To Cart" href="#"><i
@@ -218,6 +225,9 @@
                                         <a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}"><img
                                                 src="{{asset('/').$products->product_image}}"
                                                 alt="product {{$products->product_name}}"></a>
+                                        @if($products->regular_price!=null)
+                                            <span class="price-dec">{{ceil(($products->sale_price-$products->regular_price)/$products->regular_price*100)}}%</span>
+                                        @endif
                                         <div class="product-action-4">
                                             <div class="product-action-4-style">
                                                 <a data-tooltip="Add To Cart" href="#"><i
@@ -305,6 +315,9 @@
                                             <a href="{{route('single_product',['slug'=>$all_products[$i]->slug,'id'=>$all_products[$i]->id])}}"><img
                                                     src="{{asset('/').$all_products[$i]->product_image}}"
                                                     alt="product{{$all_products[$i]->product_name}}"></a>
+                                            @if($all_products[$i]->regular_price!=null)
+                                                <span class="price-dec">{{ceil(($all_products[$i]->sale_price-$all_products[$i]->regular_price)/$all_products[$i]->regular_price*100)}}%</span>
+                                            @endif
                                             <div class="product-action-4">
                                                 <div class="product-action-4-style">
                                                     <a data-tooltip="Add To Cart" href="#"><i

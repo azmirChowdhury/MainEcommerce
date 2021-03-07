@@ -64,6 +64,13 @@
 {{--                                    <input type="text" value="{{old('banner_name')}}" name="banner_name"--}}
 {{--                                           class="form-control">--}}
                                     <textarea id="editor" name="banner_name"> {{old('banner_name')}}</textarea>
+{{--                                    <script>--}}
+{{--                                        CKEDITOR.replace('editor', {--}}
+{{--                                            height: 250,--}}
+{{--                                            extraPlugins: 'colorbutton'--}}
+{{--                                        });--}}
+{{--                                    </script>--}}
+
                                 </div>
                                 <div class="form-group">
                                     <label>Banner image</label>
