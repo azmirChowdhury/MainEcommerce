@@ -1,6 +1,6 @@
 @extends('back_end.index')
 @section('title')
-    Dashboard | Home
+Dashboard | Home
 @endsection
 @section('body')
 

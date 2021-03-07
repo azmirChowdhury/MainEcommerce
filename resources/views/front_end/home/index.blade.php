@@ -1,6 +1,6 @@
 @extends('front_end.index')
 @section('front_title')
-    {{env('app_name')}} | Home
+{{env('app_name')}} | Home
 @endsection
 @section('home_body')
     {{--************************************** slider ********************************************    --}}
@@ -17,8 +17,8 @@
                                     <div class="ml-auto col-lg-7 col-md-10 col-sm-10 col-12">
                                         <div class="deal-content-4">
                                             <img src="{{asset('/').$slider_bottom_banner->banner_image}}"
-                                                 alt="{{$slider_bottom_banner->banner_name}}">
-                                            <h2>{{$slider_bottom_banner->banner_name}}</h2>
+                                                 alt="{!!$slider_bottom_banner->banner_name!!}">
+                                            <h2>{!!$slider_bottom_banner->banner_name!!}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@
                         <div class="row">
                             <div class="col-lg-10 col-md-10 col-sm-11">
                                 <div class="banner-content">
-                                    <h2>{{$featured_bottom_slider->banner_name}}</h2>
+                                    <h2>{!! $featured_bottom_slider->banner_name !!}</h2>
                                 </div>
                             </div>
                         </div>

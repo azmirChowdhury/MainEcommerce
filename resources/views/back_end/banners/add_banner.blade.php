@@ -61,9 +61,9 @@
 
                                 <div class="form-group">
                                     <label>Banner name</label>
-                                    <input type="text" value="{{old('banner_name')}}" name="banner_name"
-                                           class="form-control">
-
+{{--                                    <input type="text" value="{{old('banner_name')}}" name="banner_name"--}}
+{{--                                           class="form-control">--}}
+                                    <textarea id="editor" name="banner_name"> {{old('banner_name')}}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Banner image</label>

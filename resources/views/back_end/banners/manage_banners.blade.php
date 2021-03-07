@@ -92,7 +92,7 @@
                                     @foreach($banners as $banner)
                                         <tr>
                                             <td>{{$i++}}</td>
-                                            <td>{{$banner->banner_name}}</td>
+                                            <td>{!!$banner->banner_name!!}</td>
                                             <td width="292.5"><img src="{{asset('/').$banner->banner_image}}" width="292.5" height="83.5"></td>
                                             <td>{{$banner->status==1?"Published":"Unpublished"}}</td>
                                             <td width="90">

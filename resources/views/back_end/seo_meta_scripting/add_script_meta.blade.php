@@ -69,7 +69,7 @@
                                     <label>Tag position</label>
                                    <select class="form-control" name="position">
                                        <option value="1">Meta tag</option>
-                                       <option value="2">Head</option>
+                                       <option value="2">Head bottom</option>
                                        <option value="3">Body top</option>
                                        <option value="4">Body bottom</option>
                                    </select>

@@ -4,6 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    @foreach($SeoMetas as $script_meta)
+        @if($script_meta->position==1)
+            {!! $script_meta->tag !!}
+        @endif
+    @endforeach
     <title>@yield('front_title')</title>
     @if(request()->routeIs('single_product'))
     <meta name="description" content="@yield('product_description')"/>
@@ -35,9 +40,23 @@
     <script src="{{asset('/')}}front_end/assets/js/jquery.min.js"></script>
     @yield('mates')
 
+@foreach($SeoMetas as $script_head)
+    @if($script_head->position==2)
+{!! $script_head->tag !!}
+  @endif
+@endforeach
+
+
 </head>
 
 <body>
+
+@foreach($SeoMetas as $script_body_top)
+    @if($script_body_top->position==3)
+        {!! $script_body_top->tag !!}
+    @endif
+@endforeach
+
 <div class="main-wrapper">
 {{--    *********************************** Header ***************************--}}
     @include('front_end.includes.header')
@@ -96,6 +115,12 @@
 <script src="{{asset('/')}}front_end/assets/js/main.js"></script>
 
 @yield('bottom_scrtpt')
+
+@foreach($SeoMetas as $script_body_bottom)
+    @if($script_body_bottom->position==4)
+        {!! $script_body_bottom->tag !!}
+    @endif
+@endforeach
 </body>
 
 </html>

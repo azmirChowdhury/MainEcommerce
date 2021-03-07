@@ -69,7 +69,7 @@
                                     <label>Tag position</label>
                                     <select class="form-control" name="position">
                                         <option value="1" {{$tag->position==1?'selected':''}}>Meta tag</option>
-                                        <option value="2" {{$tag->position==2?'selected':''}}>Head</option>
+                                        <option value="2" {{$tag->position==2?'selected':''}}>Head bottom</option>
                                         <option value="3" {{$tag->position==3?'selected':''}}>Body top</option>
                                         <option value="4" {{$tag->position==4?'selected':''}}>Body bottom</option>
                                     </select>

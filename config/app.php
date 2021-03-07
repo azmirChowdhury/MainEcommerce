@@ -187,6 +187,7 @@ return [
         App\Providers\front_end\productShowProvider::class,
         App\Providers\front_end\BrandShowProvider::class,
         App\Providers\front_end\BannerShowProvider::class,
+        App\Providers\front_end\ScriptMetaProviderFront::class,
 
     ],
 

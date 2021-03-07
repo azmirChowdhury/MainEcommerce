@@ -61,9 +61,13 @@
 
                                 <div class="form-group">
                                     <label>Banner name</label>
-                                    <input type="text"
-                                           value="{{old('banner_name')?old('banner_name'):$banner->banner_name}}"
-                                           name="banner_name" class="form-control">
+{{--                                    <input type="text"--}}
+{{--                                           value="{{old('banner_name')?old('banner_name'):$banner->banner_name}}"--}}
+{{--                                           name="banner_name" class="form-control">--}}
+
+                                    <textarea id="editor" name="banner_name">{{old('banner_name')?old('banner_name'):$banner->banner_name}}</textarea>
+
+
                                     <input type="hidden" name="id" value="{{$banner->id}}">
                                     <input type="hidden" name="role_id" value="{{$banner->banner_role}}">
                                 </div>

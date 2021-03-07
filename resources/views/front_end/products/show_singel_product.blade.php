@@ -23,7 +23,7 @@
             <div class="breadcrumb-area bg-img" style="background-image:url({{asset('/').$banner_single->banner_image}});">
                 <div class="container">
                     <div class="breadcrumb-content text-center">
-                        <h2>{{$banner_single->banner_name}}</h2>
+                        <h2>{!! $banner_single->banner_name !!}</h2>
                         <ul>
                             <li>
                                 <a href="{{url('/')}}">Home</a>
