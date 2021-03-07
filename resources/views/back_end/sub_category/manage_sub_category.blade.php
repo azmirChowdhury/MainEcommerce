@@ -74,6 +74,7 @@
                                     <thead>
                                     <tr>
                                         <th>#Sr.</th>
+                                        <th>F.P</th>
                                         <th>Subcategory Name</th>
                                         <th>Parents category name</th>
                                         <th>Collum</th>
@@ -87,6 +88,11 @@
                                     @foreach($subcategories as $subcategory)
                                         <tr>
                                             <td>{{$i++}}</td>
+                                            <td><a href="add-feature-product" onclick="event.preventDefault();document.getElementById('afp{{$subcategory->id}}').submit()"><i class="mdi mdi-{{$subcategory->feature_product==1?'star'.' text-primary':'star-outline'}} font-24 "></i></a>
+                                                {{Form::open(['method'=>'post','id'=>'afp'.$subcategory->id,'route'=>'add_feature_product'])}}
+                                                <input type="hidden" name="afp_id" value="{{$subcategory->id}}">
+                                                {{Form::close()}}
+                                            </td>
                                             <td>{{$subcategory->category_name}}</td>
                                             <td>{{$subcategory->parents_category_name}}</td>
                                             <td>{{$subcategory->laval_name}}</td>

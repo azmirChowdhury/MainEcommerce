@@ -21,6 +21,7 @@ class CreateSubcategoryModelsTable extends Migration
             $table->bigInteger('count')->nullable();
             $table->text('slug');
             $table->tinyInteger('status');
+            $table->tinyInteger('feature_product')->default(0);
             $table->timestamps();
         });
     }

@@ -11,53 +11,24 @@ use DB;
 class FrontHomeController extends Controller
 {
 
-    public function index(){
-        $category_all_product=DB::table('subcategory_models')
+    public function index()
+    {
+        $category_all_product = DB::table('subcategory_models')
             ->orderBy('count', 'DESC')
             ->where('status', 1)
             ->get()
             ->take(4);
-        $product_all_section=$this->all_product_section($category_all_product);
-        return view('front_end.home.index',compact('product_all_section','category_all_product'));
+        $feature_category = $this->feature_product();
+        return view('front_end.home.index', compact('feature_category','category_all_product'));
     }
 
-    private function all_product_section($category)
+    private function feature_product()
     {
-
-        if (count($category) >= 1) {
-            $product_all_section['one'] = ProductModel::where('status', 1)
-                ->where('category_id', $category[0]->id)
-                ->orderBy('id', 'DESC')
-                ->get()
-                ->take(8);
-
-
-            if (count($category) >= 2) {
-                $product_all_section['tow'] = ProductModel::where('status', 1)
-                    ->where('category_id', $category[1]->id)
-                    ->orderBy('id', 'DESC')
-                    ->get()
-                    ->take(8);
-            }
-            if (count($category) >= 3) {
-                $product_all_section['three'] = ProductModel::where('status', 1)
-                    ->where('category_id', $category[2]->id)
-                    ->orderBy('id', 'DESC')
-                    ->get()
-                    ->take(8);
-            }
-            if (count($category) >= 4) {
-                $product_all_section['fore'] = ProductModel::where('status', 1)
-                    ->where('category_id', $category[3]->id)
-                    ->orderBy('id', 'DESC')
-                    ->get()
-                    ->take(8);
-            }
-
-            return $product_all_section;
-
-        }
-
+        $feature_category = SubcategoryModel::where('status', 1)
+            ->where('feature_product', 1)
+            ->orderBy('count', 'DESC')
+            ->get();
+        return $feature_category;
     }
 
 

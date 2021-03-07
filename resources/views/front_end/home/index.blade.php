@@ -29,154 +29,123 @@
             @endif
         @endforeach
     </div>
+    @if(count($feature_category)>=1)
+        <div class="product-area pb-40">
+            <div class="container">
+                <div class="section-title-tab-wrap">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-4 col-md-4 col-sm-4">
+                            <div class="section-title-5">
+                                <h2>Featured Product</h2>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-8 col-md-8 col-sm-8">
+                            <div class="product-tab-list-4 nav">
 
-    <div class="product-area pb-40">
-        <div class="container">
-            <div class="section-title-tab-wrap">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-4 col-md-4 col-sm-4">
-                        <div class="section-title-5">
-                            <h2>Featured Product</h2>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-8 col-md-8 col-sm-8">
-                        <div class="product-tab-list-4 nav">
-                            <a href="#product-5" data-toggle="tab">
-                                <h5>Computer </h5>
-                            </a>
-                            <a class="active" href="#product-" data-toggle="tab">
-                                <h5>Accessories</h5>
-                            </a>
-                            <a href="#product-" data-toggle="tab">
-                                <h5>Apple</h5>
-                            </a>
-                            <a href="#product-" data-toggle="tab">
-                                <h5>Dell </h5>
-                            </a>
-                            <a href="#product-" data-toggle="tab">
-                                <h5>Watch</h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-content jump">
+                                <a href="#all_feature_category" class="active" data-toggle="tab">
+                                    <h5>Featured products</h5>
+                                </a>
+
+                                @foreach($feature_category as $fpc)
+                                    <a href="#feature_category-{{$fpc->id}}" data-toggle="tab">
+                                        <h5>{{$fpc->category_name}}</h5>
+                                    </a>
+                                @endforeach
 
 
-                <div id="product-" class="tab-pane">
-                    <div class="product-slider-active owl-carousel">
-                        <div class="product-wrap product-border-3 product-img-zoom mb-30">
-                            <div class="product-img">
-                                <a href="product-details.html"><img
-                                        src="{{asset('/')}}front_end/assets/images/product/pro-hm5-7.jpg" alt="product"></a>
-                                <div class="product-action-4">
-                                    <div class="product-action-4-style">
-                                        <a data-tooltip="Add To Cart" href="#"><i class="la la-cart-plus"></i></a>
-                                        <a data-tooltip="Wishlist" href="#"><i class="la la-heart-o"></i></a>
-                                        <a data-tooltip="Compare" href="#"><i class="la la-random"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-content product-content-padding">
-                                <h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
-                                <div class="price-addtocart">
-                                    <div class="product-price">
-                                        <span>$210.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-wrap product-border-3 product-img-zoom mb-30">
-                            <div class="product-img">
-                                <a href="product-details.html"><img
-                                        src="{{asset('/')}}front_end/assets/images/product/pro-hm5-6.jpg" alt="product"></a>
-                                <div class="product-action-4">
-                                    <div class="product-action-4-style">
-                                        <a data-tooltip="Add To Cart" href="#"><i class="la la-cart-plus"></i></a>
-                                        <a data-tooltip="Wishlist" href="#"><i class="la la-heart-o"></i></a>
-                                        <a data-tooltip="Compare" href="#"><i class="la la-random"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-content product-content-padding">
-                                <h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
-                                <div class="price-addtocart">
-                                    <div class="product-price">
-                                        <span>$220.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-wrap product-border-3 product-img-zoom mb-30">
-                            <div class="product-img">
-                                <a href="product-details.html"><img
-                                        src="{{asset('/')}}front_end/assets/images/product/pro-hm5-5.jpg" alt="product"></a>
-                                <div class="product-action-4">
-                                    <div class="product-action-4-style">
-                                        <a data-tooltip="Add To Cart" href="#"><i class="la la-cart-plus"></i></a>
-                                        <a data-tooltip="Wishlist" href="#"><i class="la la-heart-o"></i></a>
-                                        <a data-tooltip="Compare" href="#"><i class="la la-random"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-content product-content-padding">
-                                <h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
-                                <div class="price-addtocart">
-                                    <div class="product-price">
-                                        <span>$210.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-wrap product-border-3 product-img-zoom mb-30">
-                            <div class="product-img">
-                                <a href="product-details.html"><img
-                                        src="{{asset('/')}}front_end/assets/images/product/pro-hm5-2.jpg" alt="product"></a>
-                                <div class="product-action-4">
-                                    <div class="product-action-4-style">
-                                        <a data-tooltip="Add To Cart" href="#"><i class="la la-cart-plus"></i></a>
-                                        <a data-tooltip="Wishlist" href="#"><i class="la la-heart-o"></i></a>
-                                        <a data-tooltip="Compare" href="#"><i class="la la-random"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-content product-content-padding">
-                                <h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
-                                <div class="price-addtocart">
-                                    <div class="product-price">
-                                        <span>$230.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-wrap product-border-3 product-img-zoom mb-30">
-                            <div class="product-img">
-                                <a href="product-details.html"><img
-                                        src="{{asset('/')}}front_end/assets/images/product/pro-hm5-1.jpg" alt="product"></a>
-                                <div class="product-action-4">
-                                    <div class="product-action-4-style">
-                                        <a data-tooltip="Add To Cart" href="#"><i class="la la-cart-plus"></i></a>
-                                        <a data-tooltip="Wishlist" href="#"><i class="la la-heart-o"></i></a>
-                                        <a data-tooltip="Compare" href="#"><i class="la la-random"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-content product-content-padding">
-                                <h4><a href="product-details.html">Golden Easy Spot Chair.</a></h4>
-                                <div class="price-addtocart">
-                                    <div class="product-price">
-                                        <span>$240.00</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="tab-content jump">
+
+                    <div id="all_feature_category" class="tab-pane active">
+
+                        <div class="product-slider-active owl-carousel">
+                            @foreach($all_products as $feature_product)
+                                <div class="product-wrap product-border-3 product-img-zoom mb-30">
+                                    <div class="product-img">
+                                        <a href="{{route('single_product',['slug'=>$feature_product->slug,'id'=>$feature_product->id])}}"><img
+                                                src="{{asset('/').$feature_product->product_image}}"
+                                                alt="product{{$feature_product->product_name}}"></a>
+                                        <div class="product-action-4">
+                                            <div class="product-action-4-style">
+                                                <a data-tooltip="Add To Cart" href="#"><i
+                                                        class="la la-cart-plus"></i></a>
+                                                <a data-tooltip="Wishlist" href="#"><i class="la la-heart-o"></i></a>
+                                                <a data-tooltip="Compare" href="#"><i class="la la-random"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content product-content-padding">
+                                        <h4>
+                                            <a href="{{route('single_product',['slug'=>$feature_product->slug,'id'=>$feature_product->id])}}">{{$feature_product->product_name}}</a>
+                                        </h4>
+                                        <div class="price-addtocart">
+                                            <div class="product-price">
+                                                <span>&#2547 {{$feature_product->sale_price}}</span>
+                                                @if($feature_product->regular_price!=null)
+                                                    <span class="old">&#2547 {{$feature_product->regular_price}}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                    </div>
+
+                    @foreach($feature_category as $fpc)
+                        <div id="feature_category-{{$fpc->id}}" class="tab-pane">
+
+                            <div class="product-slider-active owl-carousel">
+                                @foreach($all_products as $feature_product)
+                                    @if($fpc->id==$feature_product->category_id)
+
+                                        <div class="product-wrap product-border-3 product-img-zoom mb-30">
+                                            <div class="product-img">
+                                                <a href="{{route('single_product',['slug'=>$feature_product->slug,'id'=>$feature_product->id])}}"><img
+                                                        src="{{asset('/').$feature_product->product_image}}"
+                                                        alt="product"></a>
+                                                <div class="product-action-4">
+                                                    <div class="product-action-4-style">
+                                                        <a data-tooltip="Add To Cart" href="#"><i
+                                                                class="la la-cart-plus"></i></a>
+                                                        <a data-tooltip="Wishlist" href="#"><i
+                                                                class="la la-heart-o"></i></a>
+                                                        <a data-tooltip="Compare" href="#"><i class="la la-random"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-content product-content-padding">
+                                                <h4>
+                                                    <a href="{{route('single_product',['slug'=>$feature_product->slug,'id'=>$feature_product->id])}}">{{$feature_product->product_name}}</a>
+                                                </h4>
+                                                <div class="price-addtocart">
+                                                    <div class="product-price">
+                                                        <span>&#2547 {{$feature_product->sale_price}}</span>
+                                                        @if($feature_product->regular_price!=null)
+                                                            <span
+                                                                class="old">&#2547 {{$feature_product->regular_price}}</span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    @endif
+                                @endforeach
+                            </div>
+
+                        </div>
+                    @endforeach
 
 
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 
     <div class="banner-area pt-30 pb-100">
         @foreach($BannersShow as $featured_bottom_slider)
@@ -216,7 +185,7 @@
                             @php($i=1)
                             @foreach($category_all_product as $category_all)
 
-                                <a href="#category_product-{{$i++}}" data-toggle="tab">
+                                <a href="#category_product-{{$category_all->id}}" data-toggle="tab">
                                     <h5>{{$category_all->category_name}}</h5>
                                 </a>
                                 {{--                              @endfor--}}
@@ -229,179 +198,68 @@
             </div>
 
             <div class="tab-content jump">
-                @if(isset($product_all_section['one']))
-                    <div id="category_product-1" class="tab-pane">
+                <?php
+                use App\Models\ProductModel;
+                ?>
+                @foreach($category_all_product as $pCategory)
+                    <div id="category_product-{{$pCategory->id}}" class="tab-pane">
                         <div class="row">
-                            @foreach($product_all_section['one'] as $products)
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                                    <div class="product-wrap product-border-3 product-img-zoom mb-30">
-                                        <div class="product-img">
-                                            <a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}"><img
-                                                    src="{{asset('/').$products->product_image}}"
-                                                    alt="product {{$products->product_name}}"></a>
-                                            <div class="product-action-4">
-                                                <div class="product-action-4-style">
-                                                    <a data-tooltip="Add To Cart" href="#"><i
-                                                            class="la la-cart-plus"></i></a>
-                                                    <a data-tooltip="Wishlist" href="#"><i
-                                                            class="la la-heart-o"></i></a>
-                                                    <a data-tooltip="Compare" href="#"><i class="la la-random"></i></a>
-                                                </div>
+                            <?php
+                            $produduct_cateogry_all = ProductModel::where('status', 1)
+                                ->where('category_id', $pCategory->id)
+                                ->orderBy('id', 'DESC')
+                                ->limit(8)
+                                ->get();
+                            foreach ($produduct_cateogry_all as $products){
+                            ?>
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                                <div class="product-wrap product-border-3 product-img-zoom mb-30">
+                                    <div class="product-img">
+                                        <a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}"><img
+                                                src="{{asset('/').$products->product_image}}"
+                                                alt="product {{$products->product_name}}"></a>
+                                        <div class="product-action-4">
+                                            <div class="product-action-4-style">
+                                                <a data-tooltip="Add To Cart" href="#"><i
+                                                        class="la la-cart-plus"></i></a>
+                                                <a data-tooltip="Wishlist" href="#"><i
+                                                        class="la la-heart-o"></i></a>
+                                                <a data-tooltip="Compare" href="#"><i class="la la-random"></i></a>
                                             </div>
                                         </div>
-                                        <div class="product-content product-content-padding">
-                                            <h4>
-                                                <a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}">{{$products->product_name}}</a>
-                                            </h4>
-                                            <div class="price-addtocart">
-                                                <div class="product-price">
-                                                    <span>&#2547 {{$products->sale_price}}</span>
-                                                    @if($products->regular_price!=null)
-                                                        <span class="old">&#2547 {{$products->regular_price}}</span>
-                                                    @endif
-                                                </div>
+                                    </div>
+                                    <div class="product-content product-content-padding">
+                                        <h4>
+                                            <a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}">{{$products->product_name}}</a>
+                                        </h4>
+                                        <div class="price-addtocart">
+                                            <div class="product-price">
+                                                <span>&#2547 {{$products->sale_price}}</span>
+                                                @if($products->regular_price!=null)
+                                                    <span class="old">&#2547 {{$products->regular_price}}</span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            </div>
+
+                            <?php } ?>
+
                         </div>
+                        @if(count($produduct_cateogry_all)>=8)
+                            <div class="section-title-6 mb-50 text-center">
+                                <a href="{{route('category_show_product',['slug'=>$pCategory->slug,'id'=>$pCategory->id,'paginate'=>30])}}"
+                                   class="btn btn"
+                                   style="color:#FFFFFF;background-color:#ff5151">All product</a>
+                            </div>
+                        @endif
                         <div>
-
                         </div>
-
                     </div>
-                @endif
-                @if(isset($product_all_section['tow'])==true)
-                    <div id="category_product-2" class="tab-pane">
-                        <div class="row">
-                            @foreach($product_all_section['tow'] as $products)
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                                    <div class="product-wrap product-border-3 product-img-zoom mb-30">
-                                        <div class="product-img">
-                                            <a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}"><img
-                                                    src="{{asset('/').$products->product_image}}" alt="product"></a>
-                                            <div class="product-action-4">
-                                                <div class="product-action-4-style">
-                                                    <a data-tooltip="Add To Cart" href="#"><i
-                                                            class="la la-cart-plus"></i></a>
-                                                    <a data-tooltip="Wishlist" href="#"><i
-                                                            class="la la-heart-o"></i></a>
-                                                    <a data-tooltip="Compare" href="#"><i class="la la-random"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-content product-content-padding">
-                                            <h4>
-                                                <a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}">{{$products->product_name}}</a>
-                                            </h4>
-                                            <div class="price-addtocart">
-                                                <div class="product-price">
-                                                    <span>&#2547 {{$products->sale_price}}</span>
-                                                    @if($products->regular_price!=null)
-                                                        <span class="old">&#2547 {{$products->regular_price}}</span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                        <div>
+                    {{--                @endif--}}
 
-                        </div>
-
-                    </div>
-                @endif
-
-                @if(isset($product_all_section['three'])==true)
-                    <div id="category_product-3" class="tab-pane">
-                        <div class="row">
-                            @foreach($product_all_section['three'] as $products)
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                                    <div class="product-wrap product-border-3 product-img-zoom mb-30">
-                                        <div class="product-img">
-                                            <a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}"><img
-                                                    src="{{asset('/').$products->product_image}}" alt="product"></a>
-                                            <div class="product-action-4">
-                                                <div class="product-action-4-style">
-                                                    <a data-tooltip="Add To Cart" href="#"><i
-                                                            class="la la-cart-plus"></i></a>
-                                                    <a data-tooltip="Wishlist" href="#"><i
-                                                            class="la la-heart-o"></i></a>
-                                                    <a data-tooltip="Compare" href="#"><i class="la la-random"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-content product-content-padding">
-                                            <h4>
-                                                <a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}">{{$products->product_name}}</a>
-                                            </h4>
-                                            <div class="price-addtocart">
-                                                <div class="product-price">
-                                                    <span>&#2547 {{$products->sale_price}}</span>
-                                                    @if($products->regular_price!=null)
-                                                        <span class="old">&#2547 {{$products->regular_price}}</span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                        <div>
-
-                        </div>
-
-                    </div>
-                @endif
-
-                @if(isset($product_all_section['fore'])==true)
-                    <div id="category_product-4" class="tab-pane">
-                        <div class="row">
-                            @foreach($product_all_section['fore'] as $products)
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                                    <div class="product-wrap product-border-3 product-img-zoom mb-30">
-                                        <div class="product-img">
-                                            <a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}"><img
-                                                    src="{{asset('/').$products->product_image}}" alt="product"></a>
-                                            <div class="product-action-4">
-                                                <div class="product-action-4-style">
-                                                    <a data-tooltip="Add To Cart" href="#"><i
-                                                            class="la la-cart-plus"></i></a>
-                                                    <a data-tooltip="Wishlist" href="#"><i
-                                                            class="la la-heart-o"></i></a>
-                                                    <a data-tooltip="Compare" href="#"><i class="la la-random"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-content product-content-padding">
-                                            <h4>
-                                                <a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}">{{$products->product_name}}</a>
-                                            </h4>
-                                            <div class="price-addtocart">
-                                                <div class="product-price">
-                                                    <span>&#2547 {{$products->sale_price}}</span>
-                                                    @if($products->regular_price!=null)
-                                                        <span class="old">&#2547 {{$products->regular_price}}</span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                        <div>
-
-                        </div>
-
-                    </div>
-                @endif
-
-
+                @endforeach
                 <div id="product-6" class="tab-pane">
                     <div class="row">
 

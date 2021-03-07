@@ -90,6 +90,7 @@ route::middleware(['DashboardAuth', 'AdminStatusValidation'])->group(function ()
         route::get('/dashboard/category/subcategory/edit/{id}category', [SubCategoryController::class, 'edit_subcategory'])->name('edit_subcategory');
         route::post('/dashboard/category/subcategory/edit/category/save', [SubCategoryController::class, 'edit_sub_category_save'])->name('edit_sub_category_save');
         route::get('/dashboard/category/subcategory/delete/{id}delete', [SubCategoryController::class, 'delete_subcategory'])->name('delete_subcategory');
+        route::post('/dashboard/category/subcategory/add/feature-product', [SubCategoryController::class, 'add_feature_product'])->name('add_feature_product');
     });
 
 

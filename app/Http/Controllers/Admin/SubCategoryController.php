@@ -155,5 +155,16 @@ class SubCategoryController extends Controller
         }
 
     }
+    public function add_feature_product(request $request){
+        $this->validate($request,[
+            'afp_id'=>'required|integer'
+        ]);
+        $category=SubcategoryModel::find($request->afp_id);
+        if ($category!=null){
+            $category->feature_product=$category->feature_product==0?1:0;
+            $category->update();
+        }
+        return redirect()->route('manage_subcategory');
+    }
 
 }
