@@ -110,8 +110,18 @@
                                         <div class="product-wrap mb-35">
                                             <div class="product-img mb-15">
                                                 <a href="{{route('single_product',['slug'=>$product->slug,'id'=>$product->id])}}"><img src="{{asset('/').$product->product_image}}" alt="{{$product->product_name.'image '.env('app_name')}}"></a>
-                                                @if($product->regular_price!=null)
-                                                    <span class="price-dec">{{ceil(($product->sale_price-$product->regular_price)/$product->regular_price*100)}}%</span>
+                                                @php
+                                                    $d=$product->created_at->addDay(3);
+                                                @endphp
+                                                @if(date('d')<=$d->day&&$d->month==date('m')&&$d->year==date('Y'))
+                                                    <span class="price-dec font-dec bg-success">NEW</span>
+                                                @endif
+                                                @if($product->product_quantity>0)
+                                                    @if($product->regular_price!=null)
+                                                        <span class="price-dec">{{ceil(($product->sale_price-$product->regular_price)/$product->regular_price*100)}}%</span>
+                                                    @endif
+                                                @else
+                                                    <span class="new-stock"><span>Stock <br>Out</span></span>
                                                 @endif
                                                 <div class="product-action">
                                                     <a data-toggle="modal" data-target="#product{{$product->id.$shop_category->id}}" title="Quick View" href="#"><i class="la la-plus"></i></a>

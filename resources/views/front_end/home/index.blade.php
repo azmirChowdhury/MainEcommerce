@@ -71,7 +71,12 @@
                                         @if($feature_product->regular_price!=null)
                                             <span class="price-dec">{{ceil(($feature_product->sale_price-$feature_product->regular_price)/$feature_product->regular_price*100)}}%</span>
                                         @endif
-
+                                        @php
+                                            $d=$feature_product->created_at->addDay(3);
+                                        @endphp
+                                        @if(date('d')<=$d->day&&$d->month==date('m')&&$d->year==date('Y'))
+                                            <span class="price-dec font-dec bg-success">NEW</span>
+                                        @endif
                                         <div class="product-action-4">
                                             <div class="product-action-4-style">
                                                 <a data-tooltip="Add To Cart" href="#"><i
@@ -114,6 +119,12 @@
                                                         alt="product"></a>
                                                 @if($feature_product->regular_price!=null)
                                                     <span class="price-dec">{{ceil(($feature_product->sale_price-$feature_product->regular_price)/$feature_product->regular_price*100)}}%</span>
+                                                @endif
+                                                @php
+                                                    $d=$feature_product->created_at->addDay(3);
+                                                @endphp
+                                                @if(date('d')<=$d->day&&$d->month==date('m')&&$d->year==date('Y'))
+                                                    <span class="price-dec font-dec bg-success">NEW</span>
                                                 @endif
                                                 <div class="product-action-4">
                                                     <div class="product-action-4-style">
@@ -218,6 +229,7 @@
                                 ->limit(8)
                                 ->get();
                             foreach ($produduct_cateogry_all as $products){
+                            $d=$products->created_at->addDay(3);
                             ?>
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
                                 <div class="product-wrap product-border-3 product-img-zoom mb-30">
@@ -225,6 +237,11 @@
                                         <a href="{{route('single_product',['slug'=>$products->slug,'id'=>$products->id])}}"><img
                                                 src="{{asset('/').$products->product_image}}"
                                                 alt="product {{$products->product_name}}"></a>
+
+                                        @if(date('d')<=$d->day&&$d->month==date('m')&&$d->year==date('Y'))
+                                            <span class="price-dec font-dec bg-success">NEW</span>
+                                        @endif
+
                                         @if($products->regular_price!=null)
                                             <span class="price-dec">{{ceil(($products->sale_price-$products->regular_price)/$products->regular_price*100)}}%</span>
                                         @endif

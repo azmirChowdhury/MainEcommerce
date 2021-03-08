@@ -64,6 +64,7 @@ class FrontProductController extends Controller
             ->where('slug', $slug)
             ->first();
         $products = ProductModel::where('category_id', $id)
+            ->where('status',1)
             ->orderBy('id', 'desc')
             ->paginate($paginate);
         if ($categories != null) {
@@ -146,7 +147,10 @@ class FrontProductController extends Controller
 
     public function show_all_product()
     {
-        return view('front_end.products.show_all_product');
+        $all_products_shop= ProductModel::where('status',1)
+            ->orderBy('id', 'desc')
+            ->paginate(50);
+        return view('front_end.products.show_all_product',compact('all_products_shop'));
     }
 
 }
