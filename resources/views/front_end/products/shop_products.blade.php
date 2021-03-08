@@ -110,11 +110,13 @@
                                         <div class="product-wrap mb-35">
                                             <div class="product-img mb-15">
                                                 <a href="{{route('single_product',['slug'=>$product->slug,'id'=>$product->id])}}"><img src="{{asset('/').$product->product_image}}" alt="{{$product->product_name.'image '.env('app_name')}}"></a>
+                                                    @if(gettype($product->created_at)=='object')
                                                 @php
-                                                    $d=$product->created_at->addDay(3);
+                                                    $d=$product->created_at;
                                                 @endphp
                                                 @if(date('d')<=$d->day&&$d->month==date('m')&&$d->year==date('Y'))
                                                     <span class="price-dec font-dec bg-success">NEW</span>
+                                                @endif
                                                 @endif
                                                 @if($product->product_quantity>0)
                                                     @if($product->regular_price!=null)

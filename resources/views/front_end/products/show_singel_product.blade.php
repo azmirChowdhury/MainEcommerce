@@ -284,9 +284,26 @@
                 <div class="product-wrap">
                     <div class="product-img mb-15">
                         <a href="{{route('single_product',['slug'=>$all_products[$i]->slug,'id'=>$all_products[$i]->id])}}"><img src="{{asset('/').$all_products[$i]->product_image}}" alt="{{$all_products[$i]->product_name}} image"></a>
-                        @if($all_products[$i]->regular_price!=null)
-                        <span class="price-dec">{{ceil(($all_products[$i]->sale_price-$all_products[$i]->regular_price)/$all_products[$i]->regular_price*100)}}%</span>
+
+{{--                        @if($all_products[$i]->regular_price!=null)--}}
+{{--                        <span class="price-dec">{{ceil(($all_products[$i]->sale_price-$all_products[$i]->regular_price)/$all_products[$i]->regular_price*100)}}%</span>--}}
+{{--                        @endif--}}
+
+                        @php
+                            $d=$all_products[$i]->created_at->addDay(3);
+                        @endphp
+                        @if(date('d')<=$d->day&&$d->month==date('m')&&$d->year==date('Y'))
+                            <span class="price-dec font-dec bg-success">NEW</span>
                         @endif
+                        @if($all_products[$i]->product_quantity>0)
+                            @if($all_products[$i]->regular_price!=null)
+                                <span class="price-dec">{{ceil(($all_products[$i]->sale_price-$all_products[$i]->regular_price)/$all_products[$i]->regular_price*100)}}%</span>
+                            @endif
+                        @else
+                            <span class="new-stock"><span>Stock <br>Out</span></span>
+                        @endif
+
+
                         <div class="product-action">
                             <a data-toggle="modal" data-target="#relatedproduct_{{$all_products[$i]->id}}" title="Quick View" href="#"><i class="la la-plus"></i></a>
                             <a title="Wishlist" href="#"><i class="la la-heart-o"></i></a>

@@ -64,7 +64,7 @@ class FrontProductController extends Controller
             ->where('slug', $slug)
             ->first();
         $products = ProductModel::where('category_id', $id)
-            ->where('status',1)
+            ->where('status', 1)
             ->orderBy('id', 'desc')
             ->paginate($paginate);
         if ($categories != null) {
@@ -100,15 +100,19 @@ class FrontProductController extends Controller
         $category = SubcategoryModel::where('status', 1)
             ->where('id', $request->category_id)
             ->first();
-        if ($category !=null) {
+        if ($category != null) {
 
 
             $production = DB::table('product_models')->where('sale_price', '>=', $min)
                 ->where('sale_price', '<=', $max)
                 ->where('category_id', $category->id)
                 ->paginate($request->paginate_v);
+            if ($production != null) {
 
-            return view('front_end.products.shop_products', ['shop_category' => $category, 'products_shop' => $production, 'max_p' => $max, 'min_p' => $min]);
+                return view('front_end.products.shop_products', ['shop_category' => $category, 'products_shop' => $production, 'max_p' => $max, 'min_p' => $min]);
+            } else {
+                return redirect('/');
+            }
         } else {
             return redirect('/');
         }
@@ -132,12 +136,12 @@ class FrontProductController extends Controller
     public function search_shop(request $request, $paginate)
     {
         $category = SubcategoryModel::where('status', 1)->where('id', $request->cat_id)->first();
-        if ($category !=null) {
-        $product = ProductModel::where('status', 1)
-            ->where('product_name', 'LIKE', '%' . $request->search_shop . '%')
-            ->where('category_id', $category->id)
-            ->orderBy('id', 'desc')
-            ->paginate($paginate);
+        if ($category != null) {
+            $product = ProductModel::where('status', 1)
+                ->where('product_name', 'LIKE', '%' . $request->search_shop . '%')
+                ->where('category_id', $category->id)
+                ->orderBy('id', 'desc')
+                ->paginate($paginate);
 
             return view('front_end.products.shop_products', ['shop_category' => $category, 'products_shop' => $product, 'search_data' => $request->search_shop]);
         } else {
@@ -147,10 +151,10 @@ class FrontProductController extends Controller
 
     public function show_all_product()
     {
-        $all_products_shop= ProductModel::where('status',1)
+        $all_products_shop = ProductModel::where('status', 1)
             ->orderBy('id', 'desc')
             ->paginate(50);
-        return view('front_end.products.show_all_product',compact('all_products_shop'));
+        return view('front_end.products.show_all_product', compact('all_products_shop'));
     }
 
 }
