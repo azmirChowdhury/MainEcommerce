@@ -5,12 +5,15 @@
                 <div class="col-lg-3 col-md-8 col-12 col-sm-12">
                     <div class="footer-widget mb-30">
                         @if(!empty($appearance_image->id))
-                        <a href="#">
-                            <img  width="80" src="{{asset('/').$appearance_image->logo}}" alt="{{env('app_name')}}logo">
-                        </a>
+                            <a href="#">
+                                <img width="80" src="{{asset('/').$appearance_image->logo}}"
+                                     alt="{{env('app_name')}}logo">
+                            </a>
                         @endif
                         <div class="footer-about">
-                            <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms. </p>
+                            @foreach($notesFooter as $description)
+                                {!! $description->description !!}
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -21,10 +24,11 @@
                         </div>
                         <div class="footer-list-3">
                             <ul>
-                                <li><a href="about-us.html">About US</a></li>
-                                <li><a href="blog.html">Blogs</a></li>
-                                <li><a href="#">Careers</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                                @foreach($PagesFooter as $companyLink)
+                                    @if($companyLink->collum_id==1)
+                                        <li><a href="{{route('view_page_details',['name'=>$companyLink->page_name,'id'=>$companyLink->id])}}">{{$companyLink->page_name}}</a></li>
+                                    @endif
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -36,10 +40,13 @@
                         </div>
                         <div class="footer-list-3">
                             <ul>
-                                <li><a href="#">Pricing</a></li>
-                                <li><a href="#">Features</a></li>
-                                <li><a href="#">Customers</a></li>
-                                <li><a href="#">Demos</a></li>
+
+                                @foreach($PagesFooter as $companyLink)
+                                    @if($companyLink->collum_id==2)
+                                        <li><a href="{{route('view_page_details',['name'=>$companyLink->page_name,'id'=>$companyLink->id])}}">{{$companyLink->page_name}}</a></li>
+                                    @endif
+                                @endforeach
+
                             </ul>
                         </div>
                     </div>
@@ -51,10 +58,13 @@
                         </div>
                         <div class="footer-list-3">
                             <ul>
-                                <li><a href="#">Introduction</a></li>
-                                <li><a href="#">Feedback</a></li>
-                                <li><a href="#">Referrals</a></li>
-                                <li><a href="#">Network Status</a></li>
+
+                                @foreach($PagesFooter as $companyLink)
+                                    @if($companyLink->collum_id==3)
+                                        <li><a href="{{route('view_page_details',['name'=>$companyLink->page_name,'id'=>$companyLink->id])}}">{{$companyLink->page_name}}</a></li>
+                                    @endif
+                                @endforeach
+
                             </ul>
                         </div>
                     </div>
@@ -66,10 +76,15 @@
                         </div>
                         <div class="footer-list-3">
                             <ul>
-                                <li><a href="#">Facebook</a></li>
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="#">Linkedin</a></li>
-                                <li><a href="#">Google +</a></li>
+                                @foreach($SocialLink as $socialLink)
+                                    <li><a href="{{$socialLink->url}}"
+                                           target="_blank">{{$socialLink->platform_name}}</a></li>
+                                @endforeach
+                                @foreach($PagesFooter as $companyLink)
+                                    @if($companyLink->collum_id==4)
+                                        <li><a href="{{route('view_page_details',['name'=>$companyLink->page_name,'id'=>$companyLink->id])}}">{{$companyLink->page_name}}</a></li>
+                                    @endif
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -78,39 +93,22 @@
         </div>
         <div class="footer-bottom pt-40 border-top-1">
             <div class="row">
-                <div class="col-xl-7 col-lg-10 col-md-11 ml-auto mr-auto">
-                    <div class="footer-tag-wrap">
-                        <div class="footer-tag-title">
-                            <span>Tags :</span>
-                        </div>
-                        <div class="footer-tag-list">
-                            <ul>
-                                <li><a href="#">Minimal eCommerce</a></li>
-                                <li><a href="#">Marketing</a></li>
-                                <li><a href="#">User Exprience</a></li>
-                                <li><a href="#">Ali Express</a></li>
-                                <li><a href="#">Web </a></li>
-                                <li><a href="#">Digital Expo</a></li>
-                                <li><a href="#">Web Search</a></li>
-                                <li><a href="#">Affiliate </a></li>
-                                <li><a href="#">UCWeb </a></li>
-                                <li><a href="#">Support </a></li>
-                                <li><a href="#">Theme</a></li>
-                                <li><a href="#">Best Queality </a></li>
-                                <li><a href="#">Mobile </a></li>
-                                <li><a href="#">24 Support</a></li>
-                                <li><a href="#">Ali Express</a></li>
-                                <li><a href="#">Web</a></li>
-                                <li><a href="#"> Laptop</a></li>
-                                <li><a href="#">Web Search</a></li>
-                                <li><a href="#">Affiliate </a></li>
-                                <li><a href="#">Photoshop </a></li>
-                                <li><a href="#">Support </a></li>
-                                <li><a href="#">Theme.</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+{{--                <div class="col-xl-7 col-lg-10 col-md-11 ml-auto mr-auto">--}}
+{{--                    <div class="footer-tag-wrap">--}}
+{{--                        <div class="footer-tag-title">--}}
+{{--                            <span>Tags :</span>--}}
+{{--                        </div>--}}
+{{--                        <div class="footer-tag-list">--}}
+{{--                            <ul>--}}
+{{--                                <li><a href="#">Minimal eCommerce</a></li>--}}
+{{--                                <li><a href="#">Marketing</a></li>--}}
+{{--                                <li><a href="#">User Exprience</a></li>--}}
+{{--                                <li><a href="#">Ali Express</a></li>--}}
+{{--                                <li><a href="#">Web </a></li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
             <div class="copyright-3 text-center pt-20 pb-20 border-top-1">
                 <p>Copyright © <a href="#">{{env('app_name')}}</a>. All Right Reserved</p>

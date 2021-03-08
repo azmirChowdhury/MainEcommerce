@@ -117,11 +117,9 @@
             </div>
         </div>
         <div class="mobile-social-wrap">
-            <a class="facebook" href="#"><i class="ti-facebook"></i></a>
-            <a class="twitter" href="#"><i class="ti-twitter-alt"></i></a>
-            <a class="pinterest" href="#"><i class="ti-pinterest"></i></a>
-            <a class="instagram" href="#"><i class="ti-instagram"></i></a>
-            <a class="google" href="#"><i class="ti-google"></i></a>
+            @foreach($SocialLink as $mobileLink)
+             <a class="{{$mobileLink->platform_name}}" href="{{$mobileLink->url}}" title="{{$mobileLink->platform_name}}" target="_blank"><i class="{{$mobileLink->icon_class}}"></i></a>
+            @endforeach
         </div>
     </div>
 </div>

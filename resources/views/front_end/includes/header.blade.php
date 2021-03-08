@@ -158,7 +158,7 @@
                                 <nav>
                                     <ul>
                                         @foreach($parents_menu as $menu)
-                                        <li class="cr-dropdown border-bottom-1 pb-2"><a class="font-weight-bold" href="#">{{$menu->parents_category_name}}<span class="la la-angle-right"></span></a>
+                                        <li class="cr-dropdown  pb-2"><a class="font-weight-bold" href="#">{{$menu->parents_category_name}}<span class="la la-angle-right"></span></a>
                                             <div class="category-menu-dropdown ct-menu-res-height-1">
                                                 @foreach($blocks as $block)
                                                     @if($block->parents_category_id==$menu->id)

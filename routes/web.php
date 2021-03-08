@@ -328,6 +328,8 @@ route::get('show-all-product', [FrontProductController::class, 'show_all_product
 route::get(env('app_name') .'-contacts-us', [ContactsController::class, 'index'])->name('contactus');
 route::post('contact-massage-send', [ContactsController::class, 'send_massage'])->name('contact_massage_send');
 
+//********************************* Pages Details view *******************************************
+route::get(env('app_name').'{name}details-pages{id}',[FrontHomeController::class,'view_page_details'])->name('view_page_details');
 
 
 //********************************* Customer login or register *******************************************

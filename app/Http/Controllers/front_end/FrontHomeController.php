@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\front_end;
 
 use App\Http\Controllers\Controller;
+use App\Models\PagesModel;
 use App\Models\ProductModel;
 use App\Models\SubcategoryModel;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class FrontHomeController extends Controller
             ->get()
             ->take(4);
         $feature_category = $this->feature_product();
-        return view('front_end.home.index', compact('feature_category','category_all_product'));
+        return view('front_end.home.index', compact('feature_category', 'category_all_product'));
     }
 
     private function feature_product()
@@ -31,5 +32,16 @@ class FrontHomeController extends Controller
         return $feature_category;
     }
 
+    public function view_page_details($name, $id)
+    {
+      $page_details=PagesModel::where('status',1)
+          ->where('id',$id)
+          ->first();
+      if ($page_details!=null){
+          return view('front_end.pages.page_details_view',compact('page_details'));
+      }else{
+          return redirect('/');
+      }
+    }
 
 }

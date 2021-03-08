@@ -63,7 +63,7 @@
                                             <li class="nav-item">
                                                 <a class="nav-link {{request()->routeIs('purchase_settings')? 'active' : ''}}" data-toggle="tab" href="#shipping"
                                                    role="tab">Shipping</a>
-                                            </li>l
+                                            </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" data-toggle="tab" href="#tax" role="tab">Tax</a>
                                             </li>
