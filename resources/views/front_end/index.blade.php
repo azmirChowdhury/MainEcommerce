@@ -126,16 +126,8 @@
 
 <script type="text/javascript">
     $(document).ready(function (){
-        // $box=$('#search');
-       // $('#search').on('click',function (){
-       //
-       //
-       //
-       // })
     $("#search").on('keyup',function (){
-
         $.ajax({
-
             url:'{{$mainUrl}}/search-all-product-suggest',
             type:"GET",
             data:'search_val='+$('#search').val(),
@@ -145,16 +137,11 @@
                     source: function( request, response ) {
                         var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
                         response( $.grep( tags, function( item ){
-                            return matcher.test( item );
-                        }) );
+                            return matcher.test( item );}) );
                     }
                 });
-
             }
-
         })
-
-
     })
 
     })
