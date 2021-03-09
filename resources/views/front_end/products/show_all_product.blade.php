@@ -49,8 +49,7 @@
                             <div class="product-show shorting-style">
                                 <label>Sort by:</label>
                                 <select>
-                                    <option value="">Default</option>
-
+                                    <option value="#">Default</option>
                                 </select>
                             </div>
                         </div>
@@ -68,12 +67,16 @@
                                                     <a href="{{route('single_product',['slug'=>$product->slug,'id'=>$product->id])}}"><img
                                                             src="{{asset('/').$product->product_image}}"
                                                             alt="product"></a>
-                                                    @php
-                                                        $d=$product->created_at->addDay(3);
-                                                    @endphp
-                                                    @if(date('d')<=$d->day&&$d->month==date('m')&&$d->year==date('Y'))
-                                                        <span class="price-dec font-dec bg-success">NEW</span>
+
+                                                    @if(gettype($product->created_at)=='object')
+                                                        @php
+                                                            $d=$product->created_at->addDay(3);
+                                                        @endphp
+                                                        @if(date('d')<=$d->day&&$d->month==date('m')&&$d->year==date('Y'))
+                                                            <span class="price-dec font-dec bg-success">NEW</span>
+                                                        @endif
                                                     @endif
+
                                                     @if($product->product_quantity>0)
                                                     @if($product->regular_price!=null)
                                                         <span class="price-dec">{{ceil(($product->sale_price-$product->regular_price)/$product->regular_price*100)}}%</span>

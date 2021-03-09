@@ -56,14 +56,14 @@
                                 </div>
                             </div>
                             <div class="search-style-4">
-                                <form>
+                                {{Form::open(['method'=>'post','route'=>'search_products'])}}
                                     <div class="form-search-4">
-                                        <input id="search" class="input-text" value="" placeholder="Search Hear" type="search">
+                                        <input id="search" value="{{isset($search_val)?$search_val:''}}" name="search" class="input-text" placeholder="Search Hear" type="search">
                                         <button>
                                             <i class="la la-search"></i>
                                         </button>
                                     </div>
-                                </form>
+                               {{Form::close()}}
                             </div>
                         </div>
                     </div>

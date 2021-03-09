@@ -20,12 +20,17 @@ class FrontProductController extends Controller
             ->where('status', 1)->first();
         if ($product != null) {
 
+            $related_products=ProductModel::where('status',1)
+                ->where('category_id',$product->category_id)
+                ->where('id','!=',$product->id)
+                ->limit(10)
+                ->get();
             $data['images'] = $this->Images($product->id);
             $data['colors'] = $this->Color($product->id);
             $data['sizes'] = $this->Size($product->id);
             $data['category'] = SubcategoryModel::where('id', $product->category_id)->first();
 
-            return view('front_end.products.show_singel_product', ['product' => $product, 'other_info' => $data]);
+            return view('front_end.products.show_singel_product', ['product' => $product, 'other_info' => $data,'related_products'=>$related_products]);
         } else {
             return redirect('/');
         }
@@ -97,7 +102,7 @@ class FrontProductController extends Controller
         $min = $request->min;
         $max = $request->max;
 
-        $category = SubcategoryModel::where('status', 1)
+        $category = SubcategoryModel::where('status',1)
             ->where('id', $request->category_id)
             ->first();
         if ($category != null) {
@@ -106,6 +111,7 @@ class FrontProductController extends Controller
             $production = DB::table('product_models')->where('sale_price', '>=', $min)
                 ->where('sale_price', '<=', $max)
                 ->where('category_id', $category->id)
+                ->where('status',1)
                 ->paginate($request->paginate_v);
             if ($production != null) {
 

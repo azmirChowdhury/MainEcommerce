@@ -73,8 +73,18 @@ class FrontHomeController extends Controller
     }
 
     public function search_products(request $request){
-        print_r($request);
 
+        $all_products_shop =DB::table('product_models')
+            ->where('status',1)
+            ->where(function ($query)use($request){
+                $query->where('product_name', 'LIKE', '%' .$request->search. '%')
+                    ->orWhere('category_name', 'LIKE', '%' .$request->search. '%')
+                    ->orWhere('brand_name', 'LIKE', '%' .$request->search. '%');
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(50);
+        $search_val=$request->search;
+        return view('front_end.products.show_all_product', compact('all_products_shop','search_val'));
     }
 
 }

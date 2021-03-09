@@ -361,11 +361,12 @@
                                         </div>
                                     </div>
                                 </div>
-                            @else
-                                <h2 class="text-info text-center">Please upload minimum eight product then show all
-                                    product</h2>
                             @endif
+
                         @endfor
+                        @if(count($all_products)<=0)
+                                        <p class="text-lg-center text-danger">Please upload minimum eight product then show all product</p>
+                         @endif
                         {{--                        @endforeach--}}
                     </div>
                     @if(count($all_products)>=10)

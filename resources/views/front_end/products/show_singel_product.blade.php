@@ -276,28 +276,20 @@
             </div>
             <div class="product-slider-active owl-carousel">
 
-{{--   @foreach($all_products as $related_product)--}}
-       @for($i=1;$i<=10;$i++)
-           @if(count($all_products)>=10){{--$all_product has provider--}}
-
-            @if($product->category_name==$all_products[$i]->category_name&&$all_products[$i]->id!=$product->id)
-                <div class="product-wrap">
+   @foreach($related_products as $related_product)
+                    <div class="product-wrap">
                     <div class="product-img mb-15">
-                        <a href="{{route('single_product',['slug'=>$all_products[$i]->slug,'id'=>$all_products[$i]->id])}}"><img src="{{asset('/').$all_products[$i]->product_image}}" alt="{{$all_products[$i]->product_name}} image"></a>
-
-{{--                        @if($all_products[$i]->regular_price!=null)--}}
-{{--                        <span class="price-dec">{{ceil(($all_products[$i]->sale_price-$all_products[$i]->regular_price)/$all_products[$i]->regular_price*100)}}%</span>--}}
-{{--                        @endif--}}
+                        <a href="{{route('single_product',['slug'=>$related_product->slug,'id'=>$related_product->id])}}"><img src="{{asset('/').$related_product->product_image}}" alt="{{$related_product->product_name}} image"></a>
 
                         @php
-                            $d=$all_products[$i]->created_at->addDay(3);
+                            $d=$related_product->created_at->addDay(3);
                         @endphp
                         @if(date('d')<=$d->day&&$d->month==date('m')&&$d->year==date('Y'))
                             <span class="price-dec font-dec bg-success">NEW</span>
                         @endif
-                        @if($all_products[$i]->product_quantity>0)
-                            @if($all_products[$i]->regular_price!=null)
-                                <span class="price-dec">{{ceil(($all_products[$i]->sale_price-$all_products[$i]->regular_price)/$all_products[$i]->regular_price*100)}}%</span>
+                        @if($related_product->product_quantity>0)
+                            @if($related_product->regular_price!=null)
+                                <span class="price-dec">{{ceil(($related_product->sale_price-$related_product->regular_price)/$related_product->regular_price*100)}}%</span>
                             @endif
                         @else
                             <span class="new-stock"><span>Stock <br>Out</span></span>
@@ -305,24 +297,24 @@
 
 
                         <div class="product-action">
-                            <a data-toggle="modal" data-target="#relatedproduct_{{$all_products[$i]->id}}" title="Quick View" href="#"><i class="la la-plus"></i></a>
+                            <a data-toggle="modal" data-target="#relatedproduct_{{$related_product->id}}" title="Quick View" href="#"><i class="la la-plus"></i></a>
                             <a title="Wishlist" href="#"><i class="la la-heart-o"></i></a>
                             <a title="Compare" href="#"><i class="la la-retweet"></i></a>
                         </div>
                     </div>
                     <div class="product-content">
-                        <span>{{$all_products[$i]->category_name}}</span>
-                        <h4><a href="{{route('single_product',['slug'=>$all_products[$i]->slug,'id'=>$all_products[$i]->id])}}">{{$all_products[$i]->product_name}}</a></h4>
+                        <span>{{$related_product->category_name}}</span>
+                        <h4><a href="{{route('single_product',['slug'=>$related_product->slug,'id'=>$related_product->id])}}">{{$related_product->product_name}}</a></h4>
                         <div class="price-addtocart">
                             <div class="product-price">
-                                <span>&#2547  {{$all_products[$i]->sale_price}}</span>
-                                @if($all_products[$i]->regular_price!=null)
-                                    <span class="old">&#2547 {{$all_products[$i]->regular_price}}</span>
+                                <span>&#2547  {{$related_product->sale_price}}</span>
+                                @if($related_product->regular_price!=null)
+                                    <span class="old">&#2547 {{$related_product->regular_price}}</span>
                                 @endif
 
                             </div>
                             <div class="product-addtocart">
-                                @if($all_products[$i]->product_quantity>0)
+                                @if($related_product->product_quantity>0)
                                     <a title="Add To Cart" href="#">+ Add To Cart</a>
                                 @else @endif
 
@@ -332,17 +324,12 @@
                         </div>
                     </div>
                 </div>
-                    @endif
-                @endif
-                @endfor
-{{--                @endforeach--}}
-
+                @endforeach
             </div>
         </div>
     </div>
 
-    @foreach($all_products as $related_product)
-        @if($product->category_name==$related_product->category_name&&$related_product->id!=$product->id)
+    @foreach($related_products as $related_product)
 
             <!-- Modal -->
     <div class="modal fade" id="relatedproduct_{{$related_product->id}}" tabindex="-1" role="dialog">
@@ -368,16 +355,7 @@
                                     <img src="{{asset('/')}}front_end/assets/images/product/quickview-l2.jpg" alt="">
                                 </div>
                             </div>
-                            <!-- Thumbnail Large Image End -->
-                            <!-- Thumbnail Image End -->
-{{--                            <div class="quickview-wrap mt-15">--}}
-{{--                                <div class="quickview-slide-active owl-carousel nav nav-style-2" role="tablist">--}}
-{{--                                    <a class="active" data-toggle="tab" href="#pro-1"><img src="{{asset('/')}}front_end/assets///images/product/quickview-s1.jpg" alt=""></a>--}}
-{{--                                    <a data-toggle="tab" href="#pro-2"><img src="{{asset('/')}}front_end/assets///images/product/quickview-s2.jpg" alt=""></a>--}}
-{{--                                    <a data-toggle="tab" href="#pro-3"><img src="{{asset('/')}}front_end/assets///images/product/quickview-s3.jpg" alt=""></a>--}}
-{{--                                    <a data-toggle="tab" href="#pro-4"><img src="{{asset('/')}}front_end/assets///images/product/quickview-s4.jpg" alt=""></a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
+
                         </div>
                         <div class="col-md-7 col-sm-12 col-xs-12">
                             <div class="product-details-content quickview-content">
@@ -395,28 +373,6 @@
                                         <span>40+ Reviews</span>
                                     </div>
                                 </div>
-{{--                                <div class="pro-details-color-wrap">--}}
-{{--                                    <span>Color:</span>--}}
-{{--                                    <div class="pro-details-color-content">--}}
-{{--                                        <ul>--}}
-{{--                                            <li class="green"></li>--}}
-{{--                                            <li class="yellow"></li>--}}
-{{--                                            <li class="red"></li>--}}
-{{--                                            <li class="blue"></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div class="pro-details-size">--}}
-{{--                                    <span>Size:</span>--}}
-{{--                                    <div class="pro-details-size-content">--}}
-{{--                                        <ul>--}}
-{{--                                            <li><a href="#">s</a></li>--}}
-{{--                                            <li><a href="#">m</a></li>--}}
-{{--                                            <li><a href="#">xl</a></li>--}}
-{{--                                            <li><a href="#">xxl</a></li>--}}
-{{--                                        </ul>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
 
                                 <div class="pro-details-price-wrap">
                                     <div class="product-price">
@@ -458,7 +414,6 @@
         </div>
     </div>
     <!-- Modal end -->
-        @endif
     @endforeach
 {{--</div>--}}
 <!-- JS
