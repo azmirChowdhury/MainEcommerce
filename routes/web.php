@@ -39,6 +39,8 @@ route::fallback([ExceptionController::class, 'admin404']);
 
 
 Route::get('/',[FrontHomeController::class,'index']);
+route::get('search-all-product-suggest', [FrontHomeController::class,'search_all_product_suggest'])->name('search_all_product_suggest');
+route::post('search-products', [FrontHomeController::class,'search_products'])->name('search_products');
 
 //************* Add Parents menu **********************
 route::middleware('PreventCashControl')->group(function () {
@@ -315,7 +317,7 @@ route::middleware(['DashboardAuth', 'AdminStatusValidation'])->group(function ()
 
 //********************************************** Products **************************************************
 
-route::get('{slug}/{id}show', [FrontProductController::class, 'single_product'])->name('single_product');
+route::get('{slug}/{id}show',[FrontProductController::class, 'single_product'])->name('single_product');
 route::get('{slug}/{id}/{paginate}/shop', [FrontProductController::class, 'category_show_product'])->name('category_show_product');
 route::post('view/product-with-paginate/category', [FrontProductController::class, 'view_paginate'])->name('view_paginate');
 route::get('price-range/{paginate}/shop', [FrontProductController::class, 'price_range'])->name('price_range');

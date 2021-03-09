@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\front_end;
 
 use App\Http\Controllers\Controller;
+use App\Models\BrandModel;
 use App\Models\PagesModel;
 use App\Models\ProductModel;
 use App\Models\SubcategoryModel;
@@ -34,14 +35,46 @@ class FrontHomeController extends Controller
 
     public function view_page_details($name, $id)
     {
-      $page_details=PagesModel::where('status',1)
-          ->where('id',$id)
-          ->first();
-      if ($page_details!=null){
-          return view('front_end.pages.page_details_view',compact('page_details'));
-      }else{
-          return redirect('/');
-      }
+        $page_details = PagesModel::where('status', 1)
+            ->where('id', $id)
+            ->first();
+        if ($page_details != null) {
+            return view('front_end.pages.page_details_view', compact('page_details'));
+        } else {
+            return redirect('/');
+        }
+    }
+
+
+    public function search_all_product_suggest(request $request)
+    {
+
+        $product = ProductModel::where('status', 1)
+            ->where('product_name', 'LIKE', '%' . $request->search_val . '%')->get();
+        $category=SubcategoryModel::where('status', 1)
+            ->where('category_name', 'LIKE', '%' . $request->search_val . '%')->get();
+        $brands=BrandModel::where('status', 1)
+            ->where('brand_name', 'LIKE', '%' . $request->search_val . '%')->get();
+
+        $p = array();
+        foreach ($product as $pp) {
+            $p[] .= $pp->product_name;
+        }
+        foreach ($category as $pp) {
+            $p[] .= $pp->category_name;
+        }
+        foreach ($brands as $pp) {
+            $p[] .= $pp->brand_name;
+        }
+
+        return response()->json([
+            'name' => $p,
+        ]);
+    }
+
+    public function search_products(request $request){
+        print_r($request);
+
     }
 
 }

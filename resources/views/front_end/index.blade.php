@@ -24,18 +24,19 @@
 	============================================ -->
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{asset('/')}}front_end/assets///css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('/')}}front_end/assets/css/vendor/bootstrap.min.css">
     <!-- Icon Font CSS -->
-    <link rel="stylesheet" href="{{asset('/')}}front_end/assets///css/vendor/line-awesome.css">
-    <link rel="stylesheet" href="{{asset('/')}}front_end/assets///css/vendor/themify.css">
+    <link rel="stylesheet" href="{{asset('/')}}front_end/assets/css/vendor/line-awesome.css">
+    <link rel="stylesheet" href="{{asset('/')}}front_end/assets/css/vendor/themify.css">
     <!-- othres CSS -->
-    <link rel="stylesheet" href="{{asset('/')}}front_end/assets///css/plugins/animate.css">
-    <link rel="stylesheet" href="{{asset('/')}}front_end/assets///css/plugins/owl-carousel.css">
-    <link rel="stylesheet" href="{{asset('/')}}front_end/assets///css/plugins/slick.css">
-    <link rel="stylesheet" href="{{asset('/')}}front_end/assets///css/plugins/magnific-popup.css">
-    <link rel="stylesheet" href="{{asset('/')}}front_end/assets///css/plugins/jquery-ui.css">
-    <link rel="stylesheet" href="{{asset('/')}}front_end/assets///css/style.css">
-    <link href="{{asset('/')}}back_end/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{{asset('/')}}front_end/assets/css/plugins/animate.css">
+    <link rel="stylesheet" href="{{asset('/')}}front_end/assets/css/plugins/owl-carousel.css">
+    <link rel="stylesheet" href="{{asset('/')}}front_end/assets/css/plugins/slick.css">
+    <link rel="stylesheet" href="{{asset('/')}}front_end/assets/css/plugins/magnific-popup.css">
+    <link rel="stylesheet" href="{{asset('/')}}front_end/assets/css/plugins/jquery-ui.css">
+    <link rel="stylesheet" href="{{asset('/')}}front_end/assets/css/style.css">
+    <link rel="stylesheet" href="{{asset('/')}}front_end/assets/css/jquery-ui.css">
+
 
     <script src="{{asset('/')}}front_end/assets/js/jquery.min.js"></script>
     @yield('mates')
@@ -113,7 +114,8 @@
 
 <!-- Main JS -->
 <script src="{{asset('/')}}front_end/assets/js/main.js"></script>
-
+<script src="{{asset('/')}}front_end/assets/js/jquery-ui.js"></script>
+{{--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
 @yield('bottom_scrtpt')
 
 @foreach($SeoMetas as $script_body_bottom)
@@ -121,6 +123,44 @@
         {!! $script_body_bottom->tag !!}
     @endif
 @endforeach
+
+<script type="text/javascript">
+    $(document).ready(function (){
+        // $box=$('#search');
+       // $('#search').on('click',function (){
+       //
+       //
+       //
+       // })
+    $("#search").on('keyup',function (){
+
+        $.ajax({
+
+            url:'{{$mainUrl}}/search-all-product-suggest',
+            type:"GET",
+            data:'search_val='+$('#search').val(),
+            success:function(data){
+                var tags =  data.name;
+                $( "#search" ).autocomplete({
+                    source: function( request, response ) {
+                        var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+                        response( $.grep( tags, function( item ){
+                            return matcher.test( item );
+                        }) );
+                    }
+                });
+
+            }
+
+        })
+
+
+    })
+
+    })
+
+</script>
+
 </body>
 
 </html>
