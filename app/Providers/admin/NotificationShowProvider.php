@@ -2,6 +2,7 @@
 
 namespace App\Providers\admin;
 
+use App\Models\All_notifications;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
@@ -26,10 +27,7 @@ class NotificationShowProvider extends ServiceProvider
     public function boot()
     {
         View::composer('back_end/includes/header',function ($view){
-            $view->with('notification_user',User::where('status',1)
-                ->where('id',Auth::user()->id)
-                ->first()
-            );
+            $view->with('notification_admin',All_notifications::where('read_at',null)->orderBy('id','DESC')->get());
 
         });
     }

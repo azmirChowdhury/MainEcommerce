@@ -15,11 +15,10 @@ class CreateAllNotificationsTable extends Migration
     {
         Schema::create('all_notifications', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
             $table->string('notifiable_type')->index();
-            $table->bigInteger('notifiable_id')->index();
+            $table->bigInteger('notifiable_id')->index()->nullable();
             $table->text('data');
-            $table->dateTime('read_at');
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }

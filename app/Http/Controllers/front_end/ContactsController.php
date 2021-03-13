@@ -7,6 +7,7 @@ use App\Models\ContactMassageModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Session;
+use App\Http\Controllers\admin\Notification\NotificationFunction;
 
 
 class ContactsController extends Controller
@@ -24,6 +25,14 @@ class ContactsController extends Controller
             'massage'=>'required',
         ]);
     }
+    private function notify($request,$id){
+        $data=array();
+        $data[].=$request->input('email');
+        $data[].=$request->input('name');
+        $data[].=1; //email uses permission
+        $dataJson=json_encode($data);
+        app(NotificationFunction::class)->notification('contactsMessage',$dataJson,$id);
+    }
     private function insert_massage($request){
         $massage=new ContactMassageModel();
         $massage->name=$request->input('name');
@@ -39,8 +48,8 @@ class ContactsController extends Controller
         if (!empty($request->input('g-recaptcha-response'))){
             $this->validation($request);
             $massage=$this->insert_massage($request);
-
             $massage->save();
+            $this->notify($request,$massage->id);
             return redirect(env('app_name').'-contacts-us')->with('massage','massage send successful');
         }else{
             return redirect(env('app_name').'-contacts-us')->with('ErrorMassage','massage send failed because you are not complete reCaptcha');

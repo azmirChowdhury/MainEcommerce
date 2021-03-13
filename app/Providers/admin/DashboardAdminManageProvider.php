@@ -35,7 +35,7 @@ class DashboardAdminManageProvider extends ServiceProvider
            $view->with('admins_user',User::where('email','!=',Auth::user()->email)->get());
        });
 
-       View::composer('back_end.includes.menu',function ($view){
+       View::composer(['back_end.includes.menu','back_end.includes.header'],function ($view){
            $view->with('permission',Co_UserModel::where('user_id',Auth::user()->id)->first());
        });
        View::composer('back_end.includes.menu',function ($view){

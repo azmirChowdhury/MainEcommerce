@@ -31,7 +31,6 @@ use App\Http\Controllers\front_end\FrontProductController;
 use App\Http\Controllers\front_end\LoginRegisterController;
 use App\Models\CustomerModel;
 use App\Models\User;
-use App\Notifications\CommentNotification;
 use Illuminate\Support\Facades\Route;
 
 
@@ -55,6 +54,8 @@ route::middleware(['DashboardAuth', 'AdminStatusValidation'])->group(function ()
         route::get('/dashboard/message/{name}/full-view{id}',[AdminMassageController::class,'full_view_message'])->name('full_view_message');
         route::get('/dashboard/message/reply/{email}{id}',[AdminMassageController::class,'message_reply'])->name('message_reply');
         route::post('/dashboard/message/message',[AdminMassageController::class,'delete_message'])->name('delete_message');
+        route::post('/dashboard/message/read-message-notify',[AdminMassageController::class,'read_message_notification'])->name('read_message_notification');
+
 
     });
     route::group(['middleware' => 'parentMenu'], function () {
