@@ -189,6 +189,7 @@ return [
         App\Providers\front_end\BannerShowProvider::class,
         App\Providers\front_end\ScriptMetaProviderFront::class,
         App\Providers\front_end\FooterProvider::class,
+        App\Providers\admin\NotificationShowProvider::class,
 
     ],
 

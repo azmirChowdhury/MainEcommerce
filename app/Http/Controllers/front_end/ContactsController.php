@@ -4,8 +4,10 @@ namespace App\Http\Controllers\front_end;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContactMassageModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Session;
+
 
 class ContactsController extends Controller
 {
@@ -32,10 +34,12 @@ class ContactsController extends Controller
         return $massage;
     }
 
+
   public function send_massage(request $request){
         if (!empty($request->input('g-recaptcha-response'))){
             $this->validation($request);
             $massage=$this->insert_massage($request);
+
             $massage->save();
             return redirect(env('app_name').'-contacts-us')->with('massage','massage send successful');
         }else{
