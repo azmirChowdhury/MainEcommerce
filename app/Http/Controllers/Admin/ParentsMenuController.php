@@ -89,11 +89,11 @@ class ParentsMenuController extends Controller
     public function edit_parents_category($id)
     {
         $category = ParentsModelCategory::where('id', $id)->first();
-        if ($category) {
+        if ($category != null) {
             return view('back_end.Parents_menu.parents_edit', ['category' => $category]);
 
         } else {
-            echo "Your category not found please try again or re enter this 'Parents category manage'";
+            return redirect('/dashboard/manage/manage-parents-category')->with('massage', 'Category was deleted');
         }
 
     }
@@ -104,40 +104,49 @@ class ParentsMenuController extends Controller
         $this->validation($request);
         try {
             $category = ParentsModelCategory::where('id', $request->id)->first();
-            if (file_exists($request->category_image)) {
-                $this->validate($request, [
-                    'category_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
-                ]);
-                $this->mydelimages($category);
-                $image_info = $this->save_images($request);
-                $category = $this->insert_data($request, $image_info);
-                $category->update();
-                return redirect('/dashboard/manage/manage-parents-category')->with('massage', 'Category Update successful');
+            if ($category != null) {
+                if (file_exists($request->category_image)) {
+                    $this->validate($request, [
+                        'category_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
+                    ]);
+                    $this->mydelimages($category);
+                    $image_info = $this->save_images($request);
+                    $category = $this->insert_data($request, $image_info);
+                    $category->update();
+                    return redirect('/dashboard/manage/manage-parents-category')->with('massage', 'Category Update successful');
+                } else {
+                    $image_info = $request->image_info;
+                    $category = $this->insert_data($request, $image_info);
+                    $category->update();
+                    return redirect('/dashboard/manage/manage-parents-category')->with('massage', 'Category Update successful');
+                }
             } else {
-                $image_info = $request->image_info;
-                $category = $this->insert_data($request, $image_info);
-                $category->update();
-                return redirect('/dashboard/manage/manage-parents-category')->with('massage', 'Category Update successful');
+                return redirect('/dashboard/manage/manage-parents-category')->with('massage', 'Category was deleted');
             }
         } catch (Exception $e) {
             echo 'file not updated';
         }
+
     }
 
     public function status_published($id)
     {
         $category = ParentsModelCategory::where('id', $id)->first();
-        $category->status = 1;
-        $category->update();
-        $blocks = HtmlBlocksModel::where('parents_category_id', $id)->get();
-        foreach ($blocks as $block) {
-            $block->status = 1;
-            $block->update();
-        }
-        $subcategory = SubcategoryModel::where('parents_category_id', $id)->get();
-        foreach ($subcategory as $del) {
-            $del->status = 1;
-            $del->update();
+        if ($category!=null) {
+            $category->status = 1;
+            $category->update();
+            $blocks = HtmlBlocksModel::where('parents_category_id', $id)->get();
+            foreach ($blocks as $block) {
+                $block->status = 1;
+                $block->update();
+            }
+            $subcategory = SubcategoryModel::where('parents_category_id', $id)->get();
+            foreach ($subcategory as $del) {
+                $del->status = 1;
+                $del->update();
+            }
+        }else{
+            return redirect('/dashboard/manage/manage-parents-category')->with('massage', 'Category was deleted');
         }
         return redirect('/dashboard/manage/manage-parents-category')->with('massage', 'status Update successful');
 
@@ -146,17 +155,21 @@ class ParentsMenuController extends Controller
     public function status_unpublished($id)
     {
         $category = ParentsModelCategory::where('id', $id)->first();
-        $category->status = 0;
-        $category->update();
-        $blocks = HtmlBlocksModel::where('parents_category_id', $id)->get();
-        foreach ($blocks as $block) {
-            $block->status = 0;
-            $block->update();
-        }
-        $subcategory = SubcategoryModel::where('parents_category_id', $id)->get();
-        foreach ($subcategory as $del) {
-            $del->status = 0;
-            $del->update();
+        if ($category!=null) {
+            $category->status = 0;
+            $category->update();
+            $blocks = HtmlBlocksModel::where('parents_category_id', $id)->get();
+            foreach ($blocks as $block) {
+                $block->status = 0;
+                $block->update();
+            }
+            $subcategory = SubcategoryModel::where('parents_category_id', $id)->get();
+            foreach ($subcategory as $del) {
+                $del->status = 0;
+                $del->update();
+            }
+        }else{
+            return redirect('/dashboard/manage/manage-parents-category')->with('massage', 'Category was deleted');
         }
         return redirect('/dashboard/manage/manage-parents-category')->with('massage', 'status Update successful');
     }
@@ -166,16 +179,20 @@ class ParentsMenuController extends Controller
 
         try {
             $category = ParentsModelCategory::where('id', $id)->first();
-            $this->mydelimages($category);
-            $blocks = HtmlBlocksModel::where('parents_category_id', $id)->get();
-            $subcategory = SubcategoryModel::where('parents_category_id', $id)->get();
-            foreach ($blocks as $block) {
-                $block->delete();
-            }
-            foreach ($subcategory as $del) {
-                $del->delete();
-            }
-            $category->delete();
+           if ($category!=null) {
+               $this->mydelimages($category);
+               $blocks = HtmlBlocksModel::where('parents_category_id', $id)->get();
+               $subcategory = SubcategoryModel::where('parents_category_id', $id)->get();
+               foreach ($blocks as $block) {
+                   $block->delete();
+               }
+               foreach ($subcategory as $del) {
+                   $del->delete();
+               }
+               $category->delete();
+           }else{
+               return redirect('/dashboard/manage/manage-parents-category')->with('massage', 'Category already deleted');
+           }
             return redirect('/dashboard/manage/manage-parents-category')->with('massage', 'category delete successful');
         } catch (Exception $e) {
             echo 'not delete';

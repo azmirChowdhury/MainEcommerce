@@ -11,7 +11,9 @@ class ProductSizeDeleteController extends Controller
 {
     public function deleteSize($request_id){
         $size = ProductSizeModel::find($request_id);
-        $size->delete();
+        if ($size!=null){
+            $size->delete();
+        }
     }
     public function product_Size_delete($request_id){
         $size = ProductSizeModel::where('product_id',$request_id)->first();

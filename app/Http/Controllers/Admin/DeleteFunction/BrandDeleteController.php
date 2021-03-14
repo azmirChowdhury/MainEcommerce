@@ -11,10 +11,14 @@ class BrandDeleteController extends Controller
     public function BrandimageDelete($request){
 
         $brand = BrandModel::find($request);
-        unlink($brand->brand_image);
+        if ($brand!=null){
+            unlink($brand->brand_image);
+        }
     }
     public function delete_Brand_Data($request){
         $brand = BrandModel::find($request);
-        $brand->delete();
+        if ($brand!=null){
+            $brand->delete();
+        }
     }
 }

@@ -10,7 +10,10 @@ class BannerDelete extends Controller
 {
     public function banner_delete_function($id){
         $banner=BannerModel::find($id);
-        unlink($banner->banner_image);
-        $banner->delete();
+        if ($banner!=null){
+            unlink($banner->banner_image);
+            $banner->delete();
+        }
+
     }
 }

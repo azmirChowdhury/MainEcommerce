@@ -16,25 +16,41 @@ class CustomerController extends Controller
 
     public function active_customer($id){
         $customer=CustomerModel::find($id);
-        $customer->status=1;
-        $customer->update();
+        if ($customer!=null) {
+            $customer->status = 1;
+            $customer->update();
+        }else{
+            return redirect()->route('all_customers',['slug'=>'all-customer'])->with('massage','Customer was deleted');
+        }
         return redirect()->route('all_customers',['slug'=>'all-customer'])->with('massage','Customer '.$customer->last_name.' activation successful');
     }
 
     public function stopped_customer($id){
         $customer=CustomerModel::find($id);
-        $customer->status=2;
-        $customer->update();
+        if ($customer!=null) {
+            $customer->status=2;
+            $customer->update();
+        }else{
+            return redirect()->route('all_customers',['slug'=>'all-customer'])->with('massage','Customer was deleted');
+        }
         return redirect()->route('all_customers',['slug'=>'all-customer'])->with('massage','Customer '.$customer->last_name.' Stopped successful');
     }
     public function delete_customer($id){
         $customer=CustomerModel::find($id);
-        $customer->delete();
+        if ($customer!=null) {
+            $customer->delete();
+        }else{
+            return redirect()->route('all_customers',['slug'=>'all-customer'])->with('massage','Customer already delete');
+        }
         return redirect()->route('all_customers',['slug'=>'all-customer'])->with('massage','Customer delete successful');
     }
     public function customer_details($id){
         $customer=CustomerModel::find($id);
-        $district=All_districtName_division::find($customer->district_id);
+        if ($customer!=null) {
+            $district=All_districtName_division::find($customer->district_id);
+        }else{
+            return redirect()->route('all_customers',['slug'=>'all-customer'])->with('massage','Customer was deleted');
+        }
         return view('back_end.customers.customer_details_view',['customer'=>$customer,'district'=>$district]);
     }
 

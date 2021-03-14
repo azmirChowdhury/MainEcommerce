@@ -20,9 +20,13 @@ class AdminMassageController extends Controller
     public function full_view_message($name, $id)
     {
         $message = ContactMassageModel::find($id);
-        $message->status = $message->status == 2 ? 2 : 1;
-        $message->update();
-        $this->delete_notification($message);
+        if ($message!=null){
+            $message->status = $message->status == 2 ? 2 : 1;
+            $message->update();
+            $this->delete_notification($message);
+        }else{
+            return redirect()->back()->with('massage', 'Message was deleted');
+        }
         return view('back_end.massage.full_massage_view', ['message' => $message]);
     }
 

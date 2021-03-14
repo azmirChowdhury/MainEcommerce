@@ -26,9 +26,9 @@ class ContactsHelpsController extends Controller
         $this->validate($request, [
             'status' => 'required|integer|min:0|max:1',
         ]);
-        if (!empty($request->id)==true){
+        if (!empty($request->id) == true) {
             $this->validate($request, [
-                'id' =>'required|integer',
+                'id' => 'required|integer',
             ]);
         }
     }
@@ -40,55 +40,79 @@ class ContactsHelpsController extends Controller
         } else {
             $contacts = ContactInfromationModel::find($request->id);
         }
-        $contacts->email =$request->email;
-        $contacts->phone_number= $request->phone_number;
+        $contacts->email = $request->email;
+        $contacts->phone_number = $request->phone_number;
         $contacts->telephone_number = $request->telephone_number;
         $contacts->fax = $request->fax;
-        $contacts->address =$request->address;
+        $contacts->address = $request->address;
         $contacts->status = $request->status;
         return $contacts;
     }
 
     public function save_contact(request $request)
     {
-            $this->validation($request);
-            $contacts = $this->information_insert($request, 'i');
-            $contacts->save();
+        $this->validation($request);
+        $contacts = $this->information_insert($request, 'i');
+        $contacts->save();
         return redirect('/dashboard/utilities/contacts-help-manage')->with('massage', 'New contacts  save successful');
     }
 
     public function edit_contact($id)
     {
         $contacts = ContactInfromationModel::find($id);
-        return view('back_end.contact_help.edit_contact', ['contact' => $contacts]);
+        if ($contacts != null) {
+            return view('back_end.contact_help.edit_contact', ['contact' => $contacts]);
+        } else {
+            return redirect('/dashboard/utilities/contacts-help-manage')->with('massage', 'Contacts was deleted');
+        }
     }
 
     public function save_edit_contact(request $request)
     {
         $this->validation($request);
-        $contacts = $this->information_insert($request, 'u');
-        $contacts->update();
+        $contacts = ContactInfromationModel::find($request->id);
+        if ($contacts!=null) {
+            $contacts = $this->information_insert($request, 'u');
+            $contacts->update();
+        } else {
+            return redirect('/dashboard/utilities/contacts-help-manage')->with('massage', 'Contacts was deleted');
+        }
+
         return redirect('/dashboard/utilities/contacts-help-manage')->with('massage', 'Contacts Update successful');
     }
 
     public function contact_publish($id)
     {
-        $contacts=ContactInfromationModel::find($id);
-        $contacts->status=1;
-        $contacts->update();
+        $contacts = ContactInfromationModel::find($id);
+        if ($contacts!=null) {
+            $contacts->status = 1;
+            $contacts->update();
+        } else {
+            return redirect('/dashboard/utilities/contacts-help-manage')->with('massage', 'Contacts was deleted');
+        }
         return redirect('/dashboard/utilities/contacts-help-manage')->with('massage', 'Contacts  status publish successful');
     }
+
     public function contact_unpublished($id)
     {
-        $contacts=ContactInfromationModel::find($id);
-        $contacts->status=0;
-        $contacts->update();
+        $contacts = ContactInfromationModel::find($id);
+        if ($contacts!=null) {
+            $contacts->status = 0;
+            $contacts->update();
+        } else {
+            return redirect('/dashboard/utilities/contacts-help-manage')->with('massage', 'Contacts was deleted');
+        }
         return redirect('/dashboard/utilities/contacts-help-manage')->with('massage', 'Contacts  status unpublished successful');
     }
+
     public function contact_delete($id)
     {
-        $contacts=ContactInfromationModel::find($id);
-        $contacts->delete();
+        $contacts = ContactInfromationModel::find($id);
+        if ($contacts!=null) {
+            $contacts->delete();
+        } else {
+            return redirect('/dashboard/utilities/contacts-help-manage')->with('massage', 'Contacts already delete');
+        }
         return redirect('/dashboard/utilities/contacts-help-manage')->with('massage', 'Contacts  delete successful');
     }
 

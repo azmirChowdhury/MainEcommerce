@@ -48,15 +48,15 @@ class BrandController extends Controller
     private function insert_data($request, $image_info, $work)
     {
         if ($work == 'i') {
-            $model=BrandModel::all();
-            $slug=app(slug_controller\SluConfier::class)->for_insert_slug($request->brand_name,$model,'brand_slug');
+            $model = BrandModel::all();
+            $slug = app(slug_controller\SluConfier::class)->for_insert_slug($request->brand_name, $model, 'brand_slug');
             $brand = new BrandModel();
         } else {
             $brand = BrandModel::find($request->id);
-            $slug=app(slug_controller\SluConfier::class)->slug_Create($request->brand_name,$brand);
+            $slug = app(slug_controller\SluConfier::class)->slug_Create($request->brand_name, $brand);
         }
         $brand->brand_name = $request->brand_name;
-        $brand->slug=$slug;
+        $brand->slug = $slug;
         $brand->brand_image = $image_info;
         $brand->status = $request->status;
         return $brand;
@@ -88,51 +88,68 @@ class BrandController extends Controller
     public function brand_publish($id)
     {
         $brand = BrandModel::find($id);
-        $brand->status = 1;
-        $brand->update();
+        if ($brand != null) {
+            $brand->status = 1;
+            $brand->update();
+        } else {
+            return redirect('/dashboard/manage/brands/manage-brand')->with('massage', 'The brand was deleted');
+        }
         return redirect('/dashboard/manage/brands/manage-brand')->with('massage', 'Status Published successful');
+
     }
 
     public function brand_unpublished($id)
     {
         $brand = BrandModel::find($id);
-        $brand->status = 0;
-        $brand->update();
+        if ($brand != null) {
+            $brand->status = 0;
+            $brand->update();
+        } else {
+            return redirect('/dashboard/manage/brands/manage-brand')->with('massage', 'The brand was deleted');
+        }
         return redirect('/dashboard/manage/brands/manage-brand')->with('massage', 'Status Unpublished successful');
     }
 
     public function edit_brand($id)
     {
         $brand = BrandModel::find($id);
-        $category = SubcategoryModel::where('status', 1)->get();
-        return view('back_end.brands.edit_brands', ['categories' => $category, 'brand' => $brand]);
+        if ($brand != null) {
+            $category = SubcategoryModel::where('status', 1)->get();
+            return view('back_end.brands.edit_brands', ['categories' => $category, 'brand' => $brand]);
+        } else {
+            return redirect('/dashboard/manage/brands/manage-brand')->with('massage', 'The brand was deleted');
+        }
     }
 
     public function edit_save_brand(request $request)
     {
         $this->validation($request);
         $work = 'u';
-        try {
-            if (file_exists($request->brand_image)) {
-                $id=$request->id;
-                $this->validate($request, [
-                    'brand_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
-                ]);
-                $this->imageDelete($id);
-                $image_info = $this->image_save($request);
-                $brand = $this->insert_data($request, $image_info, $work);
-                $brand->update();
-                return redirect('/dashboard/manage/brands/manage-brand')->with('massage', 'Brand Update successful');
-            } else {
-                $image_info = $request->image;
-                $brand = $this->insert_data($request, $image_info, $work);
-                $brand->update();
-                return redirect('/dashboard/manage/brands/manage-brand')->with('massage', 'Brand Update successful');
+        $brand = BrandModel::find($request->id);
+        if ($brand!=null) {
+            try {
+                if (file_exists($request->brand_image)) {
+                    $id = $request->id;
+                    $this->validate($request, [
+                        'brand_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
+                    ]);
+                    $this->imageDelete($id);
+                    $image_info = $this->image_save($request);
+                    $brand = $this->insert_data($request, $image_info, $work);
+                    $brand->update();
+                    return redirect('/dashboard/manage/brands/manage-brand')->with('massage', 'Brand Update successful');
+                } else {
+                    $image_info = $request->image;
+                    $brand = $this->insert_data($request, $image_info, $work);
+                    $brand->update();
+                    return redirect('/dashboard/manage/brands/manage-brand')->with('massage', 'Brand Update successful');
+                }
+            } catch (Exception $e) {
+                return redirect('/dashboard/manage/brands/manage-brand')->with('errors', "Brand can't Update ");
             }
-        } catch (Exception $e) {
-            return redirect('/dashboard/manage/brands/manage-brand')->with('errors', "Brand can't Update ");
+        }else{
+            return redirect('/dashboard/manage/brands/manage-brand')->with('massage', 'The brand was deleted');
         }
-
 
     }
 
@@ -144,7 +161,7 @@ class BrandController extends Controller
             app(BrandDeleteController::class)->delete_Brand_Data($id);
             return redirect('/dashboard/manage/brands/manage-brand')->with('massage', 'Brand delete successful');
 
-        }catch (Exception $e){
+        } catch (Exception $e) {
             echo 'not delete';
         }
     }

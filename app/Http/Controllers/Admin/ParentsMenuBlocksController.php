@@ -13,10 +13,10 @@ class ParentsMenuBlocksController extends Controller
 {
     public function index()
     {
-        $blocks=DB::table('html_blocks_models')
-                        ->join('parents_model_categories','parents_model_categories.id','=','html_blocks_models.parents_category_id')
-                        ->select('parents_model_categories.*','html_blocks_models.*')
-                        ->get();
+        $blocks = DB::table('html_blocks_models')
+            ->join('parents_model_categories', 'parents_model_categories.id', '=', 'html_blocks_models.parents_category_id')
+            ->select('parents_model_categories.*', 'html_blocks_models.*')
+            ->get();
         return view('back_end.html_blocks.manage_html_blocks', ['blocks_in' => $blocks]);
 
     }
@@ -51,6 +51,7 @@ class ParentsMenuBlocksController extends Controller
     public function parents_menu_blocks_add()
     {
         $category = ParentsModelCategory::where('status', 1)->get();
+
         return view('back_end.html_blocks.parents_category_add_blocks', ['categories' => $category]);
     }
 
@@ -73,7 +74,12 @@ class ParentsMenuBlocksController extends Controller
     {
         $category = ParentsModelCategory::where('status', 1)->get();
         $blocks = HtmlBlocksModel::where('id', $id)->first();
-        return view('back_end.html_blocks.edit_parents_category_html_blocks', ['categories' => $category, 'block' => $blocks]);
+        if ($blocks != null) {
+            return view('back_end.html_blocks.edit_parents_category_html_blocks', ['categories' => $category, 'block' => $blocks]);
+        } else {
+            return redirect('/dashboard/html-blocks/parents-category-blocks')->with('massage', 'Collum was deleted');
+        }
+
     }
 
     public function edit_blocks_save(request $request)
@@ -81,38 +87,60 @@ class ParentsMenuBlocksController extends Controller
         try {
             $this->validation($request);
             $idintify = 'e';
-            $blocks = $this->insert_data($request, $idintify);
-            $blocks->update();
+            $block = HtmlBlocksModel::where('id', $request->id)->first();
+            if ($block!=null) {
+                $blocks = $this->insert_data($request, $idintify);
+                $blocks->update();
+            } else {
+                return redirect('/dashboard/html-blocks/parents-category-blocks')->with('massage', 'Collum was deleted');
+            }
+
             return redirect('/dashboard/html-blocks/parents-category-blocks')->with('massage', 'Collum update successfully');
         } catch (Exception $e) {
             echo 'not save problem';
         }
     }
 
-    public function status_publish($id)
+    public
+    function status_publish($id)
     {
         $block = HtmlBlocksModel::where('id', $id)->first();
-        $block->status = 1;
-        $block->update();
+        if ($block!=null){
+            $block->status = 1;
+            $block->update();
+        }else{
+            return redirect('/dashboard/html-blocks/parents-category-blocks')->with('massage', 'Collum was deleted');
+        }
+
         return redirect('/dashboard/html-blocks/parents-category-blocks')->with('massage', 'Status update successfully');
     }
 
-    public function status_unpublished($id)
+    public
+    function status_unpublished($id)
     {
         $block = HtmlBlocksModel::where('id', $id)->first();
-        $block->status = 0;
-        $block->update();
+        if ($block!=null){
+            $block->status = 0;
+            $block->update();
+        }else{
+            return redirect('/dashboard/html-blocks/parents-category-blocks')->with('massage', 'Collum was deleted');
+        }
         return redirect('/dashboard/html-blocks/parents-category-blocks')->with('massage', 'Status update successfully');
     }
 
-    public function delete_block($id)
+    public
+    function delete_block($id)
     {
         $block = HtmlBlocksModel::where('id', $id)->first();
-        $subcategory=SubcategoryModel::where('collum_id',$block->id)->get();
-        foreach ($subcategory as $category){
+        if ($block!=null){
+        $subcategory = SubcategoryModel::where('collum_id', $block->id)->get();
+        foreach ($subcategory as $category) {
             $category->delete();
         }
         $block->delete();
+        }else{
+            return redirect('/dashboard/html-blocks/parents-category-blocks')->with('massage', 'Collum already deleted');
+        }
         return redirect('/dashboard/html-blocks/parents-category-blocks')->with('massage', 'Collum delete successfully');
     }
 

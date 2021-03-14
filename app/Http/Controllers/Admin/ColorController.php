@@ -19,7 +19,11 @@ class ColorController extends Controller
     public function color_edit_view($id)
     {
         $color = ColorModel::find($id);
-        return view('back_end.color.edit_color',['color' => $color]);
+        if ($color != null) {
+            return view('back_end.color.edit_color', ['color' => $color]);
+        } else {
+            return redirect('/dashboard/color/add/view')->with('massage', 'Color was deleted');
+        }
     }
 
     public function color_add_view()
@@ -49,9 +53,14 @@ class ColorController extends Controller
             'id' => 'required|integer',
         ]);
         $color = ColorModel::find($request->id);
-        $color->color_name=$request->color_name;
-        $color->color=$request->color;
-        $color->update();
+        if ($color != null) {
+            $color->color_name = $request->color_name;
+            $color->color = $request->color;
+            $color->update();
+        } else {
+            return redirect('/dashboard/color/add/view')->with('massage', 'Color was deleted');
+        }
+
         return redirect('/dashboard/size&color/color-manage')->with('massage', 'Color update successful');
     }
 

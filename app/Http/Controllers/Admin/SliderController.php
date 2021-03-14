@@ -39,8 +39,8 @@ class SliderController extends Controller
         $this_file = $request->file('slider_image');
         $extensition = $this_file->getClientOriginalExtension();
         $directory = 'back_end/images/slider_images/';
-        $stitle=str_replace(' ','_',$request->slider_title);
-        $image_name = $directory.$rand.$stitle.'.'.$extensition;
+        $stitle = str_replace(' ', '_', $request->slider_title);
+        $image_name = $directory . $rand . $stitle . '.' . $extensition;
         Image::make($this_file)->resize(1170, 569)->save($image_name);
         return $image_name;
     }
@@ -95,7 +95,11 @@ class SliderController extends Controller
     public function edit_slider($id)
     {
         $slider = SliderModel::find($id);
-        return view('back_end.slider.edit_slider', ['slider' => $slider]);
+        if ($slider != null) {
+            return view('back_end.slider.edit_slider', ['slider' => $slider]);
+        } else {
+            return redirect('/dashboard/appearance/slider-manage')->with('massage', 'Slider was deleted');
+        }
     }
 
     public function edit_slider_save(Request $request)
@@ -104,65 +108,84 @@ class SliderController extends Controller
         $this->validate($request, [
             'id' => 'required',
         ]);
-        if ($request->button_name || $request->color_name == true) {
-            $this->validate($request, [
-                'button_name' => 'required',
-                'color_name' => 'required',
-                'button_url' => 'required',
-            ]);
-        }
-        if (file_exists($request->slider_image) == true) {
-            $this->validate($request, [
-                'slider_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
-            ]);
-            $this->slider_image_delete($request->id);
-            $image_name = $this->slider_image_upload($request);
-            if ($image_name) {
+        $slider = SliderModel::find($request->id);
+        if ($slider != null) {
+            if ($request->button_name || $request->color_name == true) {
+                $this->validate($request, [
+                    'button_name' => 'required',
+                    'color_name' => 'required',
+                    'button_url' => 'required',
+                ]);
+            }
+            if (file_exists($request->slider_image) == true) {
+                $this->validate($request, [
+                    'slider_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
+                ]);
+                $this->slider_image_delete($request->id);
+                $image_name = $this->slider_image_upload($request);
+                if ($image_name) {
+                    $slider = $this->slider_data_insert($request, $image_name, 'u');
+                    if ($slider == true) {
+                        $slider->update();
+                    } else {
+                        echo 'data not insert';
+                    }
+                } else {
+                    echo 'Image not insert';
+                }
+            } else {
+                $image_name = $request->image;
                 $slider = $this->slider_data_insert($request, $image_name, 'u');
                 if ($slider == true) {
                     $slider->update();
                 } else {
                     echo 'data not insert';
                 }
-            } else {
-                echo 'Image not insert';
             }
         } else {
-            $image_name = $request->image;
-            $slider = $this->slider_data_insert($request, $image_name, 'u');
-            if ($slider == true) {
-                $slider->update();
-            } else {
-                echo 'data not insert';
-            }
+            return redirect('/dashboard/appearance/slider-manage')->with('massage', 'Slider was deleted');
         }
-
         return redirect('/dashboard/appearance/slider-manage')->with('massage', 'Slider ' . $request->slider_title . ' update successful');
 
 
     }
 
-    public function slider_publish($id)
+    public
+    function slider_publish($id)
     {
-        $slider=SliderModel::find($id);
-        $slider->status=1;
-        $slider->update();
+        $slider = SliderModel::find($id);
+        if ($slider != null) {
+            $slider->status = 1;
+            $slider->update();
+        } else {
+            return redirect('/dashboard/appearance/slider-manage')->with('massage', 'Slider was deleted');
+        }
         return redirect('/dashboard/appearance/slider-manage')->with('massage', 'Slider ' . $slider->slider_title . ' status update successful');
     }
 
-    public function slider_unpublished($id)
+    public
+    function slider_unpublished($id)
     {
-        $slider=SliderModel::find($id);
-        $slider->status=0;
-        $slider->update();
+        $slider = SliderModel::find($id);
+        if ($slider != null) {
+            $slider->status = 0;
+            $slider->update();
+        } else {
+            return redirect('/dashboard/appearance/slider-manage')->with('massage', 'Slider was deleted');
+        }
         return redirect('/dashboard/appearance/slider-manage')->with('massage', 'Slider ' . $slider->slider_title . ' status update successful');
     }
 
-    public function slider_delete($id)
+    public
+    function slider_delete($id)
     {
-        $slider=SliderModel::find($id);
-        $this->slider_image_delete($id);
-        $slider->delete();
+        $slider = SliderModel::find($id);
+        if ($slider != null) {
+            $this->slider_image_delete($id);
+            $slider->delete();
+        } else {
+            return redirect('/dashboard/appearance/slider-manage')->with('massage', 'Slider was deleted');
+        }
         return redirect('/dashboard/appearance/slider-manage')->with('massage', 'Slider delete successful');
     }
 }

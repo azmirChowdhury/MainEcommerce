@@ -45,32 +45,55 @@ class NotesController extends Controller
     public function edit_notes($id){
 
         $notes=NotesModel::find($id);
-        return view('back_end.purchase_settings.notes_edit',['note'=>$notes]);
+        if ($notes!=null){
+            return view('back_end.purchase_settings.notes_edit',['note'=>$notes]);
+        }else{
+            return redirect()->back()->with('massage','notes was deleted');
+
+        }
     }
 
     public function notes_edit_save(request $request)
     {
         $this->notes_validation($request);
-        $notes=$this->insert_notes_info($request, 'u');
-        $notes->update();
+        $notes= NotesModel::find($request->id);
+        if ($notes!=null){
+            $notes=$this->insert_notes_info($request, 'u');
+            $notes->update();
+        }else{
+            return redirect()->back()->with('massage','notes was deleted');
+        }
         return redirect('/dashboard/utilities/purchase-settings')->with('massage','Notes update successful');
     }
 
     public function delete_notes($id){
         $note=NotesModel::find($id);;
-        $note->delete();
+        if ($note!=null){
+            $note->delete();
+        }else{
+            return redirect()->back()->with('massage',' note already deleted');
+        }
         return redirect('/dashboard/utilities/purchase-settings')->with('massage','Notes delete successful');
     }
     public function publish_notes($id){
         $notes=NotesModel::find($id);
-        $notes->status=1;
-        $notes->update();
+        if ($notes!=null){
+            $notes->status=1;
+            $notes->update();
+        }else{
+            return redirect()->back()->with('massage','notes was deleted');
+
+        }
         return redirect('/dashboard/utilities/purchase-settings')->with('massage','Notes status Published successful');
     }
     public function unpublished_notes($id){
         $notes=NotesModel::find($id);
-        $notes->status=0;
-        $notes->update();
+        if ($notes!=null){
+            $notes->status=0;
+            $notes->update();
+        }else{
+            return redirect()->back()->with('massage','notes was deleted');
+        }
         return redirect('/dashboard/utilities/purchase-settings')->with('massage','Notes status Unpublished successful');
     }
 }

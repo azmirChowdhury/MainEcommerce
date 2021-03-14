@@ -39,16 +39,19 @@ class SizeController extends Controller
             'id' => 'required|integer'
         ]);
         $size = SizeModel::find($request->id);
-        $size->Size = $request->size_value;
-        $size->update();
+        if ($size!=null){
+            $size->Size = $request->size_value;
+            $size->update();
+        }else{
+            return redirect('/dashboard/size&color/size-manage')->with('massage', 'Size was delete');
+        }
+
         return redirect('/dashboard/size&color/size-manage')->with('massage', 'Size Update successful');
     }
 
     public function delete_size($id)
     {
         app(ProductSizeDeleteController::class)->deleteSize($id);
-//        $size = SizeModel::find($id);
-//        $size->delete();
         return redirect('/dashboard/size&color/size-manage')->with('massage', 'Size delete successful');
 
     }

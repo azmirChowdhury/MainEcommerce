@@ -74,13 +74,19 @@ class CampaignController extends Controller
         $data['categories']=SubcategoryModel::all();
         $data['products']=ProductModel::all();
         $data['campaign']=CampaignModel::find($id);
-        return view('back_end.campaign.edit_campaign',['data'=>$data]);
+        if ($data['campaign']!=null){
+            return view('back_end.campaign.edit_campaign',['data'=>$data]);
+        }else{
+            return redirect('dashboard/campaign/manage-campaign')->with('massage','Campaign  was deleted');
+        }
     }
 
     public function edit_save_campaign(request $request){
         $this->validate($request,[
             'id'=>'required|integer'
         ]);
+        $campaign=CampaignModel::find($request->id);
+        if ($campaign!=null){
         if (!empty($request->category)||!empty($request->product)){
             $this->validation($request);
             $campaign=$this->campaign_info_insert($request,'u');
@@ -89,24 +95,39 @@ class CampaignController extends Controller
         }else{
             $this->valid_category_product($request);
         }
+        }else{
+            return redirect('dashboard/campaign/manage-campaign')->with('massage','Campaign  was deleted');
+        }
     }
 
     public function delete_campaign($id){
         $campaign=CampaignModel::find($id);
-        $campaign->delete();
+        if ($campaign!=null) {
+            $campaign->delete();
+        }else{
+            return redirect('dashboard/campaign/manage-campaign')->with('massage','Campaign  already delete');
+        }
         return redirect('dashboard/campaign/manage-campaign')->with('massage','Campaign delete  successful');
     }
 
     public function published_campaign($id){
         $campaign=CampaignModel::find($id);
-        $campaign->status=1;
-        $campaign->update();
+        if ($campaign!=null) {
+            $campaign->status = 1;
+            $campaign->update();
+        }else{
+            return redirect('dashboard/campaign/manage-campaign')->with('massage','Campaign  was deleted');
+        }
         return redirect('dashboard/campaign/manage-campaign')->with('massage','Campaign status Published  successful');
     }
     public function unpublished_campaign($id){
         $campaign=CampaignModel::find($id);
-        $campaign->status=0;
-        $campaign->update();
+        if ($campaign!=null) {
+            $campaign->status = 0;
+            $campaign->update();
+        }else{
+            return redirect('dashboard/campaign/manage-campaign')->with('massage','Campaign was deleted');
+        }
         return redirect('dashboard/campaign/manage-campaign')->with('massage','Campaign status Unpublished  successful');
     }
 

@@ -55,8 +55,8 @@ class BannersController extends Controller
         $extension = $file->getClientOriginalExtension();
         $original_name = $file->getClientOriginalName();
         $directory = 'back_end/images/banner_images/';
-        $bname=$original_name;
-        $banner_name = $directory . $rand . '_' .$bname. '.' . $extension;
+        $bname = $original_name;
+        $banner_name = $directory . $rand . '_' . $bname . '.' . $extension;
         Image::make($file)->save($banner_name);
         return $banner_name;
     }
@@ -64,7 +64,9 @@ class BannersController extends Controller
     private function image_delete($request)
     {
         $banners = BannerModel::find($request->id);
-        unlink($banners->banner_image);
+        if ($banners != null) {
+            unlink($banners->banner_image);
+        }
     }
 
     private function banner_information_insert($request, $image, $work)
@@ -95,26 +97,35 @@ class BannersController extends Controller
     public function edit_banner($id)
     {
         $banner = BannerModel::find($id);
-        $category = SubcategoryModel::all();
-        return view('back_end.banners.edit_banner', ['banner' => $banner, 'categories' => $category]);
+        if ($banner != null) {
+            $category = SubcategoryModel::all();
+            return view('back_end.banners.edit_banner', ['banner' => $banner, 'categories' => $category]);
+        }else{
+            return redirect('/dashboard/appearance/banners/manage-banners')->with('massage', 'Banner was deleted');
+        }
     }
 
 
     public function edit_save_banner(request $request)
     {
         $this->validation($request);
-        if (file_exists($request->banner_image)) {
-            $this->validate($request, [
-                'banner_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
-            ]);
-            $this->image_delete($request);
-            $banner_name = $this->image_insert($request);
-            $banner = $this->banner_information_insert($request, $banner_name, 'u');
-            $banner->update();
-        } else {
-            $banner_model = BannerModel::find($request->id);
-            $banner = $this->banner_information_insert($request, $banner_model->banner_image, 'u');
-            $banner->update();
+        $banner = BannerModel::find($request->id);
+        if ($banner!=null) {
+            if (file_exists($request->banner_image)) {
+                $this->validate($request, [
+                    'banner_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
+                ]);
+                $this->image_delete($request);
+                $banner_name = $this->image_insert($request);
+                $banner = $this->banner_information_insert($request, $banner_name, 'u');
+                $banner->update();
+            } else {
+                $banner_model = BannerModel::find($request->id);
+                $banner = $this->banner_information_insert($request, $banner_model->banner_image, 'u');
+                $banner->update();
+            }
+        }else{
+            return redirect('/dashboard/appearance/banners/manage-banners')->with('massage', 'Banner was deleted');
         }
         return redirect('/dashboard/appearance/banners/manage-banners')->with('massage', 'Banner update successful');
     }
@@ -129,23 +140,35 @@ class BannersController extends Controller
     public function publish_banner($id)
     {
         $banner = BannerModel::find($id);
-        $banner->status = 1;
-        $banner->update();
+        if ($banner!=null) {
+            $banner->status = 1;
+            $banner->update();
+        }else{
+            return redirect('/dashboard/appearance/banners/manage-banners')->with('massage', 'Banner was deleted');
+        }
         return redirect('/dashboard/appearance/banners/manage-banners')->with('massage', 'Banner ' . $banner->banner_name . ' Published successful');
     }
 
     public function unpublished_banner($id)
     {
         $banner = BannerModel::find($id);
+        if ($banner!=null){
         $banner->status = 0;
         $banner->update();
+        }else{
+            return redirect('/dashboard/appearance/banners/manage-banners')->with('massage', 'Banner was deleted');
+        }
         return redirect('/dashboard/appearance/banners/manage-banners')->with('massage', 'Banner ' . $banner->banner_name . ' Unpublished successful');
     }
 
     public function full_view_banner($id)
     {
-        $banner=BannerModel::find($id);
-        $category=SubcategoryModel::find($banner->category_id);
-        return view('back_end.banners.full_view_banner',['banner'=>$banner,'category'=>$category]);
+        $banner = BannerModel::find($id);
+        if ($banner!=null){
+        $category = SubcategoryModel::find($banner->category_id);
+        return view('back_end.banners.full_view_banner', ['banner' => $banner, 'category' => $category]);
+        }else{
+            return redirect('/dashboard/appearance/banners/manage-banners')->with('massage', 'Banner was deleted');
+        }
     }
 }

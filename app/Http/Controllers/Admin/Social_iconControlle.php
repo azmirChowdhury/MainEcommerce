@@ -59,35 +59,56 @@ class Social_iconControlle extends Controller
     public function edit_icon($id)
     {
         $icon = SocialIconModel::find($id);
-        return view('back_end.social_share.edit_icon', ['social' => $icon]);
+        if ($icon!=null){
+            return view('back_end.social_share.edit_icon', ['social' => $icon]);
+        }else{
+            return redirect('/dashboard/utilities/social-share-manage')->with('massage', 'Link was  deleted');
+        }
     }
 
     public function save_edit_link(request $request)
     {
         $this->validation($request);
-        $social = $this->information_insert($request, 'u');
-        $social->update();
+        $social = SocialIconModel::find($request->id);
+        if ($social!=null){
+            $social = $this->information_insert($request, 'u');
+            $social->update();
+        }else{
+            return redirect('/dashboard/utilities/social-share-manage')->with('massage', 'Link was  deleted');
+        }
         return redirect('/dashboard/utilities/social-share-manage')->with('massage', 'New Link ' . $request->platform_name . ' Update successful');
     }
 
     public function icon_publish($id)
     {
         $social=SocialIconModel::find($id);
-        $social->status=1;
-        $social->update();
+        if ($social!=null){
+            $social->status=1;
+            $social->update();
+        }else{
+            return redirect('/dashboard/utilities/social-share-manage')->with('massage', 'Link was  deleted');
+        }
         return redirect('/dashboard/utilities/social-share-manage')->with('massage', 'Link  status publish successful');
     }
     public function icon_unpublished($id)
     {
         $social=SocialIconModel::find($id);
-        $social->status=0;
-        $social->update();
+        if ($social!=null){
+            $social->status=0;
+            $social->update();
+        }else{
+            return redirect('/dashboard/utilities/social-share-manage')->with('massage', 'Link was  deleted');
+        }
         return redirect('/dashboard/utilities/social-share-manage')->with('massage', 'Link  status unpublished successful');
     }
     public function icon_delete($id)
     {
         $social=SocialIconModel::find($id);
-        $social->delete();
+        if ($social!=null){
+            $social->delete();
+        }else{
+            return redirect('/dashboard/utilities/social-share-manage')->with('massage', 'Link already  deleted');
+        }
         return redirect('/dashboard/utilities/social-share-manage')->with('massage', 'Link  delete successful');
     }
 

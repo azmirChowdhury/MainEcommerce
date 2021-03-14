@@ -20,7 +20,7 @@ class Logo_Background_controller extends Controller
             'logo_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
         ]);
         $random = rand(55, 500);
-        $file =$request->file('logo_image');
+        $file = $request->file('logo_image');
         $extension = $file->getClientOriginalExtension();
         $directory = 'back_end/images/logo_and_background/';
         $logo_name = $directory . $random . '_Logo' . '.' . $extension;
@@ -29,18 +29,19 @@ class Logo_Background_controller extends Controller
 
     }
 
-    private function validation_before_image_delete($request,$info){
-        if (!empty($request->logo_image)==true) {
+    private function validation_before_image_delete($request, $info)
+    {
+        if (!empty($request->logo_image) == true) {
             $this->validate($request, [
                 'logo_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
             ]);
         }
-        if (!empty($request->background_image)==true) {
+        if (!empty($request->background_image) == true) {
             $this->validate($request, [
                 'background_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
             ]);
         }
-        if (!empty($request->fav_icon)==true) {
+        if (!empty($request->fav_icon) == true) {
             $this->validate($request, [
                 'fav_icon' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
             ]);
@@ -48,23 +49,23 @@ class Logo_Background_controller extends Controller
 
     }
 
-    private function image_delete($id,$request)
+    private function image_delete($id, $request)
     {
 
-        $info=Logo_BackgroundModel::find($id);
-        $this->validation_before_image_delete($request,$info);
+        $info = Logo_BackgroundModel::find($id);
+        $this->validation_before_image_delete($request, $info);
 
-        if (!empty($request->logo_image)==true) {
+        if (!empty($request->logo_image) == true) {
             unlink($info->logo);
         }
-        if (!empty($request->background_image)==true) {
+        if (!empty($request->background_image) == true) {
             unlink($info->background_image);
         }
-        if (!empty($request->fav_icon)==true) {
+        if (!empty($request->fav_icon) == true) {
             unlink($info->fav_icon);
             unlink($info->fav_icon_small);
         }
-        
+
     }
 
     private function background_image_insert($request)
@@ -114,42 +115,51 @@ class Logo_Background_controller extends Controller
 
     public function update_information(request $request)
     {
-        $this->image_delete($request->id,$request);
-        if (!empty($request->logo_image)==true){
+        $logo_background = Logo_BackgroundModel::find($request->id);
+        if ($logo_background!=null){
+        $this->image_delete($request->id, $request);
+        if (!empty($request->logo_image) == true) {
             $logo_name = $this->logo_insert($request);
             $data['logo'] = $logo_name;
-        }else{
+        } else {
             $data['logo'] = $request->DB_logo;
         }
-        if (!empty($request->background_image)==true) {
+        if (!empty($request->background_image) == true) {
             $background_image_name = $this->background_image_insert($request);
             $data['background'] = $background_image_name;
-        }else{
-            $data['background'] =$request->background_image_DB;
+        } else {
+            $data['background'] = $request->background_image_DB;
         }
 
-        if (!empty($request->fav_icon)==true) {
+        if (!empty($request->fav_icon) == true) {
             $fav_icon_name = $this->favicon_insert($request, 32);
             $fav_icon_small = $this->favicon_insert($request, 16);
             $data['large_icon'] = $fav_icon_name;
             $data['small_icon'] = $fav_icon_small;
-        }else{
-            $data['large_icon'] =$request->favicon_large;
-            $data['small_icon'] =$request->favicon_small_img;
+        } else {
+            $data['large_icon'] = $request->favicon_large;
+            $data['small_icon'] = $request->favicon_small_img;
         }
         $logo_background = $this->information_insert($request, $data, 'u');
         $logo_background->update();
-        return redirect('/dashboard/appearance/logo-background-management')->with('massage','Update successful');
+        return redirect('/dashboard/appearance/logo-background-management')->with('massage', 'Update successful');
+        }else{
+            return redirect('/dashboard/appearance/logo-background-management')->with('massage', 'was deleted');
+        }
+
     }
-    private function validation($request){
-        $this->validate($request,[
+
+    private function validation($request)
+    {
+        $this->validate($request, [
             'logo_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg',
             'background_image' => 'required|image|mimes:jpg,png,svg,bmp,jpeg',
             'fav_icon' => 'required|image|mimes:jpg,png,svg,bmp,jpeg'
         ]);
     }
 
-    public function new_appearance(request $request){
+    public function new_appearance(request $request)
+    {
         $this->validation($request);
         $logo_name = $this->logo_insert($request);
         $data['logo'] = $logo_name;
@@ -161,6 +171,6 @@ class Logo_Background_controller extends Controller
         $data['small_icon'] = $fav_icon_small;
         $logo_background = $this->information_insert($request, $data, 'i');
         $logo_background->save();
-        return redirect('/dashboard/appearance/logo-background-management')->with('massage','Save successful');
+        return redirect('/dashboard/appearance/logo-background-management')->with('massage', 'Save successful');
     }
 }

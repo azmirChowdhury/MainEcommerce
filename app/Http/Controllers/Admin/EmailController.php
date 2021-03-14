@@ -18,8 +18,10 @@ class EmailController extends Controller
     {
         if ($request->type != 'mail') {
             $message = ContactMassageModel::find($request->type);
-            $message->status =2;
-            $message->update();
+            if ($message!=null) {
+                $message->status = 2;
+                $message->update();
+            }
         }
 
     }

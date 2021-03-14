@@ -60,34 +60,55 @@ class PagesController extends Controller
     public function edit_page($id)
     {
         $pages = PagesModel::find($id);
-        return view('back_end.pages.edit_page', ['page' => $pages]);
+        if ($pages!=null){
+            return view('back_end.pages.edit_page', ['page' => $pages]);
+        }else{
+            return redirect('/dashboard/pages/pages-create-manage')->with('massage', 'Page was deleted');
+        }
     }
 
     public function save_edit_page(request $request)
     {
         $this->validation($request);
-        $pages = $this->information_insert($request, 'u');
-        $pages->update();
+        $pages = PagesModel::find($request->id);
+        if ($pages!=null){
+            $pages = $this->information_insert($request, 'u');
+            $pages->update();
+        }else{
+            return redirect('/dashboard/pages/pages-create-manage')->with('massage', 'Page was deleted');
+        }
         return redirect('/dashboard/pages/pages-create-manage')->with('massage', 'Page Update successful');
     }
 
     public function page_publish($id)
     {
         $pages=PagesModel::find($id);
-        $pages->status=1;
-        $pages->update();
+        if ($pages!=null){
+            $pages->status=1;
+            $pages->update();
+        }else{
+            return redirect('/dashboard/pages/pages-create-manage')->with('massage', 'Page was deleted');
+        }
         return redirect('/dashboard/pages/pages-create-manage')->with('massage', 'Page  status publish successful');
     }
     public function page_unpublished($id)
     {
         $pages=PagesModel::find($id);
-        $pages->status=0;
-        $pages->update();
+        if ($pages!=null){
+            $pages->status=0;
+            $pages->update();
+        }else{
+            return redirect('/dashboard/pages/pages-create-manage')->with('massage', 'Page was deleted');
+        }
         return redirect('/dashboard/pages/pages-create-manage')->with('massage', 'Page  status unpublished successful');
     }
     public function page_delete($id)
     {
         $pages=PagesModel::find($id);
+        if ($pages!=null){
+        }else{
+            return redirect('/dashboard/pages/pages-create-manage')->with('massage', 'Page already delete');
+        }
         $pages->delete();
         return redirect('/dashboard/pages/pages-create-manage')->with('massage', 'Page  delete successful');
     }

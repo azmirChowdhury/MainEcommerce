@@ -103,16 +103,24 @@ class SubCategoryController extends Controller
     public function publish_status($id)
     {
         $category = SubcategoryModel::find($id);
-        $category->status = 1;
-        $category->update();
+        if ($category!=null){
+            $category->status = 1;
+            $category->update();
+        }else{
+            return redirect('/dashboard/category/subcategory/manage')->with('massage', 'category was deleted');
+        }
         return redirect('/dashboard/category/subcategory/manage')->with('massage', 'update successful');
     }
 
     public function unpublished_status($id)
     {
         $category = SubcategoryModel::find($id);
-        $category->status = 0;
-        $category->update();
+        if ($category!=null){
+            $category->status = 0;
+            $category->update();
+        }else{
+            return redirect('/dashboard/category/subcategory/manage')->with('massage', 'category was deleted');
+        }
         return redirect('/dashboard/category/subcategory/manage')->with('massage', 'update successful');
     }
 
@@ -121,7 +129,11 @@ class SubCategoryController extends Controller
         $subcategory = SubcategoryModel::find($id);
         $parents = ParentsModelCategory::where('status', 1)->get();
         $blocks = HtmlBlocksModel::all();
-        return view('back_end.sub_category.edit_sub_category', ['subcategory' => $subcategory, 'parents' => $parents, 'collums' => $blocks]);
+        if ($subcategory!=null){
+            return view('back_end.sub_category.edit_sub_category', ['subcategory' => $subcategory, 'parents' => $parents, 'collums' => $blocks]);
+        }else{
+            return redirect('/dashboard/category/subcategory/manage')->with('massage', 'category was deleted');
+        }
     }
 
     public function edit_sub_category_save(request $request)
@@ -129,11 +141,16 @@ class SubCategoryController extends Controller
         try {
             $this->validation($request);
             $info = 'u';
-            $category = $this->insert_data($request, $info);
-            if ($category->update()) {
-                return redirect('/dashboard/category/subcategory/manage')->with('massage', 'Subcategory update successful');
-            } else {
-                return redirect('/dashboard/category/subcategory/manage')->with('err', 'Subcategory not update');
+            $category = SubcategoryModel::find($request->id);
+            if ($category!=null){
+                $category = $this->insert_data($request, $info);
+                if ($category->update()) {
+                    return redirect('/dashboard/category/subcategory/manage')->with('massage', 'Subcategory update successful');
+                } else {
+                    return redirect('/dashboard/category/subcategory/manage')->with('err', 'Subcategory not update');
+                }
+            }else{
+                return redirect('/dashboard/category/subcategory/manage')->with('massage', 'category was deleted');
             }
         } catch (Exception $e) {
             return redirect('/dashboard/category/subcategory/manage')->with('err', 'Subcategory not save');
@@ -145,13 +162,17 @@ class SubCategoryController extends Controller
     public function delete_subcategory($id){
         $category=SubcategoryModel::find($id);
         $banners=BannerModel::where('category_id',$category->id)->get();
-        foreach ($banners as $banner){
-            app(BannerDelete::class)->banner_delete_function($banner->id);
-        }
-        if($category->delete()){
-            return redirect('/dashboard/category/subcategory/manage')->with('massage', 'Subcategory Delete successful');
+        if ($category!=null){
+            foreach ($banners as $banner){
+                app(BannerDelete::class)->banner_delete_function($banner->id);
+            }
+            if($category->delete()){
+                return redirect('/dashboard/category/subcategory/manage')->with('massage', 'Subcategory Delete successful');
+            }else{
+                return redirect('/dashboard/category/subcategory/manage')->with('err', 'Subcategory not delete');
+            }
         }else{
-            return redirect('/dashboard/category/subcategory/manage')->with('err', 'Subcategory not delete');
+            return redirect('/dashboard/category/subcategory/manage')->with('massage', 'category already deleted');
         }
 
     }

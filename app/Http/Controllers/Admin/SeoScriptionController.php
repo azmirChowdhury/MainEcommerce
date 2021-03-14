@@ -51,33 +51,54 @@ class SeoScriptionController extends Controller
     }
     public function edit_meta($id){
         $tag=MetaScriptModel::find($id);
-        return view('back_end.seo_meta_scripting.edit_script_meta',['tag'=>$tag]);
+        if ($tag!=null){
+            return view('back_end.seo_meta_scripting.edit_script_meta',['tag'=>$tag]);
+        }else{
+            return redirect('/dashboard/utilities/seo-script-manage')->with('massage','New meta/script was deleted');
+        }
     }
     public function edit_update(request $request){
         $this->validation($request);
-        $tag=$this->information_insert($request,'u');
-        $tag->update();
+        $tag=MetaScriptModel::find($request->id);
+        if ($tag!=null){
+            $tag=$this->information_insert($request,'u');
+            $tag->update();
+        }else{
+            return redirect('/dashboard/utilities/seo-script-manage')->with('massage','New meta/script was deleted');
+        }
         return redirect('/dashboard/utilities/seo-script-manage')->with('massage','New meta/script update successful');
     }
 
     public function tag_publish($id){
         $tag=MetaScriptModel::find($id);
-        $tag->status=1;
-        $tag->update();
-        return redirect('/dashboard/utilities/seo-script-manage')->with('massage','New meta/script status Publish successful');
+        if ($tag!=null){
+            $tag->status=1;
+            $tag->update();
+        }else{
+            return redirect('/dashboard/utilities/seo-script-manage')->with('massage','meta/script was deleted');
+        }
+        return redirect('/dashboard/utilities/seo-script-manage')->with('massage','meta/script status Publish successful');
     }
 
     public function tag_unpublished($id){
         $tag=MetaScriptModel::find($id);
-        $tag->status=0;
-        $tag->update();
-        return redirect('/dashboard/utilities/seo-script-manage')->with('massage','New meta/script status Unpublished successful');
+        if ($tag!=null){
+            $tag->status=0;
+            $tag->update();
+        }else{
+            return redirect('/dashboard/utilities/seo-script-manage')->with('massage','meta/script was deleted');
+        }
+        return redirect('/dashboard/utilities/seo-script-manage')->with('massage','meta/script status Unpublished successful');
     }
 
     public function tag_delete($id){
         $tag=MetaScriptModel::find($id);
-        $tag->delete();
-        return redirect('/dashboard/utilities/seo-script-manage')->with('massage','New meta/script Delete successful');
+        if ($tag!=null){
+            $tag->delete();
+        }else{
+            return redirect('/dashboard/utilities/seo-script-manage')->with('massage',' meta/script already deleted');
+        }
+        return redirect('/dashboard/utilities/seo-script-manage')->with('massage',' meta/script Delete successful');
     }
 
 }

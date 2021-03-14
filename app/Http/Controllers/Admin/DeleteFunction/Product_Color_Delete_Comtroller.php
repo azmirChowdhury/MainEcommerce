@@ -11,7 +11,9 @@ class Product_Color_Delete_Comtroller extends Controller
 {
     public function colorDelete($request_id){
         $color = ProductColorModel::find($request_id);
-        $color->delete();
+        if ($color!=null){
+            $color->delete();
+        }
     }
     public function product_color_delete($request_id){
         $color =ProductColorModel::where('product_id',$request_id)->first();
