@@ -17,8 +17,27 @@ class LoginRegisterController extends Controller
 {
     public function index()
     {
+        $this->deleteNotConfirmedAccount();
         $district = All_districtName_division::where('use_status', 0)->get();
         return view('front_end.loginRegister.loginRegister', ['districts' => $district]);
+    }
+
+    private function deleteNotConfirmedAccount()
+    {
+
+        try {
+            $expire_user = CustomerModel::where('status', 0)->get();
+            foreach ($expire_user as $user) {
+                $time = $user->created_at;
+                $work = $this->time_Match($time);
+                if ($work != 'match') {
+                    $user->delete();
+                }
+            }
+        } catch (Exception $exception) {
+            return redirect('/');
+        }
+
     }
 
     private function validation_register($request)
@@ -285,20 +304,20 @@ class LoginRegisterController extends Controller
 
     public function change_account_address(request $request)
     {
-        if ($request->change_address!=null){
+        if ($request->change_address != null) {
             $customer = CustomerModel::where('email', Session::get('customer_email'))
                 ->where('status', 1)
                 ->first();
-            if ($customer!=null){
+            if ($customer != null) {
                 $customer->present_address = $request->change_address;
                 $customer->update();
-                return redirect('customer/account-dashboard')->with('addressMessage',' <span class="text-success"> Address save successful</span>');
-            }else{
+                return redirect('customer/account-dashboard')->with('addressMessage', ' <span class="text-success"> Address save successful</span>');
+            } else {
                 Session()->invalidate();
                 return redirect('/');
             }
-        }else{
-            return redirect('customer/account-dashboard')->with('addressMessage','<span class="text-danger"> Save failed Address required</span>');
+        } else {
+            return redirect('customer/account-dashboard')->with('addressMessage', '<span class="text-danger"> Save failed Address required</span>');
         }
 
     }

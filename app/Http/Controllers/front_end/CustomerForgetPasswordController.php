@@ -38,18 +38,22 @@ class CustomerForgetPasswordController extends Controller
         }
 
     }
-
-
+    
     public function index()
     {
-        $expire_user=Password_reset_User::all();
-        foreach ($expire_user as $user){
-            $time=$user->created_at;
-            $work=$this->time_Match($time);
-            if ($work!='match'){
-                $user->delete();
+        try {
+            $expire_user=Password_reset_User::all();
+            foreach ($expire_user as $user){
+                $time=$user->created_at;
+                $work=$this->time_Match($time);
+                if ($work!='match'){
+                    $user->delete();
+                }
             }
+        }catch (Exception $exception){
+            return redirect('/');
         }
+
         return view('front_end.loginRegister.password_reset.customer_password_reset');
     }
 
@@ -58,7 +62,7 @@ class CustomerForgetPasswordController extends Controller
     {
         $_token = str_random(40);
         $has_token = Password_reset_User::where('email', $request->email)->first();
-        if (!$has_token == null) {
+        if (!$has_token == null){
             $has_token->delete();
         }
         $token = new Password_reset_User();
