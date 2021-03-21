@@ -52,7 +52,10 @@
                                 </div>
                                 <div class="header-contact-2-text">
                                     <span>Contact</span>
+                              @if($contacts!=null)
+
                                     <p>{{$contacts->phone_number}}</p>
+                               @endif
                                 </div>
                             </div>
                             <div class="search-style-4">
